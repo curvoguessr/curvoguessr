@@ -127,8 +127,6 @@ function UserDrawing() {
                             }
                         }
                     }
-                        
-                    }
                     if(mode == "pen"){
                         if(mousecoord.length-oldsize>=4){
                             CatRomGraph(mousecoord[mousecoord.length-4],mousecoord[mousecoord.length-3],mousecoord[mousecoord.length-2],mousecoord[mousecoord.length-1],0.005,context);
@@ -145,6 +143,7 @@ function UserDrawing() {
                             context.lineTo(brush.x,brush.y);
                         }
                     }
+                }
                 if (inRange) {
                     context.stroke();
                 }
