@@ -60,7 +60,7 @@ submitbutton.addEventListener("click",() => {
 penbutton.addEventListener("click",() => {
     if (is_submit == false) {
         mode = "pen";
-        DrawingPlane.style.cursor = "url('images/pencursor.png') 15 15, auto";
+        DrawingPlane.style.cursor = "url('images/pencursor.png') 16 16, auto";
     }
 });
 eraserbutton.addEventListener("click",() => {
