@@ -30,22 +30,23 @@ function UserDrawing() {
     const DrawingPlane = document.getElementById("drawingplane");
     DrawingPlane.style.cursor = "url('images/pencursor.png') 15 15, auto";
     const context = DrawingPlane.getContext('2d');
-    const rect = DrawingPlane.getBoundingClientRect();
     let brush = {x:67,y:67};
     let CurrentlyDrawing = false;
     history.push(context.getImageData(0, 0, cw, ch));
     function lazybrush(lazyradi,event){
-    const dist = Math.sqrt((event.clientX-rect.left-brush.x)*(event.clientX-rect.left-brush.x)+(event.clientY-rect.top-brush.y)*(event.clientY-rect.top-brush.y));
-    if(dist <= lazyradi){
-        return;
-    }
-    else{
-        brush.x = (event.clientX-rect.left)-((event.clientX-rect.left-brush.x)*lazyradi)/dist;
-        brush.y = (event.clientY-rect.top)-((event.clientY-rect.top-brush.y)*lazyradi)/dist;
+        const event2 = getCoordinates(event);
+        const dist = EuclideanDist(event2,brush);
+        if(dist <= lazyradi) {
+            return;
+        }
+        else {
+            brush.x = event2.x-((event2.x-brush.x)*lazyradi)/dist;
+            brush.y = event2.y-((event2.y-brush.y)*lazyradi)/dist;
         }
     }
     let oldsize = 0;
     DrawingPlane.addEventListener('pointerdown',(event) => {
+            const event2 = getCoordinates(event);
             if(is_submit){
                 return;
             }
@@ -69,23 +70,23 @@ function UserDrawing() {
             }
             unflattened.push([]);
             if(mode == "pen"){
-                mousecoord.push({x:event.clientX-rect.left,y:event.clientY-rect.top});
-                mousecoord.push({x:event.clientX-rect.left,y:event.clientY-rect.top});
-                unflattened[unflattened.length-1].push({x:event.clientX-rect.left,y:event.clientY-rect.top});
+                mousecoord.push(event2);
+                mousecoord.push(event2);
+                unflattened[unflattened.length-1].push(event2);
             }
             if(mode == "eraser"){
-                erasecoord.push({x:event.clientX-rect.left, y:event.clientY-rect.top});
-                erasecoord.push({x:event.clientX-rect.left, y:event.clientY-rect.top});
+                erasecoord.push(event2);
+                erasecoord.push(event2);
                 for(let i = 0; i < mousecoord.length; i++){
-                    if(EuclideanDist(mousecoord[i],{x:event.clientX-rect.left,y:event.clientY-rect.top})<=50){
+                    if(EuclideanDist(mousecoord[i],event2)<=18){
                         mousecoord.splice(i,1);
                         deletepoint(unflattened, i);
+                        i--;
                     }
                 }
             }
             //unflattened[unflattened.length-1].push({x:event.clientX-rect.left,y:event.clientY-rect.top});
-            brush.x=event.clientX-rect.left;
-            brush.y=event.clientY-rect.top;
+            brush=event2;
     });
     DrawingPlane.addEventListener('touchstart', (event) => {
         if(is_submit){
@@ -120,10 +121,12 @@ function UserDrawing() {
                     }
                     if(mode == "eraser"){
                         erasecoord.push({x:brush.x,y:brush.y});
+                        const events2 = getCoordinates(events);
                         for(let i = 0; i < mousecoord.length; i++){
-                            if(EuclideanDist(mousecoord[i],{x:event.clientX-rect.left,y:event.clientY-rect.top})<=50){
+                            if(EuclideanDist(mousecoord[i],events2)<=18){
                                 mousecoord.splice(i,1);
                                 deletepoint(unflattened, i);
+                                i--;
                             }
                         }
                     }

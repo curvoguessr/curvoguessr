@@ -32,3 +32,9 @@ function Round(x, places) {
     const i = Math.pow(10, places);
     return Math.round((x+Number.EPSILON)*i)/i;
 }
+
+function getCoordinates(event) {
+    const DrawingPlane = document.getElementById("drawingplane");
+    const rect = DrawingPlane.getBoundingClientRect();
+    return {x: (event.clientX-rect.left)*cw/rect.width, y: (event.clientY - rect.top)*ch/rect.height};
+}
