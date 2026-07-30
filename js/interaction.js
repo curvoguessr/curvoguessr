@@ -56,7 +56,7 @@ function UserDrawing() {
             }
             if(mode == "eraser"){
                 context.globalCompositeOperation = "destination-out";
-                context.lineWidth = 10;
+                context.lineWidth = 30;
             }
             context.lineCap = "round";
             context.lineJoin = "round";

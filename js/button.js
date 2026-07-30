@@ -1,8 +1,8 @@
-const penbutton = document.getElementById("penbutton") //done
-const eraserbutton = document.getElementById("eraserbutton"); //not done
-const undobutton = document.getElementById("undobutton"); //done
-const clearbutton = document.getElementById("clearbutton"); //done
-const submitbutton = document.getElementById("submitbutton"); //done
+const penbutton = document.getElementById("penbutton");
+const eraserbutton = document.getElementById("eraserbutton");
+const undobutton = document.getElementById("undobutton");
+const clearbutton = document.getElementById("clearbutton");
+const submitbutton = document.getElementById("submitbutton"); 
 const lightbutton = document.getElementById("lightbutton");
 const darkbutton = document.getElementById("darkbutton");
 let is_submit = false;
@@ -34,11 +34,6 @@ submitbutton.addEventListener("click",() => {
         replaybutton.textContent = "Replay";
         document.body.appendChild(replaybutton);
         replaybutton.addEventListener("click",() => {
-            //const canvas = document.getElementById("drawingplane");
-            //const context = canvas.getContext('2d');
-            //context.clearRect(0,0,canvas.width,canvas.height);
-            //mousecoord = [];
-            //FindError(mousecoord);
             location.reload();
         });
         const giveupbutton = document.createElement("button");
