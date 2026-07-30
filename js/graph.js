@@ -18,7 +18,7 @@ function DrawAxis(){
     context.stroke();
 
     context.beginPath();
-    context.strokeStyle = "black";
+    context.strokeStyle = defaultcolour2;
     context.lineWidth = 2;
     for (let i = -Math.floor((ch/2)/yunit)*yunit; i <= Math.floor((ch/2)/yunit)*yunit; i += yunit) {
         context.moveTo(-(cw/2),i);
@@ -31,7 +31,7 @@ function DrawAxis(){
     context.stroke();
     
     context.beginPath();
-    context.strokeStyle = "black";
+    context.strokeStyle = defaultcolour2;
     context.lineWidth = 6;
     
     context.moveTo(-cw/2+(subxunit/2),0);
@@ -41,45 +41,45 @@ function DrawAxis(){
     context.stroke();
 
     context.beginPath();
-    context.strokeStyle = "black";
+    context.strokeStyle = defaultcolour2;
     context.lineWidth = 1;
     
     context.moveTo(-cw/2,0);
     context.lineTo(-cw/2+(2*subxunit/3),(2*subyunit/3));
     context.lineTo(-cw/2+(2*subxunit/3),-(2*subyunit/3));
     context.closePath();
-    context.fillStyle = "black";
+    context.fillStyle = defaultcolour2;
     context.fill();
 
     context.beginPath();
-    context.strokeStyle = "black";
+    context.strokeStyle = defaultcolour2;
     context.lineWidth = 1;
     
     context.moveTo(cw/2,0);
     context.lineTo(cw/2-(2*subxunit/3),(2*subyunit/3));
     context.lineTo(cw/2-(2*subxunit/3),-(2*subyunit/3));
     context.closePath();
-    context.fillStyle = "black";
+    context.fillStyle = defaultcolour2;
     context.fill();
     
     context.beginPath();
-    context.strokeStyle = "black";
+    context.strokeStyle = defaultcolour2;
     context.lineWidth = 1;
     context.moveTo(0,-ch/2);
     context.lineTo((2*subxunit/3),-ch/2+(2*subyunit/3));
     context.lineTo(-(2*subxunit/3),-ch/2+(2*subyunit/3));
     context.closePath();
-    context.fillStyle = "black";
+    context.fillStyle = defaultcolour2;
     context.fill();
 
     context.beginPath();
-    context.strokeStyle = "black";
+    context.strokeStyle = defaultcolour2;
     context.lineWidth = 1;
     context.moveTo(0,ch/2);
     context.lineTo((2*subxunit/3),ch/2-(2*subyunit/3));
     context.lineTo(-(2*subxunit/3),ch/2-(2*subyunit/3));
     context.closePath();
-    context.fillStyle = "black";
+    context.fillStyle = defaultcolour2;
     context.fill();
 }
 function DrawGraphSegment(t_1, t_2, mxerr, context){
