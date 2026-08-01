@@ -25,6 +25,7 @@ let mode = "pen";
 let mousecoord = [];
 let erasecoord = [];
 let unflattened = [];
+let eraserunflattened = [];
 let history = [];
 function UserDrawing() {
     const DrawingPlane = document.getElementById("drawingplane");
@@ -51,6 +52,7 @@ function UserDrawing() {
                 return;
             }
             context.beginPath();
+            context.strokeStyle = defaultcolour2;
             if(mode == "pen"){
                 context.globalCompositeOperation = "source-over";
                 context.lineWidth = 2;
@@ -68,15 +70,17 @@ function UserDrawing() {
             if(mode == "eraser"){
                 oldsize = erasecoord.length;
             }
-            unflattened.push([]);
             if(mode == "pen"){
                 mousecoord.push(event2);
                 mousecoord.push(event2);
+                unflattened.push([]);
                 unflattened[unflattened.length-1].push(event2);
             }
             if(mode == "eraser"){
                 erasecoord.push(event2);
                 erasecoord.push(event2);
+                eraserunflattened.push([]);
+                eraserunflattened[eraserunflattened.length-1].push(event2);
                 for(let i = 0; i < mousecoord.length; i++){
                     if(EuclideanDist(mousecoord[i],event2)<=18){
                         mousecoord.splice(i,1);
@@ -86,7 +90,7 @@ function UserDrawing() {
                 }
             }
             //unflattened[unflattened.length-1].push({x:event.clientX-rect.left,y:event.clientY-rect.top});
-            brush=event2;
+            brush={x : event2.x, y : event2.y};
     });
     DrawingPlane.addEventListener('touchstart', (event) => {
         if(is_submit){
@@ -121,6 +125,7 @@ function UserDrawing() {
                     }
                     if(mode == "eraser"){
                         erasecoord.push({x:brush.x,y:brush.y});
+                        eraserunflattened[eraserunflattened.length - 1].push({x : brush.x, y : brush.y});
                         const events2 = getCoordinates(events);
                         for(let i = 0; i < mousecoord.length; i++){
                             if(EuclideanDist(mousecoord[i],events2)<=18){
