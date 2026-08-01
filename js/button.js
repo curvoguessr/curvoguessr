@@ -6,20 +6,174 @@ const submitbutton = document.getElementById("submitbutton");
 const lightbutton = document.getElementById("lightbutton");
 const darkbutton = document.getElementById("darkbutton");
 let is_submit = false;
-let defaultcolour1 = "white";
-let defaultcolour2 = "black";
 const DrawingPlane = document.getElementById("drawingplane");
 const context = DrawingPlane.getContext('2d');
 const rect = DrawingPlane.getBoundingClientRect();
+let colourmode = "light";
+let defaultcolour1 = "white";
+let defaultcolour2 = "black";
+if(sessionStorage.getItem("colourmode") !== null){
+    colourmode = sessionStorage.getItem("colourmode");
+    if(colourmode == "dark"){
+        defaultcolour1 = "black";
+        defaultcolour2 = "white";
+        document.body.style.backgroundColor = "black";
+        let Error = document.getElementById("error");
+        Error.style.color = "white";
+        Error.innerHTML = "Error: "
+        if(mode == "pen"){
+            DrawingPlane.style.cursor = "url('images/pencursordark.png') 16 16, auto";
+        }
+        if(mode == "eraser"){
+            DrawingPlane.style.cursor = "url('images/erasercursordark.png') 16 16 auto";
+        }
+        DrawAxis();
+    }
+}
+else{
+    sessionStorage.setItem("colourmode", colourmode);
+}
+// function invertcolor(canvas){
+//     const context = canvas.getContext("2d");
+//     const image = context.getImageData(0, 0, canvas.width, canvas.height);
+//     const imagecolor = image.data;
+//     for(let i = 0; i < imagecolor.length; i+=4){
+//         imagecolor[i] = 255-imagecolor[i];
+//         imagecolor[i+1] = 255-imagecolor[i+1];
+//         imagecolor[i+2] = 255-imagecolor[i+2];
+//     }
+//     context.putImageData(image, 0, 0)
+// }
 lightbutton.addEventListener("click",() => {
-    defaultcolour1 = "white";
-    defaultcolour2 = "black";
-    DrawAxis;
+    if(colourmode == "dark"){
+        colourmode = "light";
+        sessionStorage.setItem("colourmode", colourmode);
+        defaultcolour1 = "white";
+        defaultcolour2 = "black";
+        document.body.style.backgroundColor = "white";
+        if(is_submit){
+            FindError(mousecoord, "black");
+        }
+        else{
+            let Error = document.getElementById("error");
+            Error.style.color = "black";
+            Error.innerHTML = "Error: "
+            if(mode == "pen"){
+                DrawingPlane.style.cursor = "url('images/pencursorlight.png') 16 16, auto";
+            }
+            if(mode == "eraser"){
+                DrawingPlane.style.cursor = "url('images/erasercursorligh.png') 16 16 auto";
+            }
+        }
+        context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
+        DrawAxis();
+        context.globalCompositeOperation = "source-over";
+        context.lineWidth = 3;
+        context.lineCap = "round";
+        context.lineJoin = "round";
+        context.strokeStyle = "black";
+        for(let i = 0; i < unflattened.length; i++){
+            context.beginPath();
+            for(let j = 0; j < unflattened[i].length; j++){
+                if(j == 0){
+                    context.moveTo(unflattened[i][0].x,unflattened[i][0].y);
+                }
+                if(1<=j && j<2){
+                    context.lineTo(unflattened[i][j].x, unflattened[i][j].y);
+                }
+                if(j>=3){
+                    CatRomGraph(unflattened[i][j-3],unflattened[i][j-2],unflattened[i][j-1],unflattened[i][j],0.05,context);
+                }
+            }
+            context.stroke();
+        }
+        context.globalCompositeOperation = "destination-out";
+        context.lineWidth = 30;
+        context.lineCap = "round";
+        context.lineJoin = "round";    
+        for(let i = 0; i < eraserunflattened.length; i++){
+            context.beginPath();
+            for(let j = 0; j < eraserunflattened[i].length; j++){
+                if(j == 0){
+                    context.moveTo(eraserunflattened[i][0].x,eraserunflattened[i][0].y);
+                }
+                if(1<=j && j<2){
+                    context.lineTo(eraserunflattened[i][j].x, eraserunflattened[i][j].y);
+                }
+                if(j>=3){
+                    CatRomGraph(eraserunflattened[i][j-3],eraserunflattened[i][j-2],eraserunflattened[i][j-1],eraserunflattened[i][j],0.05,context);
+                }
+            }
+            context.stroke();
+        }
+        //UserDrawing();
+    }
 });
 darkbutton.addEventListener("click",() => {
-    defaultcolour1 = "black";
-    defaultcolour2 = "white";
-    DrawAxis;
+    if(colourmode == "light"){
+        colourmode = "dark";
+        sessionStorage.setItem("colourmode", colourmode);
+        defaultcolour1 = "black";
+        defaultcolour2 = "white";
+        document.body.style.backgroundColor = "black";
+        if(is_submit){
+            FindError(mousecoord, "white");
+        }
+        else{
+            let Error = document.getElementById("error");
+            Error.style.color = "white";
+            Error.innerHTML = "Error: "
+            if(mode == "pen"){
+                DrawingPlane.style.cursor = "url('images/pencursordark.png') 16 16, auto";
+            }
+            if(mode == "eraser"){
+                DrawingPlane.style.cursor = "url('images/erasercursordark.png') 16 16 auto";
+            }
+        }
+        //invertcolor(DrawingPlane);
+        context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
+        DrawAxis();
+        context.globalCompositeOperation = "source-over";
+        context.lineWidth = 3;
+        context.lineCap = "round";
+        context.lineJoin = "round";
+        context.strokeStyle = "white";
+        for(let i = 0; i < unflattened.length; i++){
+            context.beginPath();
+            for(let j = 0; j < unflattened[i].length; j++){
+                if(j == 0){
+                    context.moveTo(unflattened[i][0].x, unflattened[i][0].y);
+                }
+                if(1<=j && j<2){
+                    context.lineTo(unflattened[i][j].x, unflattened[i][j].y);
+                }
+                if(j>=3){
+                    CatRomGraph(unflattened[i][j-3],unflattened[i][j-2],unflattened[i][j-1],unflattened[i][j],0.05,context);
+                }
+            }
+            context.stroke();
+        }
+        context.globalCompositeOperation = "destination-out";
+        context.lineWidth = 30;
+        context.lineCap = "round";
+        context.lineJoin = "round";    
+        for(let i = 0; i < eraserunflattened.length; i++){
+            context.beginPath();
+            for(let j = 0; j < eraserunflattened[i].length; j++){
+                if(j == 0){
+                    context.moveTo(eraserunflattened[i][0].x,eraserunflattened[i][0].y);
+                }
+                if(1<=j && j<2){
+                    context.lineTo(eraserunflattened[i][j].x, eraserunflattened[i][j].y);
+                }
+                if(j>=3){
+                    CatRomGraph(eraserunflattened[i][j-3],eraserunflattened[i][j-2],eraserunflattened[i][j-1],eraserunflattened[i][j],0.05,context);
+                }
+            }
+            context.stroke();
+        }
+        //UserDrawing();
+    }
 });
 submitbutton.addEventListener("click",() => {
     document.body.style.cursor = "default";
@@ -28,8 +182,13 @@ submitbutton.addEventListener("click",() => {
         SendError("Draw something to submit!");   
     }
     else {
-        FindError(mousecoord);
         is_submit = true;
+        if(colourmode == "light"){
+            FindError(mousecoord, "black");
+        }
+        if(colourmode == "dark"){
+            FindError(mousecoord, "white");
+        }
         const replaybutton = document.createElement("button");
         replaybutton.textContent = "Replay";
         document.body.appendChild(replaybutton);
@@ -59,14 +218,28 @@ submitbutton.addEventListener("click",() => {
 });
 penbutton.addEventListener("click",() => {
     if (is_submit == false) {
-        mode = "pen";
-        DrawingPlane.style.cursor = "url('images/pencursor.png') 16 16, auto";
+        if(mode == "eraser"){
+            mode = "pen";
+            if(colourmode == "light"){
+                DrawingPlane.style.cursor = "url('images/pencursorlight.png') 16 16, auto";
+            }
+            if(colourmode == "dark"){
+                DrawingPlane.style.cursor = "url('images/pencursordark.png') 16 16, auto"
+            }
+        }
     }
 });
 eraserbutton.addEventListener("click",() => {
     if (is_submit == false) {
-        mode = "eraser";
-        DrawingPlane.style.cursor = "url('images/erasercursor.png') 15 15, auto";
+        if(mode == "pen"){
+            mode = "eraser";
+            if(colourmode == "light"){
+                DrawingPlane.style.cursor = "url('images/erasercursorlight.png') 15 15, auto";
+            }
+            else{
+                DrawingPlane.style.cursor = "url('images/erasercursordark.png')15 15, auto";
+            }
+        }
     }
 });
 clearbutton.addEventListener("click",() => {
