@@ -29,7 +29,6 @@ let eraserunflattened = [];
 let history = [];
 function UserDrawing() {
     const DrawingPlane = document.getElementById("drawingplane");
-    DrawingPlane.style.cursor = "url('images/pencursor.png') 15 15, auto";
     const context = DrawingPlane.getContext('2d');
     let brush = {x:67,y:67};
     let CurrentlyDrawing = false;

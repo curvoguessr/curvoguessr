@@ -39,7 +39,7 @@ lightbutton.addEventListener("click",() => {
             DrawingPlane.style.cursor = "url('images/pencursorlight.png') 16 16, auto";
         }
         if(mode == "eraser"){
-            DrawingPlane.style.cursor = "url('images/erasercursorligh.png') 16 16 auto";
+            DrawingPlane.style.cursor = "url('images/erasercursorlight.png') 16 16, auto";
         }
         context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
         DrawAxis();
@@ -104,7 +104,7 @@ darkbutton.addEventListener("click",() => {
                 DrawingPlane.style.cursor = "url('images/pencursordark.png') 16 16, auto";
             }
             if(mode == "eraser"){
-                DrawingPlane.style.cursor = "url('images/erasercursordark.png') 16 16 auto";
+                DrawingPlane.style.cursor = "url('images/erasercursordark.png') 16 16, auto";
             }
         }
         //invertcolor(DrawingPlane);
@@ -206,10 +206,10 @@ eraserbutton.addEventListener("click",() => {
         if(mode == "pen"){
             mode = "eraser";
             if(colourmode == "light"){
-                DrawingPlane.style.cursor = "url('images/erasercursorlight.png') 15 15, auto";
+                DrawingPlane.style.cursor = "url('images/erasercursorlight.png') 16 16, auto";
             }
             else{
-                DrawingPlane.style.cursor = "url('images/erasercursordark.png')15 15, auto";
+                DrawingPlane.style.cursor = "url('images/erasercursordark.png')16 16, auto";
             }
         }
     }
