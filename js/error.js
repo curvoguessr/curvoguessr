@@ -63,7 +63,7 @@ function InitializeError() {
     }
     root = KD.Build(allActual);
 }
-function FindError(mousecoord) {
+function FindError(mousecoord, colour) {
     let user = [Convert(mousecoord[0])];
     let epsilon = 0.005;
     let dist = 1;
@@ -93,5 +93,6 @@ function FindError(mousecoord) {
     error *= 100;
     error = Round(error, 2);
     let Error = document.getElementById("error");
+    Error.style.color = colour;
     Error.innerHTML = "Error: " + error.toString();
 }
