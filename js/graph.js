@@ -4,8 +4,19 @@ function DrawAxis(){
     const ch = canvas.height;
     const cw = canvas.width;
     TransformCanvas(context, cw, ch);
+    if(colourmode == "light"){
+        canvas.style.border = '2px solid black';
+    }
+    if(colourmode == "dark"){
+        canvas.style.border = '2px solid white';
+    }
     context.beginPath();
-    context.strokeStyle = "#363636";
+    if(colourmode == "light"){
+        context.strokeStyle = "#363636";
+    }
+    if(colourmode == "dark"){
+        context.strokeStyle = "#CACACA"
+    }
     context.lineWidth = 0.5;
     for (let i = -Math.floor((ch/2)/yunit)*yunit+subyunit; i <= Math.floor((ch/2)/yunit)*yunit-subyunit; i+=yunit) {
         context.moveTo(-(cw/2),i);
