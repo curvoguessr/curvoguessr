@@ -10,29 +10,10 @@ const DrawingPlane = document.getElementById("drawingplane");
 const context = DrawingPlane.getContext('2d');
 const rect = DrawingPlane.getBoundingClientRect();
 let colourmode = "light";
-let defaultcolour1 = "white";
-let defaultcolour2 = "black";
-if(sessionStorage.getItem("colourmode") !== null){
-    colourmode = sessionStorage.getItem("colourmode");
-    if(colourmode == "dark"){
-        defaultcolour1 = "black";
-        defaultcolour2 = "white";
-        document.body.style.backgroundColor = "black";
-        let Error = document.getElementById("error");
-        Error.style.color = "white";
-        Error.innerHTML = "Error: "
-        if(mode == "pen"){
-            DrawingPlane.style.cursor = "url('images/pencursordark.png') 16 16, auto";
-        }
-        if(mode == "eraser"){
-            DrawingPlane.style.cursor = "url('images/erasercursordark.png') 16 16 auto";
-        }
-        DrawAxis();
-    }
-}
-else{
-    sessionStorage.setItem("colourmode", colourmode);
-}
+let defaultcolour1 = "#d6d6d6";
+let defaultcolour2 = "#121212";
+let defaultcolour3 = "black";
+
 // function invertcolor(canvas){
 //     const context = canvas.getContext("2d");
 //     const image = context.getImageData(0, 0, canvas.width, canvas.height);
@@ -48,22 +29,17 @@ lightbutton.addEventListener("click",() => {
     if(colourmode == "dark"){
         colourmode = "light";
         sessionStorage.setItem("colourmode", colourmode);
-        defaultcolour1 = "white";
-        defaultcolour2 = "black";
-        document.body.style.backgroundColor = "white";
-        if(is_submit){
-            FindError(mousecoord, "black");
+        defaultcolour1 = "#d6d6d6";
+        defaultcolour2 = "#121212";
+        defaultcolour3 = "black";
+        document.body.style.backgroundColor = defaultcolour1;
+        let Error = document.getElementById("error");
+        Error.style.color = defaultcolour2;
+        if(mode == "pen"){
+            DrawingPlane.style.cursor = "url('images/pencursorlight.png') 16 16, auto";
         }
-        else{
-            let Error = document.getElementById("error");
-            Error.style.color = "black";
-            Error.innerHTML = "Error: "
-            if(mode == "pen"){
-                DrawingPlane.style.cursor = "url('images/pencursorlight.png') 16 16, auto";
-            }
-            if(mode == "eraser"){
-                DrawingPlane.style.cursor = "url('images/erasercursorligh.png') 16 16 auto";
-            }
+        if(mode == "eraser"){
+            DrawingPlane.style.cursor = "url('images/erasercursorligh.png') 16 16 auto";
         }
         context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
         DrawAxis();
@@ -71,7 +47,7 @@ lightbutton.addEventListener("click",() => {
         context.lineWidth = 3;
         context.lineCap = "round";
         context.lineJoin = "round";
-        context.strokeStyle = "black";
+        context.strokeStyle = defaultcolour2;
         for(let i = 0; i < unflattened.length; i++){
             context.beginPath();
             for(let j = 0; j < unflattened[i].length; j++){
@@ -113,15 +89,16 @@ darkbutton.addEventListener("click",() => {
     if(colourmode == "light"){
         colourmode = "dark";
         sessionStorage.setItem("colourmode", colourmode);
-        defaultcolour1 = "black";
-        defaultcolour2 = "white";
-        document.body.style.backgroundColor = "black";
+        defaultcolour1 = "#121212";
+        defaultcolour2 = "#d6d6d6";
+        defaultcolour3 = "white";
+        document.body.style.backgroundColor = defaultcolour1;
         if(is_submit){
-            FindError(mousecoord, "white");
+            FindError(mousecoord, defaultcolour2);
         }
         else{
             let Error = document.getElementById("error");
-            Error.style.color = "white";
+            Error.style.color = defaultcolour2;
             Error.innerHTML = "Error: "
             if(mode == "pen"){
                 DrawingPlane.style.cursor = "url('images/pencursordark.png') 16 16, auto";
@@ -137,7 +114,7 @@ darkbutton.addEventListener("click",() => {
         context.lineWidth = 3;
         context.lineCap = "round";
         context.lineJoin = "round";
-        context.strokeStyle = "white";
+        context.strokeStyle = defaultcolour2;
         for(let i = 0; i < unflattened.length; i++){
             context.beginPath();
             for(let j = 0; j < unflattened[i].length; j++){
@@ -183,12 +160,7 @@ submitbutton.addEventListener("click",() => {
     }
     else {
         is_submit = true;
-        if(colourmode == "light"){
-            FindError(mousecoord, "black");
-        }
-        if(colourmode == "dark"){
-            FindError(mousecoord, "white");
-        }
+        FindError(mousecoord, defaultcolour2);
         const replaybutton = document.createElement("button");
         replaybutton.textContent = "Replay";
         document.body.appendChild(replaybutton);

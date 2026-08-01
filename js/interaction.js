@@ -52,7 +52,7 @@ function UserDrawing() {
                 return;
             }
             context.beginPath();
-            context.strokeStyle = defaultcolour2;
+            context.strokeStyle = defaultcolour3;
             if(mode == "pen"){
                 context.globalCompositeOperation = "source-over";
                 context.lineWidth = 2;

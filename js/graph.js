@@ -1,9 +1,8 @@
 function DrawAxis(){
     const canvas = document.getElementById('plane');
     const context = canvas.getContext('2d');
-    const ch = canvas.height;
-    const cw = canvas.width;
     TransformCanvas(context, cw, ch);
+    context.clearRect(-cw/2,-ch/2,cw,ch);
     if(colourmode == "light"){
         canvas.style.border = '2px solid black';
     }
@@ -11,13 +10,8 @@ function DrawAxis(){
         canvas.style.border = '2px solid white';
     }
     context.beginPath();
-    if(colourmode == "light"){
-        context.strokeStyle = "#363636";
-    }
-    if(colourmode == "dark"){
-        context.strokeStyle = "#CACACA"
-    }
-    context.lineWidth = 0.5;
+    context.strokeStyle = defaultcolour2;
+    context.lineWidth = 0.2;
     for (let i = -Math.floor((ch/2)/yunit)*yunit+subyunit; i <= Math.floor((ch/2)/yunit)*yunit-subyunit; i+=yunit) {
         context.moveTo(-(cw/2),i);
         context.lineTo((cw/2),i);
@@ -30,7 +24,7 @@ function DrawAxis(){
 
     context.beginPath();
     context.strokeStyle = defaultcolour2;
-    context.lineWidth = 2;
+    context.lineWidth = 1;
     for (let i = -Math.floor((ch/2)/yunit)*yunit; i <= Math.floor((ch/2)/yunit)*yunit; i += yunit) {
         context.moveTo(-(cw/2),i);
         context.lineTo((cw/2),i);
