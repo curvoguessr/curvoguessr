@@ -15,7 +15,7 @@ function SendError(error) {
 function deletepoint(a, i){
     for(let j = 0; j < a.length; j++){
         if(i < a[j].length){
-            a[j].splice(i, 1);
+            a[j][0].splice(i, 1);
             return;
         }
         i -= a[j].length;
@@ -26,13 +26,12 @@ let mousecoord = [];
 let erasecoord = [];
 let unflattened = [];
 let eraserunflattened = [];
-let history = [];
+let drawIndex = 0;
 function UserDrawing() {
     const DrawingPlane = document.getElementById("drawingplane");
     const context = DrawingPlane.getContext('2d');
     let brush = {x:67,y:67};
     let CurrentlyDrawing = false;
-    history.push(context.getImageData(0, 0, cw, ch));
     function lazybrush(lazyradi,event){
         const event2 = getCoordinates(event);
         const dist = EuclideanDist(event2,brush);
@@ -72,14 +71,14 @@ function UserDrawing() {
             if(mode == "pen"){
                 mousecoord.push(event2);
                 mousecoord.push(event2);
-                unflattened.push([]);
-                unflattened[unflattened.length-1].push(event2);
+                unflattened.push([[],drawIndex]);
+                unflattened[unflattened.length-1][0].push(event2);
             }
             if(mode == "eraser"){
                 erasecoord.push(event2);
                 erasecoord.push(event2);
-                eraserunflattened.push([]);
-                eraserunflattened[eraserunflattened.length-1].push(event2);
+                eraserunflattened.push([[],drawIndex]);
+                eraserunflattened[eraserunflattened.length-1][0].push(event2);
                 for(let i = 0; i < mousecoord.length; i++){
                     if(EuclideanDist(mousecoord[i],event2)<=18){
                         mousecoord.splice(i,1);
@@ -88,7 +87,6 @@ function UserDrawing() {
                     }
                 }
             }
-            //unflattened[unflattened.length-1].push({x:event.clientX-rect.left,y:event.clientY-rect.top});
             brush={x : event2.x, y : event2.y};
     });
     DrawingPlane.addEventListener('touchstart', (event) => {
@@ -120,11 +118,11 @@ function UserDrawing() {
                     }
                     if(mode == "pen"){
                         mousecoord.push({x:brush.x,y:brush.y});
-                        unflattened[unflattened.length - 1].push({x:brush.x,y:brush.y});
+                        unflattened[unflattened.length - 1][0].push({x:brush.x,y:brush.y});
                     }
                     if(mode == "eraser"){
                         erasecoord.push({x:brush.x,y:brush.y});
-                        eraserunflattened[eraserunflattened.length - 1].push({x : brush.x, y : brush.y});
+                        eraserunflattened[eraserunflattened.length - 1][0].push({x : brush.x, y : brush.y});
                         const events2 = getCoordinates(events);
                         for(let i = 0; i < mousecoord.length; i++){
                             if(EuclideanDist(mousecoord[i],events2)<=18){
@@ -162,7 +160,7 @@ function UserDrawing() {
         }
         if (CurrentlyDrawing) {
             CurrentlyDrawing = false;
-            history.push(context.getImageData(0, 0, cw, ch));
+            drawIndex++;
         }
     });
 }
