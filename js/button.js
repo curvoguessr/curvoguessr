@@ -243,7 +243,6 @@ undobutton.addEventListener("click", ()=>{
         }
     }
     context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
-      //  DrawAxis();
         context.globalCompositeOperation = "source-over";
         context.lineWidth = 3;
         context.lineCap = "round";

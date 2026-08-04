@@ -25,3 +25,8 @@ const range = {
     yl : -20,
     yr: 20
 };
+
+const pRange = {
+    l : 0,
+    r : 1
+};
