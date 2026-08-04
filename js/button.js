@@ -230,8 +230,18 @@ undobutton.addEventListener("click", ()=>{
         }
     }
     if (fnd) drawIndex--;
-    mousecoord = unflattened.flat();
-    erasecoord = eraserunflattened.flat();
+    mousecoord = [];
+    erasecoord = [];
+    for (let i = 0; i < unflattened.length; i++) {
+        for (let j = 0; j < unflattened[i][0].length; j++) {
+            mousecoord.push(unflattened[i][0][j]);
+        }
+    }
+    for (let i = 0; i < eraserunflattened.length; i++) {
+        for (let j = 0; j < eraserunflattened[i][0].length; j++) {
+            erasecoord.push(eraserunflattened[i][0][j]);
+        }
+    }
     context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
       //  DrawAxis();
         context.globalCompositeOperation = "source-over";
