@@ -52,17 +52,16 @@ class KD {
         }
     }
 };
-let rootActual = null;
-let rootUser = null;
+let root = null;
 function InitializeError() {
     let allActual = [];
-    for (let t = pRange.l; t <= pRange.r; t += 0.005) {
+    for (let t = 0; t <= 1; t += 0.005) {
         let p = ({x: Function_x(t), y: Function_y(t)});
         if (p.x >= range.xl && p.x <= range.xr && p.y >= range.yl && p.y <= range.yr) {
             allActual.push(p);
         }
     }
-    rootActual = KD.Build(allActual);
+    root = KD.Build(allActual);
 }
 function FindError(mousecoord, colour) {
     let user = [Convert(mousecoord[0])];
@@ -86,16 +85,8 @@ function FindError(mousecoord, colour) {
     }
     const len = user.length;
     for (let i = 0; i < len; i++) {
-        let best = {dist: Infinity, point: null};
-        KD.Nearest(rootActual, user[i], best);
-        error += best.dist;
-    }
-    rootUser = KD.Build(user);
-    
-    for (let t = pRange.l; t < pRange.r; t += (pRange.r-pRange.l)/len) {
-        let p = ({x: Function_x(t), y: Function_y(t)});
-        let best = {dist: Infinity, point: null};
-        KD.Nearest(rootUser, p, best);
+        let best = {dist: Infinity, point : null};
+        KD.Nearest(root, user[i], best);
         error += best.dist;
     }
     error /= len;
