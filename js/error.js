@@ -54,6 +54,7 @@ class KD {
 };
 let rootActual = null;
 let rootUser = null;
+let actuallen = 0;
 function InitializeError() {
     let allActual = [];
     for (let t = pRange.l; t <= pRange.r; t += 0.005) {
@@ -62,6 +63,7 @@ function InitializeError() {
             allActual.push(p);
         }
     }
+    actuallen = allActual.length;
     rootActual = KD.Build(allActual);
 }
 function FindError(mousecoord, colour) {
@@ -98,8 +100,8 @@ function FindError(mousecoord, colour) {
         KD.Nearest(rootUser, p, best);
         error += best.dist;
     }
-    error /= len;
-    error *= 100;
+    error /= (len+actuallen)/2;
+    error *= 20;
     error = Round(error, 2);
     let Error = document.getElementById("error");
     Error.style.color = colour;
