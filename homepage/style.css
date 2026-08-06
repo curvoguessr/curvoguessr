@@ -1,0 +1,201 @@
+html, body{
+    margin: 0;
+    overflow-x: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vw;
+}
+@font-face {
+    font-family: "bodoni";
+    src: url("../fonts/BodoniNormal.ttf") format("truetype");
+}
+.smthg{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0;
+}
+#logo{
+    width: clamp(200px, 60vw, 800px);
+    height: auto;
+    z-index: 2;
+}
+.welcome{
+    flex: 1;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.2px;
+    margin-left: -10%;
+    z-index: 1;
+    margin-top: 10%;
+    /* align-items: flex-start;
+    transform: translate(-10%,-350%); */
+}
+#welcometext{
+    font-size: clamp(25px,3.4vw,70px);
+    font-family: 'bodoni', serif;
+    text-shadow: 1px 0.3px black;
+    color: black;
+    margin: 0;
+    margin-left: 10%;
+    /*transform: translate(30%,0%); */
+}
+#welcometexttopborder{
+    margin-left: -111%;
+    height: 3px;
+    width: 111vw;
+    background-color: black;
+}
+#welcometextbottomborder{
+    margin-left: -111%;
+    height: 3px;
+    width: 111vw;
+    background-color: black;
+}
+.something{
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#tutorialbutton{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+#lightbutton{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+#darkbutton{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer
+}
+.imgbuttons{
+    display: block;
+}
+.somethingtab{
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#tutorialbuttontab{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+#lightbuttontab{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+#darkbuttontab{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer
+}
+.imgbuttonstab{
+    display: block;
+}
+
+@media (max-width: 571px){
+    .somethingtab{
+        display: none;
+    }
+    .welcome{
+        margin-top: 20%;
+    }
+    .something{
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        border: 1px solid white;
+    }
+    #tutorialbutton{
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+    #lightbutton{
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+    #darkbutton{
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer
+    }
+    .imgbuttons{
+        display: block;
+        width: 8vw;
+        height: auto;
+    }
+    #welcometext{
+        margin-left: 20%;
+        font-size: clamp(1px,4vw, 25000px);
+    }
+}
+@media (min-width: 570px) and (max-width: 768px){
+    .something{
+        display: none;
+    }
+    .welcome{
+        margin-top: 20%;
+    }
+    .imgbuttonstab{
+        display: block;
+        width: 7vw;
+        height: auto;
+    }
+    .somethingtab{
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-end; 
+    }
+    #tutorialbuttontab{
+        flex: 0 0 100%;
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .colormodebuttontab{
+        flex: 1;
+    }
+}
+@media (min-width:768px) and (max-width:982px){
+    .imgbuttons{
+        display: block;
+        width: 5vw;
+        height: auto;
+    }
+}
+@media (min-width:768px){
+    .somethingtab{
+        display: none;
+    }
+}
