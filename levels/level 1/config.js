@@ -18,10 +18,6 @@ let yunit = 2*subyunit;
 let cw = 80*vw;
 let ch = 80*vh;
 
-let origin = {
-    x: cw/2,
-    y: ch/2
-}
 canvas.style.width = cw + "px";
 canvas.style.height = ch + "px";
 plane.width = cw;
