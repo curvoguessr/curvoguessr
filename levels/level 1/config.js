@@ -15,10 +15,6 @@ let yunit = 2*subyunit;
 let cw = 80*vw;
 let ch = 80*vh;
 
-let origin = {
-    x: cw/2,
-    y: ch/2
-}
 plane.width = cw;
 drawingplane.width = cw;
 plane.height = ch;

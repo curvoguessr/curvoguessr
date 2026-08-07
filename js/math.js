@@ -6,8 +6,8 @@ function TransformCanvas(context, cw, ch) {
 
 function Convert(p) {
     return {
-        x : (p.x-origin.x)/xunit,
-        y : (origin.y-p.y)/yunit
+        x : (p.x-cw/2)/xunit,
+        y : (ch/2-p.y)/yunit
     }
 }
 
@@ -36,5 +36,5 @@ function Round(x, places) {
 function getCoordinates(event) {
     const DrawingPlane = document.getElementById("drawingplane");
     const rect = DrawingPlane.getBoundingClientRect();
-    return {x: (event.clientX-rect.left)*cw/rect.width, y: (event.clientY - rect.top)*ch/rect.height};
+    return {x: (event.clientX-rect.left)*DrawingPlane.width/rect.width, y: (event.clientY - rect.top)*DrawingPlane.height/rect.height};
 }
