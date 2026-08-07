@@ -34,19 +34,22 @@ else {
     }
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
 }
-function overlap(){
-    const plane = document.getElementById("plane");
-    const drawingplane = document.getElementById("drawingplane");
-    const rect = plane.getBoundingClientRect();
-    drawingplane.style.position = "absolute";
-    drawingplane.style.top = rect.top + "px";
-    drawingplane.style.left = rect.left + "px";
-}
-window.addEventListener("load",()=>{
-    overlap();
-});
+// function overlap(){
+//     const plane = document.getElementById("plane");
+//     const drawingplane = document.getElementById("drawingplane");
+//     const rect = plane.getBoundingClientRect();
+//     drawingplane.style.position = "fixed";
+//     drawingplane.style.top = rect.top + "px";
+//     drawingplane.style.left = rect.left + "px";
+//     drawingplane.width = rect.width;
+//     drawingplane.height = rect.height;
+// }
+// window.addEventListener("load",()=>{
+//     overlap();
+// });
 
 window.addEventListener("resize",()=>{
+    const canvas = document.getElementById('canvas');
     const plane = document.getElementById('plane');
     const drawingplane = document.getElementById('drawingplane');
     const context1 = plane.getContext("2d");
@@ -57,8 +60,11 @@ window.addEventListener("resize",()=>{
 
     vw = window.innerWidth/100;
     vh = window.innerHeight/100;
-    if(vw>1.238*vh){
+    if(vw>1.1*vh){
        vw = 1.238*vh;
+    }
+    if(vh>1.2*vw){
+        vh = 1.2*vw;
     }
     subxunit = 2*vw;
     subyunit = 2*vh;
@@ -72,11 +78,13 @@ window.addEventListener("resize",()=>{
         x: cw/2,
         y: ch/2
     }
+    canvas.style.width = cw + "px";
+    canvas.style.height = ch + "px";
     plane.width = cw;
     drawingplane.width = cw;
     plane.height = ch;
     drawingplane.height = ch;
-    overlap();
+    //overlap();
     // TransformCanvas(context,cw,ch);
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
     context.globalCompositeOperation = "source-over";
