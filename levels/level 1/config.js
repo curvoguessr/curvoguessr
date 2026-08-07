@@ -1,16 +1,29 @@
-const subxunit = 20;
-const subyunit = 20;
+const plane = document.getElementById('plane');
+const drawingplane = document.getElementById('drawingplane')
 
-const xunit = 2*subxunit;
-const yunit = 2*subyunit;
+let vw = window.innerWidth/100;
+let vh = window.innerHeight/100;
+if(vw>3*vh/2){
+    vw = 3*vh/2;
+}
+let subxunit = 2*vw;
+let subyunit = 2*vh;
 
-const cw = 800;
-const ch = 1000;
+let xunit = 2*subxunit;
+let yunit = 2*subyunit;
 
-const origin = {
+let cw = 80*vw;
+let ch = 80*vh;
+
+let origin = {
     x: cw/2,
     y: ch/2
 }
+plane.width = cw;
+drawingplane.width = cw;
+plane.height = ch;
+drawingplane.height = ch;
+
 
 function Function_x(t) {
     return t;
@@ -20,10 +33,10 @@ function Function_y(t) {
 }
 
 const range = {
-    xl : -20,
-    xr : 20,
-    yl : -20,
-    yr: 20
+    xl : -10,
+    xr : 10,
+    yl : -10,
+    yr: 10
 };
 
 const pRange = {
