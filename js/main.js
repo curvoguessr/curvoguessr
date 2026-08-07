@@ -1,125 +1,187 @@
-if (sessionStorage.getItem("colourmode")==null) {
-    sessionStorage.setItem("colourmode",colourmode);
+let errorTimeout = null;
+function SendError(error) {
+    let box = document.getElementById("error-box");
+    box.textContent = error;
+    box.style.display = "block";
+    box.style.opacity = "1";
+    clearTimeout(errorTimeout);
+    errorTimeout = setTimeout(() => {
+        box.style.opacity = "0";
+        setTimeout(() => {
+            box.style.display = "none";
+        }, 300);
+    }, 3000)
 }
-colourmode = sessionStorage.getItem("colourmode");
-if(colourmode == "dark"){
-    defaultcolour1 = "#121212";
-    defaultcolour2 = "#d6d6d6";
-    defaultcolour3 = "white";
-    document.body.style.backgroundColor = defaultcolour1;
-    let Error = document.getElementById("error");
-    Error.style.color = defaultcolour2;
-    Error.innerHTML = "Error: "
-    if(mode == "pen"){
-        DrawingPlane.style.cursor = "url('images/pencursordark.png') 16 16, auto";
+function deletepoint(a, i){
+    for(let j = 0; j < a.length; j++){
+        if(i < a[j].length){
+            a[j][0].splice(i, 1);
+            return;
+        }
+        i -= a[j].length;
     }
-    if(mode == "eraser"){
-        DrawingPlane.style.cursor = "url('images/erasercursordark.png') 16 16 auto";
-    }
-    DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
 }
-else {
-    defaultcolour1 = "#d6d6d6";
-    defaultcolour2 = "#121212";
-    defaultcolour3 = "black";
-    document.body.style.backgroundColor = defaultcolour1;
-    let Error = document.getElementById("error");
-    Error.style.color = defaultcolour2;
-    Error.innerHTML = "Error: "
-    if(mode == "pen"){
-        DrawingPlane.style.cursor = "url('images/pencursorlight.png') 16 16, auto";
-    }
-    if(mode == "eraser"){
-        DrawingPlane.style.cursor = "url('images/erasercursorlight.png') 16 16 auto";
-    }
-    DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
-}
-function overlap(){
-    const plane = document.getElementById("plane");
-    const drawingplane = document.getElementById("drawingplane");
-    const rect = plane.getBoundingClientRect();
-    drawingplane.style.position = "absolute";
-    drawingplane.style.top = rect.top + "px";
-    drawingplane.style.left = rect.left + "px";
-}
-window.addEventListener("load",()=>{
-    overlap();
-});
-
-window.addEventListener("resize",()=>{
-    const plane = document.getElementById('plane');
+function normalise(a){
     const drawingplane = document.getElementById('drawingplane');
-    const context1 = plane.getContext("2d");
-    const context = drawingplane.getContext("2d");
-    context1.resetTransform();
-    context.resetTransform();
-    context.clearRect(0,0,plane.width,plane.height);
-
-    vw = window.innerWidth/100;
-    vh = window.innerHeight/100;
-    if(vw>1.238*vh){
-       vw = 1.238*vh;
-    }
-    subxunit = 2*vw;
-    subyunit = 2*vh;
-
-    xunit = 2*subxunit;
-    yunit = 2*subyunit;
-
-    cw = 80*vw;
-    ch = 80*vh;
-    origin = {
-        x: cw/2,
-        y: ch/2
-    }
-    plane.width = cw;
-    drawingplane.width = cw;
-    plane.height = ch;
-    drawingplane.height = ch;
-    overlap();
-    // TransformCanvas(context,cw,ch);
-    DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
-    context.globalCompositeOperation = "source-over";
-    context.lineWidth = 3;
-    context.lineCap = "round";
-    context.lineJoin = "round";
-    context.strokeStyle = defaultcolour2;
-    for(let i = 0; i < unflattened.length; i++){
-        context.beginPath();
-        for(let j = 0; j < unflattened[i][0].length; j++){
-            if(j == 0){
-                context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x, denormalise(destandardize(unflattened[i][0][0])).y);
-            }
-            if(1<=j && j<2){
-                context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
-            }
-            if(j>=3){
-                CatRomGraph(denormalise(destandardize(unflattened[i][0][j-3])),denormalise(destandardize(unflattened[i][0][j-2])),denormalise(destandardize(unflattened[i][0][j-1])),denormalise(destandardize(unflattened[i][0][j])),0.05,context);
-            }
+    let cw = drawingplane.width;
+    let ch = drawingplane.height;
+    return{ x: a.x/(cw), y: a.y/(ch)};
+}
+function denormalise(b){
+    const drawingplane = document.getElementById('drawingplane');
+    let cw = drawingplane.width;
+    let ch = drawingplane.height;
+    return{ x: b.x*cw, y: b.y*ch};
+}
+function standardize(c){
+    return{x : c.x*1000,y : c.y*1000};
+}
+function destandardize(d){
+    return{x : d.x/1000, y: d.y/1000};
+}
+let mode = "pen";
+let mousecoord = [];
+let erasecoord = [];
+let unflattened = [];
+let eraserunflattened = [];
+let drawIndex = 0;
+function UserDrawing() {
+    const DrawingPlane = document.getElementById("drawingplane");
+    const context = DrawingPlane.getContext('2d');
+    let brush = {x:67,y:67};
+    let CurrentlyDrawing = false;
+    function lazybrush(lazyradi,event){
+        const event2 = standardize(normalise(getCoordinates(event)));
+        const dist = EuclideanDist(event2,brush);
+        if(dist <= lazyradi) {
+            return;
         }
-        context.stroke();
-    }
-    context.globalCompositeOperation = "destination-out";
-    context.lineWidth = 30;
-    context.lineCap = "round";
-    context.lineJoin = "round";    
-    for(let i = 0; i < eraserunflattened.length; i++){
-        context.beginPath();
-        for(let j = 0; j < eraserunflattened[i][0].length; j++){
-            if(j == 0){
-                context.moveTo(denormalise(destandardize(eraserunflattened[i][0][0])).x,denormalise(destandardize(eraserunflattened[i][0][0])).y);
-            }
-            if(1<=j && j<2){
-                context.lineTo(denormalise(destandardize(eraserunflattened[i][0][j])).x, denormalise(destandardize(eraserunflattened[i][0][j])).y);
-            }
-            if(j>=3){
-                CatRomGraph(denormalise(destandardize(eraserunflattened[i][0][j-3])),denormalise(destandardize(eraserunflattened[i][0][j-2])),denormalise(destandardize(eraserunflattened[i][0][j-1])),denormalise(destandardize(eraserunflattened[i][0][j])),0.05,context);
-            }
+        else {
+            brush.x = event2.x-((event2.x-brush.x)*lazyradi)/dist;
+            brush.y = event2.y-((event2.y-brush.y)*lazyradi)/dist;
         }
-        context.stroke();
     }
-});
-
-InitializeError();
-
-UserDrawing();
+    let oldsize = 0;
+    DrawingPlane.addEventListener('pointerdown',(event) => {
+            const event2 = standardize(normalise(getCoordinates(event)));
+            if(is_submit){
+                return;
+            }
+            DrawingPlane.setPointerCapture(event.pointerId);
+            context.beginPath();
+            context.strokeStyle = defaultcolour3;
+            if(mode == "pen"){
+                context.globalCompositeOperation = "source-over";
+                context.lineWidth = 2;
+            }
+            if(mode == "eraser"){
+                context.globalCompositeOperation = "destination-out";
+                context.lineWidth = 30;
+            }
+            context.lineCap = "round";
+            context.lineJoin = "round";
+            CurrentlyDrawing=true;
+            if(mode == "pen"){
+                oldsize = mousecoord.length;
+            }
+            if(mode == "eraser"){
+                oldsize = erasecoord.length;
+            }
+            if(mode == "pen"){
+                mousecoord.push(event2);
+                mousecoord.push(event2);
+                unflattened.push([[],drawIndex]);
+                unflattened[unflattened.length-1][0].push(event2);
+            }
+            if(mode == "eraser"){
+                erasecoord.push(event2);
+                erasecoord.push(event2);
+                eraserunflattened.push([[],drawIndex]);
+                eraserunflattened[eraserunflattened.length-1][0].push(event2);
+                for(let i = 0; i < mousecoord.length; i++){
+                    if(EuclideanDist(mousecoord[i],event2)<=18){
+                        mousecoord.splice(i,1);
+                        deletepoint(unflattened, i);
+                        i--;
+                    }
+                }
+            }
+            brush={x : event2.x, y : event2.y};
+    });
+    DrawingPlane.addEventListener('touchstart', (event) => {
+        if(is_submit){
+            return;
+        }
+        if(event.touches.length==1){
+            CurrentlyDrawing = true;
+        }
+        if(event.touches.length > 1){
+            CurrentlyDrawing = false;
+        }
+    });
+    DrawingPlane.addEventListener('pointermove', (event) => {
+        if(is_submit){
+            return;
+        }
+        let inRange = true;
+            if (CurrentlyDrawing) {
+                inRange = true;
+                const coalevents = event.getCoalescedEvents();
+                for(const events of coalevents){
+                    lazybrush(9,events);
+                    let normalbrush = denormalise(destandardize(brush));
+                    let brushCheck = Convert(normalbrush);
+                    if (brushCheck.x < range.xl || brushCheck.x > range.xr || brushCheck.y < range.yl || brushCheck.y > range.yr) {
+                        SendError("Drawing out of range!");
+                        inRange = false;
+                        break;
+                    }
+                    if(mode == "pen"){
+                        mousecoord.push({x:brush.x,y:brush.y});
+                        unflattened[unflattened.length - 1][0].push({x:brush.x,y:brush.y});
+                    }
+                    if(mode == "eraser"){
+                        erasecoord.push({x:brush.x,y:brush.y});
+                        eraserunflattened[eraserunflattened.length - 1][0].push({x : brush.x, y : brush.y});
+                        let events2 = standardize(normalise(getCoordinates(events)));
+                        for(let i = 0; i < mousecoord.length; i++){
+                            if(EuclideanDist(mousecoord[i],events2)<=18){
+                                mousecoord.splice(i,1);
+                                deletepoint(unflattened, i);
+                                i--;
+                            }
+                        }
+                    }
+                    if(mode == "pen"){
+                        if(mousecoord.length-oldsize>=4){
+                            CatRomGraph(denormalise(destandardize(mousecoord[mousecoord.length-4])),denormalise(destandardize(mousecoord[mousecoord.length-3])),denormalise(destandardize(mousecoord[mousecoord.length-2])),denormalise(destandardize(mousecoord[mousecoord.length-1])),0.005,context);
+                        }
+                        else{
+                            context.lineTo(brush.x*cw/1000, brush.y*ch/1000);
+                        }
+                    }
+                    if(mode == "eraser"){
+                        if(erasecoord.length-oldsize>=4){
+                            CatRomGraph(denormalise(destandardize(erasecoord[erasecoord.length-4])),denormalise(destandardize(erasecoord[erasecoord.length-3])),denormalise(destandardize(erasecoord[erasecoord.length-2])),denormalise(destandardize(erasecoord[erasecoord.length-1])),0.05,context);
+                        }
+                        else{
+                            context.lineTo(brush.x*cw/1000,brush.y*ch/1000);
+                        }
+                    }
+                }
+                if (inRange) {
+                    context.stroke();
+                }
+            }
+    });
+    DrawingPlane.addEventListener('pointerup', (event) => {
+        if(is_submit){
+            return;
+        }
+        if (CurrentlyDrawing) {
+            CurrentlyDrawing = false;
+            drawIndex++;
+        }
+        DrawingPlane.setPointerCapture(event.pointerId);
+    });
+}
