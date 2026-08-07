@@ -8,11 +8,23 @@
     position: absolute;
     display: block;
 } */
- .centerthings{
+.centerthings{
     position:relative;
     display: flex;
     flex-direction: column;
     align-items: center;
+ }
+ #canvas{
+    position: relative;
+    /* width: min(80vw,88vh);
+    height: min(80vh,101.6vw); */
+ }
+ #plane, #drawingplane{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
  }
  #submitbutton{
     margin-top: 2%;
