@@ -56,13 +56,13 @@ lightbutton.addEventListener("click",() => {
             context.beginPath();
             for(let j = 0; j < unflattened[i][0].length; j++){
                 if(j == 0){
-                    context.moveTo(unflattened[i][0][0].x,unflattened[i][0][0].y);
+                    context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(unflattened[i][0][j].x, unflattened[i][0][j].y);
+                    context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(unflattened[i][0][j-3],unflattened[i][0][j-2],unflattened[i][0][j-1],unflattened[i][0][j],0.05,context);
+                    CatRomGraph(denormalise(destandardize(unflattened[i][0][j-3])),denormalise(destandardize(unflattened[i][0][j-2])),denormalise(destandardize(unflattened[i][0][j-1])),denormalise(destandardize(unflattened[i][0][j])),0.05,context);
                 }
             }
             context.stroke();
@@ -75,13 +75,13 @@ lightbutton.addEventListener("click",() => {
             context.beginPath();
             for(let j = 0; j < eraserunflattened[i][0].length; j++){
                 if(j == 0){
-                    context.moveTo(eraserunflattened[i][0][0].x,eraserunflattened[i][0][0].y);
+                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0][0])).x,denormalise(destandardize(eraserunflattened[i][0][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(eraserunflattened[i][0][j].x, eraserunflattened[i][0][j].y);
+                    context.lineTo(denormalise(destandardize(eraserunflattened[i][0][j])).x, denormalise(destandardize(eraserunflattened[i][0][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(eraserunflattened[i][0][j-3],eraserunflattened[i][0][j-2],eraserunflattened[i][0][j-1],eraserunflattened[i][0][j],0.05,context);
+                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][0][j-3])),denormalise(destandardize(eraserunflattened[i][0][j-2])),denormalise(destandardize(eraserunflattened[i][0][j-1])),denormalise(destandardize(eraserunflattened[i][0][j])),0.05,context);
                 }
             }
             context.stroke();
@@ -123,13 +123,13 @@ darkbutton.addEventListener("click",() => {
             context.beginPath();
             for(let j = 0; j < unflattened[i][0].length; j++){
                 if(j == 0){
-                    context.moveTo(unflattened[i][0][0].x, unflattened[i][0][0].y);
+                    context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x, denormalise(destandardize(unflattened[i][0][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(unflattened[i][0][j].x, unflattened[i][0][j].y);
+                    context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(unflattened[i][0][j-3],unflattened[i][0][j-2],unflattened[i][0][j-1],unflattened[i][0][j],0.05,context);
+                    CatRomGraph(denormalise(destandardize(unflattened[i][0][j-3])),denormalise(destandardize(unflattened[i][0][j-2])),denormalise(destandardize(unflattened[i][0][j-1])),denormalise(destandardize(unflattened[i][0][j])),0.05,context);
                 }
             }
             context.stroke();
@@ -142,13 +142,13 @@ darkbutton.addEventListener("click",() => {
             context.beginPath();
             for(let j = 0; j < eraserunflattened[i][0].length; j++){
                 if(j == 0){
-                    context.moveTo(eraserunflattened[i][0][0].x,eraserunflattened[i][0][0].y);
+                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0][0])).x,denormalise(destandardize(eraserunflattened[i][0][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(eraserunflattened[i][0][j].x, eraserunflattened[i][0][j].y);
+                    context.lineTo(denormalise(destandardize(eraserunflattened[i][0][j])).x, denormalise(destandardize(eraserunflattened[i][0][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(eraserunflattened[i][0][j-3],eraserunflattened[i][0][j-2],eraserunflattened[i][0][j-1],eraserunflattened[i][0][j],0.05,context);
+                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][0][j-3])),denormalise(destandardize(eraserunflattened[i][0][j-2])),denormalise(destandardize(eraserunflattened[i][0][j-1])),denormalise(destandardize(eraserunflattened[i][0][j])),0.05,context);
                 }
             }
             context.stroke();
@@ -183,13 +183,13 @@ lightbuttonmob.addEventListener("click",() => {
             context.beginPath();
             for(let j = 0; j < unflattened[i][0].length; j++){
                 if(j == 0){
-                    context.moveTo(unflattened[i][0][0].x,unflattened[i][0][0].y);
+                    context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(unflattened[i][0][j].x, unflattened[i][0][j].y);
+                    context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(unflattened[i][0][j-3],unflattened[i][0][j-2],unflattened[i][0][j-1],unflattened[i][0][j],0.05,context);
+                    CatRomGraph(denormalise(destandardize(unflattened[i][0][j-3])),denormalise(destandardize(unflattened[i][0][j-2])),denormalise(destandardize(unflattened[i][0][j-1])),denormalise(destandardize(unflattened[i][0][j])),0.05,context);
                 }
             }
             context.stroke();
@@ -202,13 +202,13 @@ lightbuttonmob.addEventListener("click",() => {
             context.beginPath();
             for(let j = 0; j < eraserunflattened[i][0].length; j++){
                 if(j == 0){
-                    context.moveTo(eraserunflattened[i][0][0].x,eraserunflattened[i][0][0].y);
+                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0][0])).x,denormalise(destandardize(eraserunflattened[i][0][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(eraserunflattened[i][0][j].x, eraserunflattened[i][0][j].y);
+                    context.lineTo(denormalise(destandardize(eraserunflattened[i][0][j])).x, denormalise(destandardize(eraserunflattened[i][0][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(eraserunflattened[i][0][j-3],eraserunflattened[i][0][j-2],eraserunflattened[i][0][j-1],eraserunflattened[i][0][j],0.05,context);
+                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][0][j-3])),denormalise(destandardize(eraserunflattened[i][0][j-2])),denormalise(destandardize(eraserunflattened[i][0][j-1])),denormalise(destandardize(eraserunflattened[i][0][j])),0.05,context);
                 }
             }
             context.stroke();
@@ -250,13 +250,13 @@ darkbuttonmob.addEventListener("click",() => {
             context.beginPath();
             for(let j = 0; j < unflattened[i][0].length; j++){
                 if(j == 0){
-                    context.moveTo(unflattened[i][0][0].x, unflattened[i][0][0].y);
+                    context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x, denormalise(destandardize(unflattened[i][0][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(unflattened[i][0][j].x, unflattened[i][0][j].y);
+                    context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(unflattened[i][0][j-3],unflattened[i][0][j-2],unflattened[i][0][j-1],unflattened[i][0][j],0.05,context);
+                    CatRomGraph(denormalise(destandardize(unflattened[i][0][j-3])),denormalise(destandardize(unflattened[i][0][j-2])),denormalise(destandardize(unflattened[i][0][j-1])),denormalise(destandardize(unflattened[i][0][j])),0.05,context);
                 }
             }
             context.stroke();
@@ -269,13 +269,13 @@ darkbuttonmob.addEventListener("click",() => {
             context.beginPath();
             for(let j = 0; j < eraserunflattened[i][0].length; j++){
                 if(j == 0){
-                    context.moveTo(eraserunflattened[i][0][0].x,eraserunflattened[i][0][0].y);
+                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0][0])).x,denormalise(destandardize(eraserunflattened[i][0][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(eraserunflattened[i][0][j].x, eraserunflattened[i][0][j].y);
+                    context.lineTo(denormalise(destandardize(eraserunflattened[i][0][j])).x, denormalise(destandardize(eraserunflattened[i][0][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(eraserunflattened[i][0][j-3],eraserunflattened[i][0][j-2],eraserunflattened[i][0][j-1],eraserunflattened[i][0][j],0.05,context);
+                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][0][j-3])),denormalise(destandardize(eraserunflattened[i][0][j-2])),denormalise(destandardize(eraserunflattened[i][0][j-1])),denormalise(destandardize(eraserunflattened[i][0][j])),0.05,context);
                 }
             }
             context.stroke();
@@ -388,7 +388,7 @@ undobutton.addEventListener("click", ()=>{
         context.beginPath();
         for(let j = 0; j < unflattened[i][0].length; j++){
             if(j == 0){
-                context.moveTo(denoormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
+                context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
             }
             if(1<=j && j<2){
                 context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
@@ -486,7 +486,7 @@ undobuttonmob.addEventListener("click", ()=>{
         context.beginPath();
         for(let j = 0; j < unflattened[i][0].length; j++){
             if(j == 0){
-                context.moveTo(denoormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
+                context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
             }
             if(1<=j && j<2){
                 context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
