@@ -1,13 +1,13 @@
-function DrawAxis(){
+function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
     const canvas = document.getElementById('plane');
     const context = canvas.getContext('2d');
     TransformCanvas(context, cw, ch);
     context.clearRect(-cw/2,-ch/2,cw,ch);
     if(colourmode == "light"){
-        canvas.style.border = '2px solid black';
+        canvas.style.outline = '2px solid black';
     }
     if(colourmode == "dark"){
-        canvas.style.border = '2px solid white';
+        canvas.style.outline = '2px solid white';
     }
     context.beginPath();
     context.strokeStyle = defaultcolour2;
@@ -37,7 +37,7 @@ function DrawAxis(){
     
     context.beginPath();
     context.strokeStyle = defaultcolour2;
-    context.lineWidth = 6;
+    context.lineWidth = (cw+ch)/220;
     
     context.moveTo(-cw/2+(subxunit/2),0);
     context.lineTo(cw/2-(subxunit/2),0);
