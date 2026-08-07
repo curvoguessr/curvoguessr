@@ -21,6 +21,24 @@ function deletepoint(a, i){
         i -= a[j].length;
     }
 }
+function normalise(a){
+    const drawingplane = document.getElementById('drawingplane');
+    let cw = drawingplane.width;
+    let ch = drawingplane.height;
+    return{ x: a.x/(cw), y: a.y/(ch)};
+}
+function denormalise(b){
+    const drawingplane = document.getElementById('drawingplane');
+    let cw = drawingplane.width;
+    let ch = drawingplane.height;
+    return{ x: b.x*cw, y: b.y*ch};
+}
+function standardize(c){
+    return{x : c.x*1000,y : c.y*1000};
+}
+function destandardize(d){
+    return{x : d.x/1000, y: d.y/1000};
+}
 let mode = "pen";
 let mousecoord = [];
 let erasecoord = [];
@@ -33,7 +51,7 @@ function UserDrawing() {
     let brush = {x:67,y:67};
     let CurrentlyDrawing = false;
     function lazybrush(lazyradi,event){
-        const event2 = getCoordinates(event);
+        const event2 = standardize(normalise(getCoordinates(event)));
         const dist = EuclideanDist(event2,brush);
         if(dist <= lazyradi) {
             return;
@@ -45,10 +63,11 @@ function UserDrawing() {
     }
     let oldsize = 0;
     DrawingPlane.addEventListener('pointerdown',(event) => {
-            const event2 = getCoordinates(event);
+            const event2 = standardize(normalise(getCoordinates(event)));
             if(is_submit){
                 return;
             }
+            DrawingPlane.setPointerCapture(event.pointerId);
             context.beginPath();
             context.strokeStyle = defaultcolour3;
             if(mode == "pen"){
@@ -109,8 +128,9 @@ function UserDrawing() {
                 inRange = true;
                 const coalevents = event.getCoalescedEvents();
                 for(const events of coalevents){
-                    lazybrush(2,events);
-                    let brushCheck = Convert(brush);
+                    lazybrush(9,events);
+                    let normalbrush = denormalise(destandardize(brush));
+                    let brushCheck = Convert(normalbrush);
                     if (brushCheck.x < range.xl || brushCheck.x > range.xr || brushCheck.y < range.yl || brushCheck.y > range.yr) {
                         SendError("Drawing out of range!");
                         inRange = false;
@@ -123,7 +143,7 @@ function UserDrawing() {
                     if(mode == "eraser"){
                         erasecoord.push({x:brush.x,y:brush.y});
                         eraserunflattened[eraserunflattened.length - 1][0].push({x : brush.x, y : brush.y});
-                        const events2 = getCoordinates(events);
+                        let events2 = standardize(normalise(getCoordinates(events)));
                         for(let i = 0; i < mousecoord.length; i++){
                             if(EuclideanDist(mousecoord[i],events2)<=18){
                                 mousecoord.splice(i,1);
@@ -134,18 +154,18 @@ function UserDrawing() {
                     }
                     if(mode == "pen"){
                         if(mousecoord.length-oldsize>=4){
-                            CatRomGraph(mousecoord[mousecoord.length-4],mousecoord[mousecoord.length-3],mousecoord[mousecoord.length-2],mousecoord[mousecoord.length-1],0.005,context);
+                            CatRomGraph(denormalise(destandardize(mousecoord[mousecoord.length-4])),denormalise(destandardize(mousecoord[mousecoord.length-3])),denormalise(destandardize(mousecoord[mousecoord.length-2])),denormalise(destandardize(mousecoord[mousecoord.length-1])),0.005,context);
                         }
                         else{
-                            context.lineTo(brush.x, brush.y);
+                            context.lineTo(brush.x*cw/1000, brush.y*ch/1000);
                         }
                     }
                     if(mode == "eraser"){
                         if(erasecoord.length-oldsize>=4){
-                            CatRomGraph(erasecoord[erasecoord.length-4],erasecoord[erasecoord.length-3],erasecoord[erasecoord.length-2],erasecoord[erasecoord.length-1],0.05,context);
+                            CatRomGraph(denormalise(destandardize(erasecoord[erasecoord.length-4])),denormalise(destandardize(erasecoord[erasecoord.length-3])),denormalise(destandardize(erasecoord[erasecoord.length-2])),denormalise(destandardize(erasecoord[erasecoord.length-1])),0.05,context);
                         }
                         else{
-                            context.lineTo(brush.x,brush.y);
+                            context.lineTo(brush.x*cw/1000,brush.y*ch/1000);
                         }
                     }
                 }
@@ -162,5 +182,6 @@ function UserDrawing() {
             CurrentlyDrawing = false;
             drawIndex++;
         }
+        DrawingPlane.setPointerCapture(event.pointerId);
     });
 }
