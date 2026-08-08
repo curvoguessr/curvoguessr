@@ -57,35 +57,51 @@ let rootUser = null;
 let actuallen = 0;
 function InitializeError() {
     let allActual = [];
-    for (let t = pRange.l; t <= pRange.r; t += 0.005) {
-        let p = ({x: Function_x(t), y: Function_y(t)});
-        if (p.x >= range.xl && p.x <= range.xr && p.y >= range.yl && p.y <= range.yr) {
-            allActual.push(p);
+    for (let i = 0; i < Graph.length; i++) {
+        for (let t = Graph[i].pRange.l; t <= Graph[i].pRange.r; t += 0.005) {
+            let p = ({x: Graph[i].Function_x(t), y: Graph[i].Function_y(t)});
+            if (p.x >= range.xl && p.x <= range.xr && p.y >= range.yl && p.y <= range.yr) {
+                allActual.push(p);
+            }
         }
     }
+    
     actuallen = allActual.length;
     rootActual = KD.Build(allActual);
 }
-function FindError(mousecoord, colour) {
-    let user = [Convert(mousecoord[0])];
-    let epsilon = 0.005;
-    let dist = 1;
-    let accumulated = 0;
-    let error = 0;
-    for (let i = 1; i+2 < mousecoord.length; i++) {
-        for (let t = 0; t < 1; t += epsilon) {
-            let prev = user[user.length-1];
-            let p = CatRom(mousecoord[i-1], mousecoord[i], mousecoord[i+1], mousecoord[i+2], t);
-            let d = EuclideanDist(prev, p);
-            if (accumulated+d < dist) {
-                accumulated += d;
-            }
-            else {
-                user.push(Convert(p));
-                accumulated = 0;
-            }
+function resampleCatRom(mousecoord, spacing) {
+    if (mousecoord.length < 2) {
+        return mousecoord.map(p => denormalise(destandardize(p)));
+    }
+    let points = mousecoord.map(p => denormalise(destandardize(p)));
+
+    let dense = [];
+    const steps = 100;
+    for (let i = 3; i < points.length; i++) {
+        for (let j = 0; j < steps; j++) {
+            const t = j/steps;
+            dense.push(CatRom(points[i-3],points[i-2],points[i-1],points[i],t));
         }
     }
+    dense.push(points[points.length-1]);
+    let user = [dense[0]];
+    let acc = 0;
+    for (let i = 1; i < dense.length; i++) {
+        acc += EuclideanDist(dense[i-1],dense[i]);
+        if (acc >= spacing) {
+            user.push(dense[i]);
+            acc = 0;
+        }
+    }
+    if (user[user.length-1] != dense[dense.length-1]) user.push(dense[dense.length-1]);
+    for (let i = 0; i < user.length; i++) {
+        user[i]=Convert(user[i]);
+    }
+    return user;
+}
+function FindError(mousecoord, colour) {
+    let user = resampleCatRom(mousecoord, 0.1);
+    let error = 0;
     const len = user.length;
     for (let i = 0; i < len; i++) {
         let best = {dist: Infinity, point: null};
@@ -93,15 +109,18 @@ function FindError(mousecoord, colour) {
         error += best.dist;
     }
     rootUser = KD.Build(user);
-    
-    for (let t = pRange.l; t < pRange.r; t += (pRange.r-pRange.l)/len) {
-        let p = ({x: Function_x(t), y: Function_y(t)});
-        let best = {dist: Infinity, point: null};
-        KD.Nearest(rootUser, p, best);
-        error += best.dist;
+    for (let i = 0; i < Graph.length; i++) {
+        for (let t = Graph[i].pRange.l; t < Graph[i].pRange.r; t += (Graph[i].pRange.r-Graph[i].pRange.l)/len) {
+            let p = ({x: Graph[i].Function_x(t), y: Graph[i].Function_y(t)});
+            let best = {dist: Infinity, point: null};
+            KD.Nearest(rootUser, p, best);
+            if (best.dist == Infinity) {
+                console.log("D");
+            }
+            error += best.dist;
+        }
     }
-    error /= (len+actuallen)/2;
-    error *= 20;
+    error /= 2*len;
     error = Round(error, 2);
     let Error = document.getElementById("error");
     Error.style.color = colour;

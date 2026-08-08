@@ -12,21 +12,23 @@ const origin = {
     y: ch/2
 }
 
-function Function_x(t) {
-    return t;
-}
-function Function_y(t) {
-    return t;
-}
-
-const range = {
-    xl : -20,
-    xr : 20,
-    yl : -20,
-    yr: 20
-};
-
-const pRange = {
-    l : 0,
-    r : 1
-};
+const Graph = [
+    {
+        Function_x: function(t) {
+            return t;
+        },
+        Function_y: function(t) {
+            return t;
+        },
+        range: {
+            xl: -20,
+            xr: 20,
+            yl: -20,
+            yr: 20
+        },
+        pRange: {
+            l: 0,
+            r: 1
+        }
+    }
+]

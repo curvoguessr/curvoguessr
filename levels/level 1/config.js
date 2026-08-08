@@ -24,23 +24,59 @@ plane.width = cw;
 drawingplane.width = plane.width;
 plane.height = ch;
 drawingplane.height = plane.height;
-
-
-function Function_x(t) {
-    return t;
+const Graph = [
+    {
+        Function_x: function(t) {
+            return t;
+        },
+        Function_y: function(t) {
+            return Math.sqrt(t*(t+2)*(t-1));
+        },
+        pRange: {
+            l: -2,
+            r: 0
+        }
+    },
+    {
+        Function_x: function(t) {
+            return t;
+        },
+        Function_y: function(t) {
+            return -Math.sqrt(t*(t+2)*(t-1));
+        },
+        pRange: {
+            l: -2,
+            r: 0
+        }
+    },
+    {
+        Function_x: function(t) {
+            return t;
+        },
+        Function_y: function(t) {
+            return Math.sqrt(t*(t+2)*(t-1));
+        },
+        pRange: {
+            l: 1,
+            r: 5
+        }
+    },
+    {
+        Function_x: function(t) {
+            return t;
+        },
+        Function_y: function(t) {
+            return -Math.sqrt(t*(t+2)*(t-1));
+        },
+        pRange: {
+            l: 1,
+            r: 5
+        }
+    }
+]
+let range= {
+    xl: -20,
+    xr: 20,
+    yl: -20,
+    yr: 20
 }
-function Function_y(t) {
-    return t;
-}
-
-const range = {
-    xl : -10,
-    xr : 10,
-    yl : -10,
-    yr: 10
-};
-
-const pRange = {
-    l : 0,
-    r : 1
-};

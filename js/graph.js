@@ -87,7 +87,7 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
     context.fillStyle = defaultcolour2;
     context.fill();
 }
-function DrawGraphSegment(t_1, t_2, mxerr, context){
+function DrawGraphSegment(t_1, t_2, Function_x, Function_y, mxerr, context){
     const t_m = (t_1 + t_2)/2;
     const p_1 = {
         x: Function_x(t_1),
@@ -113,11 +113,11 @@ function DrawGraphSegment(t_1, t_2, mxerr, context){
         context.lineTo(xunit*p_2.x, yunit*p_2.y);
     }
     else {
-        DrawGraphSegment(t_1, t_m, mxerr, context);
-        DrawGraphSegment(t_m, t_2, mxerr, context);
+        DrawGraphSegment(t_1, t_m, Function_x, Function_y, mxerr, context);
+        DrawGraphSegment(t_m, t_2, Function_x, Function_y, mxerr, context);
     }
 }
-function DrawGraph(t_1, t_2){
+function DrawGraph(t_1, t_2, Function_x, Function_y){
     const canvas = document.getElementById('plane');
     const context = canvas.getContext('2d');
     const ch = canvas.height;
@@ -128,6 +128,6 @@ function DrawGraph(t_1, t_2){
     context.strokeStyle = "Red";
     context.lineWidth = 4;
 
-    DrawGraphSegment(t_1,t_2,0.001, context);
+    DrawGraphSegment(t_1,t_2,Function_x, Function_y, 0.001, context);
     context.stroke();
 }

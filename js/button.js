@@ -304,7 +304,9 @@ submitbutton.addEventListener("click",() => {
         let giveup = false;
         giveupbutton.addEventListener("click", () => {
             giveup = true;
-            DrawGraph(0, 1,Function_x, Function_y);
+            for (let i = 0; i < Graph.length; i++) {
+                DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
+            }
         });
         const nextlevelbutton = document.createElement("button");
         nextlevelbutton.textContent = "Next Level";
