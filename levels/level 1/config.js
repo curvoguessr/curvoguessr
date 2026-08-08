@@ -30,53 +30,17 @@ const Graph = [
             return t;
         },
         Function_y: function(t) {
-            return Math.sqrt(t*(t+2)*(t-1));
-        },
-        pRange: {
-            l: -2,
-            r: 0
-        }
-    },
-    {
-        Function_x: function(t) {
             return t;
         },
-        Function_y: function(t) {
-            return -Math.sqrt(t*(t+2)*(t-1));
-        },
         pRange: {
-            l: -2,
-            r: 0
-        }
-    },
-    {
-        Function_x: function(t) {
-            return t;
-        },
-        Function_y: function(t) {
-            return Math.sqrt(t*(t+2)*(t-1));
-        },
-        pRange: {
-            l: 1,
-            r: 5
-        }
-    },
-    {
-        Function_x: function(t) {
-            return t;
-        },
-        Function_y: function(t) {
-            return -Math.sqrt(t*(t+2)*(t-1));
-        },
-        pRange: {
-            l: 1,
-            r: 5
+            l: -10,
+            r: 10
         }
     }
 ]
 let range= {
-    xl: -20,
-    xr: 20,
-    yl: -20,
-    yr: 20
+    xl: -10,
+    xr: 10,
+    yl: -10,
+    yr: 10
 }

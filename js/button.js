@@ -9,6 +9,8 @@ const eraserbuttonmob = document.getElementById("eraserbuttonmob");
 const undobuttonmob = document.getElementById("undobuttonmob"); 
 const lightbuttonmob = document.getElementById("lightbuttonmob");
 const darkbuttonmob = document.getElementById("darkbuttonmob");
+const images = document.getElementById("drawingbutton");
+const imagesmob = document.getElementById("drawingbuttonmob");
 let is_submit = false;
 const DrawingPlane = document.getElementById("drawingplane");
 const context = DrawingPlane.getContext('2d');
@@ -36,6 +38,8 @@ lightbutton.addEventListener("click",() => {
         defaultcolour1 = "#d6d6d6";
         defaultcolour2 = "#121212";
         defaultcolour3 = "black";
+        const browsertablogo = document.getElementById("browsertablogo");
+        browsertablogo.href = "../../images/logolight.png";
         document.body.style.backgroundColor = defaultcolour1;
         let Error = document.getElementById("error");
         Error.style.color = defaultcolour2;
@@ -96,6 +100,8 @@ darkbutton.addEventListener("click",() => {
         defaultcolour1 = "#121212";
         defaultcolour2 = "#d6d6d6";
         defaultcolour3 = "white";
+        const browsertablogo = document.getElementById("browsertablogo");
+        browsertablogo.href = "../../images/logodark.png";
         document.body.style.backgroundColor = defaultcolour1;
         if(is_submit){
             FindError(mousecoord, defaultcolour2);
@@ -163,6 +169,8 @@ lightbuttonmob.addEventListener("click",() => {
         defaultcolour1 = "#d6d6d6";
         defaultcolour2 = "#121212";
         defaultcolour3 = "black";
+        const browsertablogo = document.getElementById("browsertablogo");
+        browsertablogo.href = "../../images/logolight.png";
         document.body.style.backgroundColor = defaultcolour1;
         let Error = document.getElementById("error");
         Error.style.color = defaultcolour2;
@@ -223,6 +231,8 @@ darkbuttonmob.addEventListener("click",() => {
         defaultcolour1 = "#121212";
         defaultcolour2 = "#d6d6d6";
         defaultcolour3 = "white";
+        const browsertablogo = document.getElementById("browsertablogo");
+        browsertablogo.href = "../images/logodark.png";
         document.body.style.backgroundColor = defaultcolour1;
         if(is_submit){
             FindError(mousecoord, defaultcolour2);
@@ -283,6 +293,12 @@ darkbuttonmob.addEventListener("click",() => {
         //UserDrawing();
     }
 });
+const aftersubmitbutton = document.getElementsByClassName("aftersubmitbutton");
+if(!is_submit){
+    for(let button of aftersubmitbutton){
+        button.style.display = "none";
+    }    
+}
 submitbutton.addEventListener("click",() => {
     document.body.style.cursor = "default";
     mode = "none";
@@ -291,16 +307,15 @@ submitbutton.addEventListener("click",() => {
     }
     else {
         is_submit = true;
+        for(let button of aftersubmitbutton){
+            button.style.display = "";
+        }
         FindError(mousecoord, defaultcolour2);
-        const replaybutton = document.createElement("button");
-        replaybutton.textContent = "Replay";
-        document.body.appendChild(replaybutton);
+        const replaybutton = document.getElementById("replaybutton");
         replaybutton.addEventListener("click",() => {
             location.reload();
         });
-        const giveupbutton = document.createElement("button");
-        giveupbutton.textContent = "Give up";
-        document.body.appendChild(giveupbutton);
+        const giveupbutton = document.getElementById("giveupbutton");
         let giveup = false;
         giveupbutton.addEventListener("click", () => {
             giveup = true;
@@ -308,9 +323,7 @@ submitbutton.addEventListener("click",() => {
                 DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
             }
         });
-        const nextlevelbutton = document.createElement("button");
-        nextlevelbutton.textContent = "Next Level";
-        document.body.appendChild(nextlevelbutton);
+        const nextlevelbutton = document.getElementById("button");
         nextlevelbutton.addEventListener("click", ()=> {
             //edit later
         });
@@ -321,6 +334,20 @@ submitbutton.addEventListener("click",() => {
         penbuttonmob.disabled = true;
         eraserbuttonmob.disabled = true;
         undobuttonmob.disabled = true;
+        penbutton.style.cursor = "default";
+        penbutton.style.opacity = "0.7";
+        penbuttonmob.style.cursor = "default";
+        penbuttonmob.style.opacity = "0.7";
+        eraserbutton.style.cursor = "default";
+        eraserbutton.style.opacity = "0.7";
+        eraserbuttonmob.style.cursor = "default";
+        eraserbuttonmob.style.opacity = "0.7";
+        undobutton.style.cursor = "default";
+        undobutton.style.opacity = "0.7";
+        undobuttonmob.style.cursor = "default";
+        undobuttonmob.style.opacity = "0.7";
+        images.style.filter = "brightness(80%)";
+        imagesmob.style.filter = "brightness(80%)";
     }
 });
 penbutton.addEventListener("click",() => {
@@ -432,10 +459,10 @@ penbuttonmob.addEventListener("click",() => {
         if(mode == "eraser"){
             mode = "pen";
             if(colourmode == "light"){
-                DrawingPlane.style.cursor = "url('../images/pencursorlight.png') 16 16, auto";
+                DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
             }
             if(colourmode == "dark"){
-                DrawingPlane.style.cursor = "url('images/pencursordark.png') 16 16, auto"
+                DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto"
             }
         }
     }

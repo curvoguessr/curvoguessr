@@ -87,7 +87,8 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
     context.fillStyle = defaultcolour2;
     context.fill();
 }
-function DrawGraphSegment(t_1, t_2, Function_x, Function_y, mxerr, context){
+function DrawGraphSegment(t_1, t_2, Function_x, Function_y, mxerr, context, depth=0){
+    const MAX_DEPTH = 30;
     const t_m = (t_1 + t_2)/2;
     const p_1 = {
         x: Function_x(t_1),
@@ -101,6 +102,12 @@ function DrawGraphSegment(t_1, t_2, Function_x, Function_y, mxerr, context){
         x: Function_x(t_2),
         y: Function_y(t_2)
     }
+    if (!isFinite(p_1.x) || !isFinite(p_1.y) || !isFinite(p_2.x) || !isFinite(p_2.y)) {
+        return;
+    }
+    if (!isFinite(p_m.x) || !isFinite(p_m.y)) {
+        return;
+    }
     const mid = {
         x: (p_1.x + p_2.x)/2,
         y: (p_1.y + p_2.y)/2
@@ -108,13 +115,24 @@ function DrawGraphSegment(t_1, t_2, Function_x, Function_y, mxerr, context){
     const dx = (p_m.x-mid.x);
     const dy = (p_m.y-mid.y);
     const error = Math.sqrt(dx*dx+dy*dy);
+    const BOUND = 50;
+    const outside =
+    (p_1.y > BOUND && p_m.y > BOUND && p_2.y > BOUND) ||
+    (p_1.y < -BOUND && p_m.y < -BOUND && p_2.y < -BOUND);
+    if (outside) {
+        return;
+    }
     if (error < mxerr) {
-        context.moveTo(xunit*p_1.x, yunit*p_1.y);
-        context.lineTo(xunit*p_2.x, yunit*p_2.y);
+        context.moveTo(xunit * p_1.x, yunit * p_1.y);
+        context.lineTo(xunit * p_2.x, yunit * p_2.y);
+    }
+    else if (depth == MAX_DEPTH) {
+        context.moveTo(xunit * p_1.x, yunit * p_1.y);
+        context.lineTo(xunit * p_2.x, yunit * p_2.y);
     }
     else {
-        DrawGraphSegment(t_1, t_m, Function_x, Function_y, mxerr, context);
-        DrawGraphSegment(t_m, t_2, Function_x, Function_y, mxerr, context);
+        DrawGraphSegment(t_1, t_m, Function_x, Function_y, mxerr, context, depth+1);
+        DrawGraphSegment(t_m, t_2, Function_x, Function_y, mxerr, context, depth+1);
     }
 }
 function DrawGraph(t_1, t_2, Function_x, Function_y){

@@ -55,8 +55,8 @@ class KD {
 let rootActual = null;
 let rootUser = null;
 let actuallen = 0;
+let allActual = [];
 function InitializeError() {
-    let allActual = [];
     for (let i = 0; i < Graph.length; i++) {
         for (let t = Graph[i].pRange.l; t <= Graph[i].pRange.r; t += 0.005) {
             let p = ({x: Graph[i].Function_x(t), y: Graph[i].Function_y(t)});
@@ -109,18 +109,12 @@ function FindError(mousecoord, colour) {
         error += best.dist;
     }
     rootUser = KD.Build(user);
-    for (let i = 0; i < Graph.length; i++) {
-        for (let t = Graph[i].pRange.l; t < Graph[i].pRange.r; t += (Graph[i].pRange.r-Graph[i].pRange.l)/len) {
-            let p = ({x: Graph[i].Function_x(t), y: Graph[i].Function_y(t)});
-            let best = {dist: Infinity, point: null};
-            KD.Nearest(rootUser, p, best);
-            if (best.dist == Infinity) {
-                console.log("D");
-            }
-            error += best.dist;
-        }
+    for (let i = 0; i < allActual.length; i++) {
+        let best = {dist: Infinity, point: null};
+        KD.Nearest(rootUser, allActual[i], best);
+        error += best.dist;
     }
-    error /= 2*len;
+    error /= (len+actuallen);
     error = Round(error, 2);
     let Error = document.getElementById("error");
     Error.style.color = colour;

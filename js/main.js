@@ -11,10 +11,10 @@ if(colourmode == "dark"){
     Error.style.color = defaultcolour2;
     Error.innerHTML = "Error: "
     if(mode == "pen"){
-        DrawingPlane.style.cursor = "url('images/pencursordark.png') 16 16, auto";
+        DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
     }
     if(mode == "eraser"){
-        DrawingPlane.style.cursor = "url('images/erasercursordark.png') 16 16 auto";
+        DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16 auto";
     }
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
 }
@@ -27,10 +27,10 @@ else {
     Error.style.color = defaultcolour2;
     Error.innerHTML = "Error: "
     if(mode == "pen"){
-        DrawingPlane.style.cursor = "url('images/pencursorlight.png') 16 16, auto";
+        DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
     }
     if(mode == "eraser"){
-        DrawingPlane.style.cursor = "url('images/erasercursorlight.png') 16 16 auto";
+        DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16 auto";
     }
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
 }
