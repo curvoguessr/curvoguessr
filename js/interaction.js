@@ -14,11 +14,11 @@ function SendError(error) {
 }
 function deletepoint(a, i){
     for(let j = 0; j < a.length; j++){
-        if(i < a[j].length){
+        if(i < a[j][0].length){
             a[j][0].splice(i, 1);
             return;
         }
-        i -= a[j].length;
+        i -= a[j][0].length;
     }
 }
 function normalise(a){
@@ -92,6 +92,7 @@ function UserDrawing() {
                 mousecoord.push(event2);
                 unflattened.push([[],drawIndex]);
                 unflattened[unflattened.length-1][0].push(event2);
+                unflattened[unflattened.length-1][0].push(event2);
             }
             if(mode == "eraser"){
                 erasecoord.push(event2);
@@ -99,7 +100,7 @@ function UserDrawing() {
                 eraserunflattened.push([[],drawIndex]);
                 eraserunflattened[eraserunflattened.length-1][0].push(event2);
                 for(let i = 0; i < mousecoord.length; i++){
-                    if(EuclideanDist(mousecoord[i],event2)<=18){
+                    if(EuclideanDist(denormalise(destandardize(mousecoord[i])),denormalise(destandardize(event2)))<=18){
                         mousecoord.splice(i,1);
                         deletepoint(unflattened, i);
                         i--;
@@ -129,7 +130,6 @@ function UserDrawing() {
                 const coalevents = event.getCoalescedEvents();
                 for(const events of coalevents){
                     lazybrush(9,events);
-                    let normalbrush = denormalise(destandardize(brush));
                     if(mode == "pen"){
                         mousecoord.push({x:brush.x,y:brush.y});
                         unflattened[unflattened.length - 1][0].push({x:brush.x,y:brush.y});
@@ -137,9 +137,8 @@ function UserDrawing() {
                     if(mode == "eraser"){
                         erasecoord.push({x:brush.x,y:brush.y});
                         eraserunflattened[eraserunflattened.length - 1][0].push({x : brush.x, y : brush.y});
-                        let events2 = standardize(normalise(getCoordinates(events)));
                         for(let i = 0; i < mousecoord.length; i++){
-                            if(EuclideanDist(mousecoord[i],events2)<=18){
+                            if(EuclideanDist(denormalise(destandardize(mousecoord[i])),denormalise(destandardize(brush)))<=18){
                                 mousecoord.splice(i,1);
                                 deletepoint(unflattened, i);
                                 i--;
