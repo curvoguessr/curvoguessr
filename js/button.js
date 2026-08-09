@@ -310,7 +310,7 @@ submitbutton.addEventListener("click",() => {
         for(let button of aftersubmitbutton){
             button.style.display = "";
         }
-        FindError(mousecoord, defaultcolour2);
+        FindError(mousecoord, unflattened, defaultcolour2);
         const replaybutton = document.getElementById("replaybutton");
         replaybutton.addEventListener("click",() => {
             location.reload();
