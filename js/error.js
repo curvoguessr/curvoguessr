@@ -133,12 +133,11 @@ function FindError(mousecoord, unflattened, colour) {
     let error = (errorUser + errorActual)/2;
     let errorDist = Math.max(distActual/distUser, distUser/distActual);
     error *= errorDist;
-    console.log(error);
 
     let k = 0.2;
     let accuracy = 100*Math.exp(-k*error);
     accuracy = Math.round(accuracy*100)/100;
-    let Error = document.getElementById("error");
-    Error.style.color = colour;
-    Error.innerHTML = "Accuracy: " + accuracy.toString();
+    let Accuracy = document.getElementById("accuracy");
+    Accuracy.style.color = colour;
+    Accuracy.innerHTML = "Accuracy: " + accuracy.toString();
 }

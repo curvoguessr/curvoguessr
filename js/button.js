@@ -41,8 +41,8 @@ lightbutton.addEventListener("click",() => {
         const browsertablogo = document.getElementById("browsertablogo");
         browsertablogo.href = "../../images/logolight.png";
         document.body.style.backgroundColor = defaultcolour1;
-        let Error = document.getElementById("error");
-        Error.style.color = defaultcolour2;
+        let Accuracy = document.getElementById("accuracy");
+        Accuracy.style.color = defaultcolour2;
         if(mode == "pen"){
             DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
         }
@@ -107,9 +107,9 @@ darkbutton.addEventListener("click",() => {
             FindError(mousecoord, defaultcolour2);
         }
         else{
-            let Error = document.getElementById("error");
-            Error.style.color = defaultcolour2;
-            Error.innerHTML = "Error: "
+            let Accuracy = document.getElementById("accuracy");
+            Accuracy.style.color = defaultcolour2;
+            Accuracy.innerHTML = "Accuracy: "
             if(mode == "pen"){
                 DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
             }
@@ -172,8 +172,8 @@ lightbuttonmob.addEventListener("click",() => {
         const browsertablogo = document.getElementById("browsertablogo");
         browsertablogo.href = "../../images/logolight.png";
         document.body.style.backgroundColor = defaultcolour1;
-        let Error = document.getElementById("error");
-        Error.style.color = defaultcolour2;
+        let Accuracy = document.getElementById("accuracy");
+        Accuracy.style.color = defaultcolour2;
         if(mode == "pen"){
             DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
         }
@@ -238,9 +238,9 @@ darkbuttonmob.addEventListener("click",() => {
             FindError(mousecoord, defaultcolour2);
         }
         else{
-            let Error = document.getElementById("error");
-            Error.style.color = defaultcolour2;
-            Error.innerHTML = "Error: "
+            let Accuracy = document.getElementById("accuracy");
+            Accuracy.style.color = defaultcolour2;
+            Accuracy.innerHTML = "Accuracy: "
             if(mode == "pen"){
                 DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
             }
