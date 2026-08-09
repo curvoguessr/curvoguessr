@@ -122,7 +122,7 @@ function FindError(mousecoord, unflattened, colour) {
         KD.Nearest(rootActual, user[i], best);
         errorUser += best.dist;
     }
-    rootUser = KD.Build(user);
+    let rootUser = KD.Build(user);
     for (let i = 0; i < allActual.length; i++) {
         let best = {dist: Infinity, point: null};
         KD.Nearest(rootUser, allActual[i], best);
@@ -133,9 +133,12 @@ function FindError(mousecoord, unflattened, colour) {
     let error = (errorUser + errorActual)/2;
     let errorDist = Math.max(distActual/distUser, distUser/distActual);
     error *= errorDist;
-    error *= 10;
-    error = Math.round(error*100)/100;
+    console.log(error);
+
+    let k = 0.2;
+    let accuracy = 100*Math.exp(-k*error);
+    accuracy = Math.round(accuracy*100)/100;
     let Error = document.getElementById("error");
     Error.style.color = colour;
-    Error.innerHTML = "Error: " + error.toString();
+    Error.innerHTML = "Accuracy: " + accuracy.toString();
 }
