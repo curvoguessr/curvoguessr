@@ -1,17 +1,4 @@
 let errorTimeout = null;
-function SendError(error) {
-    let box = document.getElementById("error-box");
-    box.textContent = error;
-    box.style.display = "block";
-    box.style.opacity = "1";
-    clearTimeout(errorTimeout);
-    errorTimeout = setTimeout(() => {
-        box.style.opacity = "0";
-        setTimeout(() => {
-            box.style.display = "none";
-        }, 300);
-    }, 3000)
-}
 function deletepoint(a, i){
     for(let j = 0; j < a.length; j++){
         if(i < a[j].length){
@@ -130,12 +117,6 @@ function UserDrawing() {
                 for(const events of coalevents){
                     lazybrush(9,events);
                     let normalbrush = denormalise(destandardize(brush));
-                    let brushCheck = Convert(normalbrush);
-                    if (brushCheck.x < range.xl || brushCheck.x > range.xr || brushCheck.y < range.yl || brushCheck.y > range.yr) {
-                        SendError("Drawing out of range!");
-                        inRange = false;
-                        break;
-                    }
                     if(mode == "pen"){
                         mousecoord.push({x:brush.x,y:brush.y});
                         unflattened[unflattened.length - 1][0].push({x:brush.x,y:brush.y});
