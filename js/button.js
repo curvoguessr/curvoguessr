@@ -12,6 +12,7 @@ const darkbuttonmob = document.getElementById("darkbuttonmob");
 const images = document.getElementById("drawingbutton");
 const imagesmob = document.getElementById("drawingbuttonmob");
 let is_submit = false;
+let giveup = false;
 const DrawingPlane = document.getElementById("drawingplane");
 const context = DrawingPlane.getContext('2d');
 const rect = DrawingPlane.getBoundingClientRect();
@@ -316,7 +317,6 @@ submitbutton.addEventListener("click",() => {
             location.reload();
         });
         const giveupbutton = document.getElementById("giveupbutton");
-        let giveup = false;
         giveupbutton.addEventListener("click", () => {
             giveup = true;
             for (let i = 0; i < Graph.length; i++) {

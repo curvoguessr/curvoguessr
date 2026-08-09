@@ -126,6 +126,11 @@ window.addEventListener("resize",()=>{
         }
         context.stroke();
     }
+    if (giveup) {
+        for (let i = 0; i < Graph.length; i++) {
+            DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
+        }
+    }
 });
 
 InitializeError();
