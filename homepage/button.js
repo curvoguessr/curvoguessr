@@ -51,7 +51,7 @@ if(colourmode == "dark"){
     welcometexttopborder.style.backgroundColor = defaultcolour2;
     welcometextbottomborder.style.backgroundColor = defaultcolour2;
     const browsertablogo = document.getElementById("browsertablogo");
-    browsertablogo.href = "../images/logodark.png";
+    browsertablogo.href = "images/logodark.png";
 }
 else {
     colourmode = "light";
@@ -63,7 +63,7 @@ else {
     welcometexttopborder.style.backgroundColor = defaultcolour2;
     welcometextbottomborder.style.backgroundColor = defaultcolour2;
     const browsertablogo = document.getElementById("browsertablogo");
-    browsertablogo.href = "../images/logolight.png";
+    browsertablogo.href = "images/logolight.png";
 }
 tutorialbutton.addEventListener("click",() => {
     if(isTutorial == false){
@@ -132,7 +132,7 @@ lightbutton.addEventListener("click",() => {
         welcometexttopborder.style.backgroundColor = defaultcolour2;
         welcometextbottomborder.style.backgroundColor = defaultcolour2;
         const browsertablogo = document.getElementById("browsertablogo");
-        browsertablogo.href = "../images/logolight.png"
+        browsertablogo.href = "images/logolight.png"
     }
 });
 lightbuttontab.addEventListener("click",() => {
@@ -146,7 +146,7 @@ lightbuttontab.addEventListener("click",() => {
         welcometexttopborder.style.backgroundColor = defaultcolour2;
         welcometextbottomborder.style.backgroundColor = defaultcolour2;
         const browsertablogo = document.getElementById("browsertablogo");
-        browsertablogo.href = "../images/logolight.png"
+        browsertablogo.href = "images/logolight.png"
     }
 });
 darkbutton.addEventListener("click",() => {
@@ -160,7 +160,7 @@ darkbutton.addEventListener("click",() => {
         welcometexttopborder.style.backgroundColor = defaultcolour2;
         welcometextbottomborder.style.backgroundColor = defaultcolour2;
         const browsertablogo = document.getElementById("browsertablogo");
-        browsertablogo.href = "../images/logodark.png"   
+        browsertablogo.href = "images/logodark.png"   
     }
 });
 darkbuttontab.addEventListener("click",() => {
@@ -176,77 +176,77 @@ darkbuttontab.addEventListener("click",() => {
     }
 });
 lvl1button.addEventListener("click",()=>{
-    window.open("../levels/level1/index.html", "_blank");
+    window.open("levels/level1/index.html", "_blank");
 });
 lvl2button.addEventListener("click",()=>{
-    window.open("../levels/level2/index.html", "_blank");
+    window.open("levels/level2/index.html", "_blank");
 });
 lvl3button.addEventListener("click",()=>{
-    window.open("../levels/level3/index.html", "_blank");
+    window.open("levels/level3/index.html", "_blank");
 });
 lvl4button.addEventListener("click",()=>{
-    window.open("../levels/level4/index.html", "_blank");
+    window.open("levels/level4/index.html", "_blank");
 });
 lvl5button.addEventListener("click",()=>{
-    window.open("../levels/level5/index.html", "_blank");
+    window.open("levels/level5/index.html", "_blank");
 });
 lvl6button.addEventListener("click",()=>{
-    window.open("../levels/level6/index.html", "_blank");
+    window.open("levels/level6/index.html", "_blank");
 });
 lvl7button.addEventListener("click",()=>{
-    window.open("../levels/level7/index.html", "_blank");
+    window.open("levels/level7/index.html", "_blank");
 });
 lvl8button.addEventListener("click",()=>{
-    window.open("../levels/level8/index.html", "_blank");
+    window.open("levels/level8/index.html", "_blank");
 });
 lvl9button.addEventListener("click",()=>{
-    window.open("../levels/level9/index.html", "_blank");
+    window.open("levels/level9/index.html", "_blank");
 });
 lvl10button.addEventListener("click",()=>{
-    window.open("../levels/level10/index.html", "_blank");
+    window.open("levels/level10/index.html", "_blank");
 });
 lvl11button.addEventListener("click",()=>{
-    window.open("../levels/level11/index.html", "_blank");
+    window.open("levels/level11/index.html", "_blank");
 });
 lvl12button.addEventListener("click",()=>{
-    window.open("../levels/level12/index.html", "_blank");
+    window.open("levels/level12/index.html", "_blank");
 });
 lvl13button.addEventListener("click",()=>{
-    window.open("../levels/level13/index.html", "_blank");
+    window.open("levels/level13/index.html", "_blank");
 });
 lvl14button.addEventListener("click",()=>{
-    window.open("../levels/level14/index.html", "_blank");
+    window.open("levels/level14/index.html", "_blank");
 });
 lvl15button.addEventListener("click",()=>{
-    window.open("../levels/level15/index.html", "_blank");
+    window.open("levels/level15/index.html", "_blank");
 });
 lvl16button.addEventListener("click",()=>{
-    window.open("../levels/level16/index.html", "_blank");
+    window.open("levels/level16/index.html", "_blank");
 });
 lvl17button.addEventListener("click",()=>{
-    window.open("../levels/level17/index.html", "_blank");
+    window.open("levels/level17/index.html", "_blank");
 });
 lvl18button.addEventListener("click",()=>{
-    window.open("../levels/level18/index.html", "_blank");
+    window.open("levels/level18/index.html", "_blank");
 });
 lvl19button.addEventListener("click",()=>{
-    window.open("../levels/level19/index.html", "_blank");
+    window.open("levels/level19/index.html", "_blank");
 });
 lvl20button.addEventListener("click",()=>{
-    window.open("../levels/level20/index.html", "_blank");
+    window.open("levels/level20/index.html", "_blank");
 });
 lvl21button.addEventListener("click",()=>{
-    window.open("../levels/level21/index.html", "_blank");
+    window.open("levels/level21/index.html", "_blank");
 });
 lvl22button.addEventListener("click",()=>{
-    window.open("../levels/level22/index.html", "_blank");
+    window.open("levels/level22/index.html", "_blank");
 });
 lvl23button.addEventListener("click",()=>{
-    window.open("../levels/level23/index.html", "_blank");
+    window.open("levels/level23/index.html", "_blank");
 });
 lvl24button.addEventListener("click",()=>{
-    window.open("../levels/level24/index.html", "_blank");
+    window.open("levels/level24/index.html", "_blank");
 });
 lvl25button.addEventListener("click",()=>{
-    window.open("../levels/level25/index.html", "_blank");
+    window.open("levels/level25/index.html", "_blank");
 });
