@@ -8,113 +8,207 @@
     position: absolute;
     display: block;
 } */
-.centerthings{
-    position:relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
- }
- #canvas{
-    position: relative;
-    /* width: min(80vw,88vh);
-    height: min(80vh,101.6vw); */
- }
- #plane, #drawingplane{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
- }
- #submitbutton{
-    margin-top: 2%;
-    width: auto;
-    height: auto;
-    white-space: normal;
-    /* font-size: 2vw; */
- }
- #error{
-    margin-top: 5vh;
- }
+:root{
+    --gap: 0px;
+}
  @media(max-width:768px){
+    .centerthings{
+        position:relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        min-height: 100vh;
+        justify-content: center;
+        transform : translateY(calc(min(4.8vw,66.64px) + 10px));
+    }
+    #canvas{
+        position: relative;
+        margin-bottom: 1vh;
+        /* width: min(80vw,88vh);
+        height: min(80vh,101.6vw); */
+    }
+    #plane, #drawingplane{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    #submitbutton{
+        margin-top: 2%;
+        width: auto;
+        height: auto;
+        white-space: normal;
+        /* font-size: 2vw; */
+    }
+    #error{
+        margin-top: 5vh;
+    }
     #smthg{
         display: none;
     }
     #penbutton, #eraserbutton, #undobutton, #lightbutton, #darkbutton{
         pointer-events: none;
     }
+    .buttonsmob{
+        pointer-events: none;
+    }
+    .buttonimgmob{
+        pointer-events: auto;
+        cursor: pointer;
+    }
     .centerthings{
-        margin-top: 9vh;
+        margin-top: -1vh;
     }
     #error{
         margin-top: 1vh;
     }
-    #smthgmob{
+    .buttonsmob{
         background: none;
         border: none;
         padding: 0;
-        cursor: pointer;
+    }
+    #smthgmob{
         display: flex;
-        position: fixed;
-        top: 0;
+        position: absolute;
+        top: 4px;
         left: 0;
-        width: 100vw;
-        gap:4vw;
+        width: calc(100vw - 20px);
+        gap:calc(1.8vw - 2px);
     }
     .buttonimgmob{
         display: block;
-        height: 4vw;
+        height: min(8vw,47px);
         width: auto;
     }
     #lightbuttonmob{
         margin-left: auto;
     }
+    #equation{
+        height: min(8vw,47px);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    #lvlicon{
+        height: min(8vw,47px);
+    }
  }
- @media(min-width:768px){
+ @media(min-width:769px){
+    .centerthings{
+        margin-top : calc(min(4.8vw,66.64px) + 10px);
+        position:relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #canvas{
+        position: relative;
+        margin-bottom: 1vh;
+        /* width: min(80vw,88vh);
+        height: min(80vh,101.6vw); */
+    }
+    #plane, #drawingplane{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    #submitbutton{
+        margin-top: 2%;
+        width: auto;
+        height: auto;
+        white-space: normal;
+        /* font-size: 2vw; */
+    }
+    #error{
+        font-size: min(4vw,51.24px);
+        margin-top: 5vh;
+    }
     #smthgmob{
         display: none;
     }
     #penbuttonmob, #eraserbuttonmob, #undobuttonmob, #lightbuttonmob, #darkbuttonmob{
         pointer-events: none;
     }
-    #smthg1{
-        background: none;
-        border: none;
-        padding: 0;
+    .imgbuttons{
+        pointer-events: none;
+    }
+    .buttonimg{
+        pointer-events: auto;
         cursor: pointer;
+    }
+    #smthg1{
         display: flex;
         flex-direction: column;
         position: fixed;
         top: 0;
         left: 0;
-        gap:4vw;
+        gap:2.5vh;
+    }
+    .imgbuttons{
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
     }
     #smthg2{
         display: flex;
         flex-direction: column;
         position: fixed;
-        top: 0;
-        right: 0;
-        gap:4vw;
+        top: min(1vw,15px);
+        right: 20px;
+        gap:0.75vw;
     }
     .buttonimg{
         display: block;
-        width: 6vw;
+        width: min(4.8vw,66.64px);
         height: auto;
+    }
+    #lvlicon{
+        width: min(7.2vw,99.96px);
+        height: auto;
+    }
+ }
+ /* @media(min-width:824px){
+    #submitbutton{
+        font-size: min(30px,2.4vw);
+    }
+    .aftersubmitbutton{
+        font-size: min(30px,2.4vw);
+    }
+ }
+ @media(min-width-824px) and (max-width:969px){
+    #submitbutton{
+        font-size: 3vw;
+    }
+    .aftersubmitbutton{
+        font-size: 3vw;
     }
  }
  @media(max-width: 449px){
     #submitbutton{
         font-size:4.5vw;
     }
+    .aftersubmitbutton{
+        font-size: 4.5vw;
+    }
  }
  @media(min-width: 449px) and (max-width:515px){
     #submitbutton{
         font-size:4vw;
     }
+    .aftersubmitbutton{
+        font-size: 4vw;
+    }
  }
  @media(min-width: 514px) and (max-width:680px){
     #submitbutton{
+        font-size: 3vw;
+    }
+    .aftersubmitbutton{
         font-size: 3vw;
     }
  }
@@ -122,18 +216,31 @@
     #submitbutton{
         font-size: 3.1vw;
     }
+    .aftersubmitbutton{
+        font-size: 3.1vw;
+    }
  }
  @media(min-width: 794px) and (max-width : 823px){
     #submitbutton{
         font-size: 2.9vw;
     }
- }
- @media(min-width: 823px){
-    #submitbutton{
-        font-size: 23.867px;
+    .aftersubmitbutton{
+        font-size: 2.9vw;
     }
- }
- 
+ } */
+#submitbutton{
+    font-size: 3vh;
+    margin-bottom: 1vh;
+  }
+.aftersubmitbutton{
+    font-size: 3vh;
+}
+#replaybutton{
+    width: 120px;
+}
+#nextlevelbutton{
+    width: 120px;
+}
  #plane{
     z-index: 1;
  }
@@ -163,4 +270,24 @@
     
     display: none;
     opacity: 0;
+}
+#accuracy{
+    font-size: 4.5vh;
+}
+#equation{
+    font-size: calc(min(60px,3 * (1vw + 1vh)/2));
+    transform: translateY(-37px) ;
+    border: 2px solid #DED019;
+    background-color: #FFF001;
+    /* border: 2px solid #FFF001;
+    background-color: #DED019;; */
+    padding-left:3vw;
+    padding-right: 3vw;
+    border-radius: calc((1vw + 1vh));
+}
+#submitbutton{
+    cursor: pointer;
+}
+.aftersubmitbutton{
+    cursor: pointer;
 }
