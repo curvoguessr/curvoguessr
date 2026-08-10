@@ -5,28 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="icon" id = "browsertablogo" type="image/png" href="../../images/logolight.png">
 </head>
 <body>
     <div class="centerthings">
+        <div id = "equation"></div>
         <div id = "canvas">
             <canvas id="plane"></canvas>
             <canvas id="drawingplane"></canvas>
         </div>
-        <button type = "button" class = "buttons" id = "submitbutton">
-            Submit
-        </button>
+        <div>
+            <button type = "button" class = "buttons" id = "submitbutton">
+                Submit
+            </button>
+        </div>
         <div>
             <button id = "replaybutton" class ="aftersubmitbutton">Replay</button>
-            <button id = "giveupbutton" class = "aftersubmitbutton">GiveUp</button>
-            <button id="nextlevelbutton" class="aftersubmitbutton" onclick="window.location.href='../level22/index.html'">Next</button>
+            <button id = "giveupbutton" class = "aftersubmitbutton">Giveup</button>
+            <button id = "nextlevelbutton" class = "aftersubmitbutton">Next</button>
         </div>
         <h1 style = "text-align: center" id = "accuracy" >Accuracy: </h1>
     </div>
     <div id = "smthg">
         <div id = "smthg1">
-            <img src = "../../images/lvl21.png" id = "lvlicon">
+            <img src = "../../images/lvl1.png" id = "lvlicon">
             <button type = "button" class = "imgbuttons" id = "penbutton">
                 <img src = "../../images/pen.png"; class = "drawinggbutton buttonimg">
             </button>
@@ -47,6 +51,7 @@
         </div>
     </div>
     <div id = "smthgmob">
+        <img src = "../../images/lvl1.png" id = "lvlicon">
         <button type = "button" class = "buttonsmob" id = "penbuttonmob">
             <img src = "../../images/pen.png" class = "drawingbuttonmob buttonimgmob">
         </button>
@@ -63,7 +68,8 @@
             <img src = "../../images/darkmode.png" class = "buttonimgmob">
         </button>
     </div>
-    <div id="error-box"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
     <script src="config.js"></script>
     <script src="../../js/math.js"></script>
     <script src="../../js/graph.js"></script>
