@@ -1,10 +1,45 @@
-# curvoguessr
-## curve prediction game
-A web-based game where players are given an equation and a partially revealed graph, they must predict and draw the remainder of the curve within a fixed region of the Cartesian plane. Their drawing is then compared to the actual graph, and they receive an accuracy score based on how closely their prediction matches the correct curve.
-The game will have graphs of varying difficulty. For an added challenge, players can choose to hide the partially revealed graph and only use the equation to predict the curve.
+# CurvoGuessr
 
-## features
-- multiple difficulty levels
-- interactive graph drawing
-- accuracy based scoring
+CurvoGuessr is an interactive game where you try to recreate mathematical curves by drawing them.
+You will be shown an equation, and you must draw what you think it'll look like on the Cartesian plane. You'll get an accuracy score based on how closely your drawing matches the actual curve. Play through a variety of levels and test your intuition!
 
+## How to Play
+
+1. Choose a level.
+2. Look at the given mathematical curve.
+3. Draw the curve on the coordinate plane.
+4. Submit your drawing.
+5. Your drawing is compared with the target curve and given an accuracy score.
+
+## Website
+
+Play CurvoGuessr here:
+
+https://curvoguessr.github.io/curvoguessr/
+
+## Features
+
+- Interactive graphing interface
+- Multiple levels with increasing difficulty
+- Automatic comparison between the user's drawing and the target curve
+- Accuracy scoring
+
+## Technologies
+
+- HTML
+- CSS
+- JavaScript
+
+## Project Structure
+
+```text
+curvoguessr/
+├── index.html
+├── ...
+├── levels/
+│   ├── level1/
+│   │   └── index.html
+│   ├── level2/
+│   │   └── index.html
+│   └── ...
+└── README.md
