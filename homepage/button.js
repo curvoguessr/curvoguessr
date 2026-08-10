@@ -172,9 +172,7 @@ darkbuttontab.addEventListener("click",() => {
         document.body.style.backgroundColor = defaultcolour1;     
         welcometext.style.color = defaultcolour2;
         welcometexttopborder.style.backgroundColor = defaultcolour2;
-        welcometextbottomborder.style.backgroundColor = defaultcolour2;
-        const browsertablogo = document.getElementById("browsertablogo");
-        browsertablogo.href = "../images/logodark.png"    
+        welcometextbottomborder.style.backgroundColor = defaultcolour2;    
     }
 });
 lvl1button.addEventListener("click",()=>{
