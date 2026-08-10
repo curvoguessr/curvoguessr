@@ -1,17 +1,3 @@
-let errorTimeout = null;
-function SendError(error) {
-    let box = document.getElementById("error-box");
-    box.textContent = error;
-    box.style.display = "block";
-    box.style.opacity = "1";
-    clearTimeout(errorTimeout);
-    errorTimeout = setTimeout(() => {
-        box.style.opacity = "0";
-        setTimeout(() => {
-            box.style.display = "none";
-        }, 300);
-    }, 3000)
-}
 function deletepoint(a, i){
     for(let j = 0; j < a.length; j++){
         if(i < a[j][0].length){

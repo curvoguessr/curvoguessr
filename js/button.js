@@ -307,10 +307,6 @@ submitbutton.addEventListener("click",() => {
                 DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
             }
         });
-        const nextlevelbutton = document.getElementById("button");
-        nextlevelbutton.addEventListener("click", ()=> {
-            //edit later
-        });
         
         penbutton.disabled = true;
         eraserbutton.disabled = true;
@@ -349,10 +345,6 @@ submitbutton.addEventListener("click",() => {
             for (let i = 0; i < Graph.length; i++) {
                 DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
             }
-        });
-        const nextlevelbutton = document.getElementById("button");
-        nextlevelbutton.addEventListener("click", ()=> {
-            //edit later
         });
         
         penbutton.disabled = true;
