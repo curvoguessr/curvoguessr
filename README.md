@@ -1,6 +1,5 @@
 # CurvoGuessr
 
-CurvoGuessr is an interactive game where you try to recreate mathematical curves by drawing them.
 You will be shown an equation, and you must draw what you think it'll look like on the Cartesian plane. You'll get an accuracy score based on how closely your drawing matches the actual curve. Play through a variety of levels and test your intuition!
 
 ## How to Play
