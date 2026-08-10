@@ -10,8 +10,9 @@ if(vw>1.1*vh){
 if(vh>1.2*vw){
     vh = 1.2*vw;
 }
-let subxunit = 2*vw;
-let subyunit = 2*vh;
+let scale = 2;
+let subxunit = scale*vw;
+let subyunit = scale*vh;
 
 let xunit = 2*subxunit;
 let yunit = 2*subyunit;

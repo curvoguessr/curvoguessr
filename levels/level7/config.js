@@ -9,8 +9,9 @@ if(vw>1.1*vh){
 if(vh>1.2*vw){
     vh = 1.2*vw;
 }
-let subxunit = 2*vw;
-let subyunit = 2*vh;
+let scale = 2;
+let subxunit = scale*vw;
+let subyunit = scale*vh;
 
 let xunit = 2*subxunit;
 let yunit = 2*subyunit;
@@ -24,7 +25,9 @@ plane.width = cw;
 drawingplane.width = plane.width;
 plane.height = ch;
 drawingplane.height = plane.height;
-const mod = (n, d) => ((n % d) + d) % d;
+function mod(n, d) {
+    return (n%d + d)%d;
+}
 const Graph = [
 ]
 
@@ -35,9 +38,7 @@ for (let i = -10; i <= 10; i++) {
         },
         Function_y: function(t) {
             t2 = Math.round(t);
-            if (mod(t2,12)==0) return 12;
             if (mod(t2,6)==0) return 6;
-            if (mod(t2,4)==0) return 4;
             if (mod(t2,3)==0) return 3;
             if (mod(t2,2)==0) return 2;
             return 1;

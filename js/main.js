@@ -66,8 +66,8 @@ window.addEventListener("resize",()=>{
     if(vh>1.2*vw){
         vh = 1.2*vw;
     }
-    subxunit = 2*vw;
-    subyunit = 2*vh;
+    subxunit = scale*vw;
+    subyunit = scale*vh;
 
     xunit = 2*subxunit;
     yunit = 2*subyunit;

@@ -9,8 +9,10 @@ if(vw>1.1*vh){
 if(vh>1.2*vw){
     vh = 1.2*vw;
 }
-let subxunit = 2*vw;
-let subyunit = 2*vh;
+
+let scale = 5;
+let subxunit = scale*vw;
+let subyunit = scale*vh;
 
 let xunit = 2*subxunit;
 let yunit = 2*subyunit;
@@ -27,36 +29,56 @@ drawingplane.height = plane.height;
 let Graph = [
     {
         Function_x: function(t) {
-            let cos = Math.cos(t);
-            return Math.sqrt(29)*cos/2;
+            return t;
         },
         Function_y: function(t) {
-            let sin = Math.sin(t);
-            return 0.5 + Math.sqrt(29)*sin;
+            return t;
         },
         pRange: {
-            l: 0,
-            r: 2*Math.PI
+            l: -4,
+            r: 4
         }
     },
     {
         Function_x: function(t) {
-            let cos = Math.cos(t);
-            return Math.sqrt(29)*cos/2;
+            return t;
         },
         Function_y: function(t) {
-            let sin = Math.sin(t);
-            return -0.5 + Math.sqrt(29)*sin;
+            return -t;
         },
         pRange: {
-            l: 0,
-            r: 2*Math.PI
+            l: -4,
+            r: 4
         }
-    }   
+    },
+    {
+        Function_x: function(t) {
+            return 0;
+        },
+        Function_y: function(t) {
+            return t;
+        },
+        pRange: {
+            l: -4,
+            r: 4
+        }
+    },
+    {
+        Function_x: function(t) {
+            return t;
+        },
+        Function_y: function(t) {
+            return 0;
+        },
+        pRange: {
+            l: -4,
+            r: 4
+        }
+    }
 ]
 let range= {
-    xl: -10,
-    xr: 10,
-    yl: -10,
-    yr: 10
+    xl: -4,
+    xr: 4,
+    yl: -4,
+    yr: 4
 }
