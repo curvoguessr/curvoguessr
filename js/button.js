@@ -403,7 +403,6 @@ eraserbutton.addEventListener("click",() => {
         }
     }
 });
-
 undobutton.addEventListener("click", ()=>{
     let mx = 0;
     for (let i = 0; i < unflattened.length; i++) {
