@@ -33,12 +33,45 @@ https://curvoguessr.github.io/curvoguessr/
 
 ```text
 curvoguessr/
+├── css/
+│   └── style.css
+├── fonts/
+│   ├── Bodoni.ttf
+│   └── font
+├── homepage/
+│   ├── button.js
+│   └── style.css
+├── images/
+│   ├── darkmode.png
+│   ├── eraser.png
+│   ├── erasercursordark.png
+│   ├── erasercursorlight.png
+│   ├── lightmode.png
+│   ├── logo.png
+│   ├── pen.png
+│   ├── pencursordark.png
+│   ├── pencursorlight.png
+│   ├── questionmark.png
+│   ├── undo.png
+│   ├── lvl1.png
+│   ├── lvl2.png
+│   └── ...
 ├── index.html
-├── ...
+├── js/
+│   ├── button.js
+│   ├── config.js
+│   ├── error.js
+│   ├── graph.js
+│   ├── interaction.js
+│   ├── main.js
+│   └── math.js
 ├── levels/
 │   ├── level1/
+│   │   ├── config.js
 │   │   └── index.html
 │   ├── level2/
+│   │   ├── config.js
 │   │   └── index.html
 │   └── ...
 └── README.md
+```
