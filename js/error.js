@@ -139,5 +139,5 @@ function FindError(mousecoord, unflattened, colour) {
     accuracy = Math.round(accuracy*100)/100;
     let Accuracy = document.getElementById("accuracy");
     Accuracy.style.color = colour;
-    Accuracy.innerHTML = "Accuracy: " + accuracy.toString();
+    Accuracy.innerHTML = "Accuracy: " + accuracy.toString() + "%";
 }
