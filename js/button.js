@@ -51,7 +51,7 @@ lightbutton.addEventListener("click",() => {
             DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
         }
         context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
-        DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
+        DrawAxis(subxunit, xunit,cw,subyunit,yunit,ch);
         context.globalCompositeOperation = "source-over";
         context.lineWidth = 3;
         context.lineCap = "round";
@@ -104,21 +104,14 @@ darkbutton.addEventListener("click",() => {
         const browsertablogo = document.getElementById("browsertablogo");
         browsertablogo.href = "../../images/logodark.png";
         document.body.style.backgroundColor = defaultcolour1;
-        if(is_submit){
-            FindError(mousecoord, defaultcolour2);
+        let accuracy = document.getElementById("accuracy");
+        accuracy.style.color = defaultcolour2;
+        if(mode == "pen"){
+            DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
         }
-        else{
-            let Accuracy = document.getElementById("accuracy");
-            Accuracy.style.color = defaultcolour2;
-            Accuracy.innerHTML = "Accuracy: "
-            if(mode == "pen"){
-                DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
-            }
-            if(mode == "eraser"){
-                DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
-            }
+        if(mode == "eraser"){
+            DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
         }
-        //invertcolor(DrawingPlane);
         context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         context.globalCompositeOperation = "source-over";
@@ -130,7 +123,7 @@ darkbutton.addEventListener("click",() => {
             context.beginPath();
             for(let j = 0; j < unflattened[i][0].length; j++){
                 if(j == 0){
-                    context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x, denormalise(destandardize(unflattened[i][0][0])).y);
+                    context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
                 }
                 if(1<=j && j<2){
                     context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
@@ -160,7 +153,6 @@ darkbutton.addEventListener("click",() => {
             }
             context.stroke();
         }
-        //UserDrawing();
     }
 });
 lightbuttonmob.addEventListener("click",() => {
@@ -173,8 +165,8 @@ lightbuttonmob.addEventListener("click",() => {
         const browsertablogo = document.getElementById("browsertablogo");
         browsertablogo.href = "../../images/logolight.png";
         document.body.style.backgroundColor = defaultcolour1;
-        let Accuracy = document.getElementById("accuracy");
-        Accuracy.style.color = defaultcolour2;
+        let accuracy = document.getElementById("accuracy");
+        accuracy.style.color = defaultcolour2;
         if(mode == "pen"){
             DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
         }
@@ -233,23 +225,16 @@ darkbuttonmob.addEventListener("click",() => {
         defaultcolour2 = "#d6d6d6";
         defaultcolour3 = "white";
         const browsertablogo = document.getElementById("browsertablogo");
-        browsertablogo.href = "../images/logodark.png";
+        browsertablogo.href = "../../images/logodark.png";
         document.body.style.backgroundColor = defaultcolour1;
-        if(is_submit){
-            FindError(mousecoord, defaultcolour2);
-        }
-        else{
-            let Accuracy = document.getElementById("accuracy");
-            Accuracy.style.color = defaultcolour2;
-            Accuracy.innerHTML = "Accuracy: "
-            if(mode == "pen"){
+        let accuracy = document.getElementById("accuracy");
+        accuracy.style.color = defaultcolour2;
+        if(mode == "pen"){
                 DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
-            }
-            if(mode == "eraser"){
-                DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
-            }
         }
-        //invertcolor(DrawingPlane);
+        if(mode == "eraser"){
+                DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
+        }
         context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         context.globalCompositeOperation = "source-over";
@@ -261,7 +246,7 @@ darkbuttonmob.addEventListener("click",() => {
             context.beginPath();
             for(let j = 0; j < unflattened[i][0].length; j++){
                 if(j == 0){
-                    context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x, denormalise(destandardize(unflattened[i][0][0])).y);
+                    context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
                 }
                 if(1<=j && j<2){
                     context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
@@ -304,7 +289,49 @@ submitbutton.addEventListener("click",() => {
     document.body.style.cursor = "default";
     mode = "none";
     if (mousecoord.length == 0) {
-        SendError("Draw something to submit!");   
+         is_submit = true;
+        for(let button of aftersubmitbutton){
+            button.style.display = "";
+        }
+        let Accuracy = document.getElementById("accuracy");
+        Accuracy.style.color = defaultcolour2;
+        Accuracy.innerHTML = "Accuracy: " + 0;
+        const replaybutton = document.getElementById("replaybutton");
+        replaybutton.addEventListener("click",() => {
+            location.reload();
+        });
+        const giveupbutton = document.getElementById("giveupbutton");
+        giveupbutton.addEventListener("click", () => {
+            giveup = true;
+            for (let i = 0; i < Graph.length; i++) {
+                DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
+            }
+        });
+        const nextlevelbutton = document.getElementById("button");
+        nextlevelbutton.addEventListener("click", ()=> {
+            //edit later
+        });
+        
+        penbutton.disabled = true;
+        eraserbutton.disabled = true;
+        undobutton.disabled = true;
+        penbuttonmob.disabled = true;
+        eraserbuttonmob.disabled = true;
+        undobuttonmob.disabled = true;
+        penbutton.style.cursor = "default";
+        penbutton.style.opacity = "0.7";
+        penbuttonmob.style.cursor = "default";
+        penbuttonmob.style.opacity = "0.7";
+        eraserbutton.style.cursor = "default";
+        eraserbutton.style.opacity = "0.7";
+        eraserbuttonmob.style.cursor = "default";
+        eraserbuttonmob.style.opacity = "0.7";
+        undobutton.style.cursor = "default";
+        undobutton.style.opacity = "0.7";
+        undobuttonmob.style.cursor = "default";
+        undobuttonmob.style.opacity = "0.7";
+        images.style.filter = "brightness(80%)";
+        imagesmob.style.filter = "brightness(80%)";
     }
     else {
         is_submit = true;
