@@ -17,6 +17,8 @@ if(colourmode == "dark"){
         DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16 auto";
     }
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
+    const browsertablogo = document.getElementById("browsertablogo");
+    browsertablogo.href = "../../images/logodark.png";
 }
 else {
     defaultcolour1 = "#d6d6d6";
@@ -33,6 +35,8 @@ else {
         DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16 auto";
     }
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
+    const browsertablogo = document.getElementById("browsertablogo");
+    browsertablogo.href = "../../images/logolight.png";
 }
 // function overlap(){
 //     const plane = document.getElementById("plane");
@@ -132,7 +136,12 @@ window.addEventListener("resize",()=>{
         }
     }
 });
-
+window.addEventListener("load",()=>{
+    if(history.scrollRestoration){
+        history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0,0);
+});
 InitializeError();
 
 UserDrawing();
