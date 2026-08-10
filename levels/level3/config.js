@@ -1,14 +1,17 @@
 const plane = document.getElementById('plane');
 const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
+const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
 let vh = window.innerHeight/100;
+katex.render("y = x - \\cos(x)", equation);
 if(vw>1.1*vh){
     vw = 1.1*vh;
 }
 if(vh>1.2*vw){
     vh = 1.2*vw;
 }
+
 let scale = 2;
 let subxunit = scale*vw;
 let subyunit = scale*vh;
