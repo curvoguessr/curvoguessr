@@ -113,7 +113,7 @@ function UserDrawing() {
         let inRange = true;
             if (CurrentlyDrawing) {
                 inRange = true;
-                const coalevents = event.getCoalescedEvents();
+                const coalevents = (typeof event.getCoalescedEvents === 'function') ? event.getCoalescedEvents() : [event];
                 for(const events of coalevents){
                     lazybrush(9,events);
                     if(mode == "pen"){

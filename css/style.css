@@ -291,3 +291,6 @@
 .aftersubmitbutton{
     cursor: pointer;
 }
+#drawingplane, #plane {
+    touch-action: none;
+}
