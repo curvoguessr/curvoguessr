@@ -50,8 +50,6 @@ if(colourmode == "dark"){
     welcometext.style.color = defaultcolour2;
     welcometexttopborder.style.backgroundColor = defaultcolour2;
     welcometextbottomborder.style.backgroundColor = defaultcolour2;
-    const browsertablogo = document.getElementById("browsertablogo");
-    browsertablogo.href = "images/logodark.png";
 }
 else {
     colourmode = "light";
@@ -62,8 +60,6 @@ else {
     welcometext.style.color = defaultcolour2;
     welcometexttopborder.style.backgroundColor = defaultcolour2;
     welcometextbottomborder.style.backgroundColor = defaultcolour2;
-    const browsertablogo = document.getElementById("browsertablogo");
-    browsertablogo.href = "images/logolight.png";
 }
 tutorialbutton.addEventListener("click",() => {
     if(isTutorial == false){
@@ -131,8 +127,6 @@ lightbutton.addEventListener("click",() => {
         welcometext.style.color = defaultcolour2;
         welcometexttopborder.style.backgroundColor = defaultcolour2;
         welcometextbottomborder.style.backgroundColor = defaultcolour2;
-        const browsertablogo = document.getElementById("browsertablogo");
-        browsertablogo.href = "images/logolight.png"
     }
 });
 lightbuttontab.addEventListener("click",() => {
@@ -145,8 +139,6 @@ lightbuttontab.addEventListener("click",() => {
         welcometext.style.color = defaultcolour2;
         welcometexttopborder.style.backgroundColor = defaultcolour2;
         welcometextbottomborder.style.backgroundColor = defaultcolour2;
-        const browsertablogo = document.getElementById("browsertablogo");
-        browsertablogo.href = "images/logolight.png"
     }
 });
 darkbutton.addEventListener("click",() => {
@@ -159,8 +151,6 @@ darkbutton.addEventListener("click",() => {
         welcometext.style.color = defaultcolour2;
         welcometexttopborder.style.backgroundColor = defaultcolour2;
         welcometextbottomborder.style.backgroundColor = defaultcolour2;
-        const browsertablogo = document.getElementById("browsertablogo");
-        browsertablogo.href = "images/logodark.png"   
     }
 });
 darkbuttontab.addEventListener("click",() => {
