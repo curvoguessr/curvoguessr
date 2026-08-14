@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,64 +9,69 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="icon" type="image/png" href="../../images/logosq.png">
+</head>
+
+<body>
     <div class="centerthings">
-        <div id = "equation"></div>
-        <div id = "canvas">
+        <div id="equation"></div>
+        <div id="canvas">
             <canvas id="plane"></canvas>
             <canvas id="drawingplane"></canvas>
         </div>
         <div>
-            <button type = "button" class = "buttons" id = "submitbutton">
+            <button type="button" class="buttons" id="submitbutton">
                 Submit
             </button>
         </div>
         <div>
-            <button id = "replaybutton" class ="aftersubmitbutton">Replay</button>
-            <button id = "giveupbutton" class = "aftersubmitbutton">Giveup</button>
-            <button id = "nextlevelbutton" class = "aftersubmitbutton" onclick='window.location.href="../level5/index.html"'>Next</button>
+            <button id="replaybutton" class="aftersubmitbutton">Replay</button>
+            <button id="giveupbutton" class="aftersubmitbutton">Giveup</button>
+            <button id="nextlevelbutton" class="aftersubmitbutton"
+                onclick='window.location.href="../level5/index.html"'>Next</button>
         </div>
-        <h1 style = "text-align: center" id = "accuracy" >Accuracy: </h1>
+        <h1 style="text-align: center" id="accuracy">Accuracy: </h1>
     </div>
-    <div id = "smthg">
-        <div id = "smthg1">
-            <img src = "../../images/lvl4.png" id = "lvlicon">            <button type = "button" class = "imgbuttons" id = "penbutton">
-                <img src = "../../images/pen.png"; class = "drawinggbutton buttonimg">
+    <div id="smthg">
+        <div id="smthg1">
+            <img src="../../images/lvl4.png" id="lvlicon">
+            <button type="button" class="imgbuttons" id="penbutton">
+                <img src="../../images/pen.png" class="drawingbutton buttonimg">
             </button>
-            <button type="button" class = "imgbuttons" id = "eraserbutton">
-                <img src = "../../images/eraser.png" class = "drawingbutton buttonimg">
+            <button type="button" class="imgbuttons" id="eraserbutton">
+                <img src="../../images/eraser.png" class="drawingbutton buttonimg">
             </button>
-            <button type = "button" class = "imgbuttons" id = "undobutton">
-                <img src = "../../images/undo.png" class = "drawingbutton buttonimg">
-            </button>
-        </div>
-        <div id = "smthg2">
-            <button type = "button" class = "imgbuttons" id = "lightbutton">
-                <img src = "../../images/lightmode.png" class = "buttonimg">
-            </button>
-            <button type = "button" class = "imgbuttons" id = "darkbutton">
-                <img src = "../../images/darkmode.png" class = "buttonimg">
+            <button type="button" class="imgbuttons" id="undobutton">
+                <img src="../../images/undo.png" class="drawingbutton buttonimg">
             </button>
         </div>
+        <div id="smthg2">
+            <button type="button" class="imgbuttons" id="lightbutton">
+                <img src="../../images/lightmode.png" class="buttonimg">
+            </button>
+            <button type="button" class="imgbuttons" id="darkbutton">
+                <img src="../../images/darkmode.png" class="buttonimg">
+            </button>
+        </div>
     </div>
-    <div id = "smthgmob">
-            <img src = "../../images/lvl4.png" id="lvlicon">
-        <button type = "button" class = "buttonsmob" id = "penbuttonmob">
-            <img src = "../../images/pen.png" class = "drawingbuttonmob buttonimgmob">
+    <div id="smthgmob">
+        <img src="../../images/lvl4.png" id="lvlicon">
+        <button type="button" class="buttonsmob" id="penbuttonmob">
+            <img src="../../images/pen.png" class="drawingbuttonmob buttonimgmob">
         </button>
-        <button type="button" class = "buttonsmob" id = "eraserbuttonmob">
-            <img src = "../../images/eraser.png" class = "drawingbuttonmob buttonimgmob">
+        <button type="button" class="buttonsmob" id="eraserbuttonmob">
+            <img src="../../images/eraser.png" class="drawingbuttonmob buttonimgmob">
         </button>
-        <button type = "button" class = "buttonsmob" id = "undobuttonmob">
-            <img src = "../../images/undo.png" class = "drawingbuttonmob buttonimgmob">
+        <button type="button" class="buttonsmob" id="undobuttonmob">
+            <img src="../../images/undo.png" class="drawingbuttonmob buttonimgmob">
         </button>
-        <button type = "button" class = "buttonsmob" id = "lightbuttonmob">
-            <img src = "../../images/lightmode.png" class = "buttonimgmob">
+        <button type="button" class="buttonsmob" id="lightbuttonmob">
+            <img src="../../images/lightmode.png" class="buttonimgmob">
         </button>
-        <button type = "button" class = "buttonsmob" id = "darkbuttonmob">
-            <img src = "../../images/darkmode.png" class = "buttonimgmob">
+        <button type="button" class="buttonsmob" id="darkbuttonmob">
+            <img src="../../images/darkmode.png" class="buttonimgmob">
         </button>
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
     <script src="config.js"></script>
     <script src="../../js/math.js"></script>
@@ -76,4 +82,5 @@
 
     <script src="../../js/main.js"></script>
 </body>
+
 </html>
