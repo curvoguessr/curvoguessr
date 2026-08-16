@@ -1,14 +1,14 @@
-const submitbutton = document.getElementById("submitbutton");
+const submitbutton = document.getElementById("submitbutton");      
 const penbutton = document.getElementById("penbutton");
-const eraserbutton = document.getElementById("eraserbutton");
+const eraserbutton = document.getElementById("eraserbutton");      
 const undobutton = document.getElementById("undobutton"); 
-const lightbutton = document.getElementById("lightbutton");
+const lightbutton = document.getElementById("lightbutton");        
 const darkbutton = document.getElementById("darkbutton");
-const penbuttonmob = document.getElementById("penbuttonmob");
+const penbuttonmob = document.getElementById("penbuttonmob");      
 const eraserbuttonmob = document.getElementById("eraserbuttonmob");
-const undobuttonmob = document.getElementById("undobuttonmob"); 
-const lightbuttonmob = document.getElementById("lightbuttonmob");
-const darkbuttonmob = document.getElementById("darkbuttonmob");
+const undobuttonmob = document.getElementById("undobuttonmob");    
+const lightbuttonmob = document.getElementById("lightbuttonmob");  
+const darkbuttonmob = document.getElementById("darkbuttonmob");    
 const images = document.getElementById("drawingbutton");
 const imagesmob = document.getElementById("drawingbuttonmob");
 let is_submit = false;
@@ -23,7 +23,7 @@ let defaultcolour3 = "black";
 
 // function invertcolor(canvas){
 //     const context = canvas.getContext("2d");
-//     const image = context.getImageData(0, 0, canvas.width, canvas.height);
+//     const image = context.getImageData(0, 0, canvas.width, canvas.height);     
 //     const imagecolor = image.data;
 //     for(let i = 0; i < imagecolor.length; i+=4){
 //         imagecolor[i] = 255-imagecolor[i];
@@ -57,15 +57,15 @@ lightbutton.addEventListener("click",() => {
         context.strokeStyle = defaultcolour2;
         for(let i = 0; i < unflattened.length; i++){
             context.beginPath();
-            for(let j = 0; j < unflattened[i][0].length; j++){
+            for(let j = 0; j < unflattened[i].length; j++){
                 if(j == 0){
-                    context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
+                    context.moveTo(denormalise(destandardize(unflattened[i][0])).x,denormalise(destandardize(unflattened[i][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
+                    context.lineTo(denormalise(destandardize(unflattened[i][j])).x, denormalise(destandardize(unflattened[i][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(denormalise(destandardize(unflattened[i][0][j-3])),denormalise(destandardize(unflattened[i][0][j-2])),denormalise(destandardize(unflattened[i][0][j-1])),denormalise(destandardize(unflattened[i][0][j])),0.05,context);
+                    CatRomGraph(denormalise(destandardize(unflattened[i][j-3])),denormalise(destandardize(unflattened[i][j-2])),denormalise(destandardize(unflattened[i][j-1])),denormalise(destandardize(unflattened[i][j])),0.005,context);
                 }
             }
             context.stroke();
@@ -73,18 +73,18 @@ lightbutton.addEventListener("click",() => {
         context.globalCompositeOperation = "destination-out";
         context.lineWidth = 30;
         context.lineCap = "round";
-        context.lineJoin = "round";    
+        context.lineJoin = "round";
         for(let i = 0; i < eraserunflattened.length; i++){
             context.beginPath();
-            for(let j = 0; j < eraserunflattened[i][0].length; j++){
+            for(let j = 0; j < eraserunflattened[i].length; j++){
                 if(j == 0){
-                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0][0])).x,denormalise(destandardize(eraserunflattened[i][0][0])).y);
+                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0])).x,denormalise(destandardize(eraserunflattened[i][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(eraserunflattened[i][0][j])).x, denormalise(destandardize(eraserunflattened[i][0][j])).y);
+                    context.lineTo(denormalise(destandardize(eraserunflattened[i][j])).x, denormalise(destandardize(eraserunflattened[i][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][0][j-3])),denormalise(destandardize(eraserunflattened[i][0][j-2])),denormalise(destandardize(eraserunflattened[i][0][j-1])),denormalise(destandardize(eraserunflattened[i][0][j])),0.05,context);
+                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][j-3])),denormalise(destandardize(eraserunflattened[i][j-2])),denormalise(destandardize(eraserunflattened[i][j-1])),denormalise(destandardize(eraserunflattened[i][j])),0.005,context);
                 }
             }
             context.stroke();
@@ -117,15 +117,15 @@ darkbutton.addEventListener("click",() => {
         context.strokeStyle = defaultcolour2;
         for(let i = 0; i < unflattened.length; i++){
             context.beginPath();
-            for(let j = 0; j < unflattened[i][0].length; j++){
+            for(let j = 0; j < unflattened[i].length; j++){
                 if(j == 0){
-                    context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
+                    context.moveTo(denormalise(destandardize(unflattened[i][0])).x,denormalise(destandardize(unflattened[i][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
+                    context.lineTo(denormalise(destandardize(unflattened[i][j])).x, denormalise(destandardize(unflattened[i][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(denormalise(destandardize(unflattened[i][0][j-3])),denormalise(destandardize(unflattened[i][0][j-2])),denormalise(destandardize(unflattened[i][0][j-1])),denormalise(destandardize(unflattened[i][0][j])),0.05,context);
+                    CatRomGraph(denormalise(destandardize(unflattened[i][j-3])),denormalise(destandardize(unflattened[i][j-2])),denormalise(destandardize(unflattened[i][j-1])),denormalise(destandardize(unflattened[i][j])),0.005,context);
                 }
             }
             context.stroke();
@@ -133,18 +133,18 @@ darkbutton.addEventListener("click",() => {
         context.globalCompositeOperation = "destination-out";
         context.lineWidth = 30;
         context.lineCap = "round";
-        context.lineJoin = "round";    
+        context.lineJoin = "round";
         for(let i = 0; i < eraserunflattened.length; i++){
             context.beginPath();
-            for(let j = 0; j < eraserunflattened[i][0].length; j++){
+            for(let j = 0; j < eraserunflattened[i].length; j++){
                 if(j == 0){
-                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0][0])).x,denormalise(destandardize(eraserunflattened[i][0][0])).y);
+                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0])).x,denormalise(destandardize(eraserunflattened[i][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(eraserunflattened[i][0][j])).x, denormalise(destandardize(eraserunflattened[i][0][j])).y);
+                    context.lineTo(denormalise(destandardize(eraserunflattened[i][j])).x, denormalise(destandardize(eraserunflattened[i][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][0][j-3])),denormalise(destandardize(eraserunflattened[i][0][j-2])),denormalise(destandardize(eraserunflattened[i][0][j-1])),denormalise(destandardize(eraserunflattened[i][0][j])),0.05,context);
+                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][j-3])),denormalise(destandardize(eraserunflattened[i][j-2])),denormalise(destandardize(eraserunflattened[i][j-1])),denormalise(destandardize(eraserunflattened[i][j])),0.005,context);
                 }
             }
             context.stroke();
@@ -176,15 +176,15 @@ lightbuttonmob.addEventListener("click",() => {
         context.strokeStyle = defaultcolour2;
         for(let i = 0; i < unflattened.length; i++){
             context.beginPath();
-            for(let j = 0; j < unflattened[i][0].length; j++){
+            for(let j = 0; j < unflattened[i].length; j++){
                 if(j == 0){
-                    context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
+                    context.moveTo(denormalise(destandardize(unflattened[i][0])).x,denormalise(destandardize(unflattened[i][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
+                    context.lineTo(denormalise(destandardize(unflattened[i][j])).x, denormalise(destandardize(unflattened[i][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(denormalise(destandardize(unflattened[i][0][j-3])),denormalise(destandardize(unflattened[i][0][j-2])),denormalise(destandardize(unflattened[i][0][j-1])),denormalise(destandardize(unflattened[i][0][j])),0.05,context);
+                    CatRomGraph(denormalise(destandardize(unflattened[i][j-3])),denormalise(destandardize(unflattened[i][j-2])),denormalise(destandardize(unflattened[i][j-1])),denormalise(destandardize(unflattened[i][j])),0.005,context);
                 }
             }
             context.stroke();
@@ -192,18 +192,18 @@ lightbuttonmob.addEventListener("click",() => {
         context.globalCompositeOperation = "destination-out";
         context.lineWidth = 30;
         context.lineCap = "round";
-        context.lineJoin = "round";    
+        context.lineJoin = "round";
         for(let i = 0; i < eraserunflattened.length; i++){
             context.beginPath();
-            for(let j = 0; j < eraserunflattened[i][0].length; j++){
+            for(let j = 0; j < eraserunflattened[i].length; j++){
                 if(j == 0){
-                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0][0])).x,denormalise(destandardize(eraserunflattened[i][0][0])).y);
+                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0])).x,denormalise(destandardize(eraserunflattened[i][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(eraserunflattened[i][0][j])).x, denormalise(destandardize(eraserunflattened[i][0][j])).y);
+                    context.lineTo(denormalise(destandardize(eraserunflattened[i][j])).x, denormalise(destandardize(eraserunflattened[i][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][0][j-3])),denormalise(destandardize(eraserunflattened[i][0][j-2])),denormalise(destandardize(eraserunflattened[i][0][j-1])),denormalise(destandardize(eraserunflattened[i][0][j])),0.05,context);
+                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][j-3])),denormalise(destandardize(eraserunflattened[i][j-2])),denormalise(destandardize(eraserunflattened[i][j-1])),denormalise(destandardize(eraserunflattened[i][j])),0.005,context);
                 }
             }
             context.stroke();
@@ -236,15 +236,15 @@ darkbuttonmob.addEventListener("click",() => {
         context.strokeStyle = defaultcolour2;
         for(let i = 0; i < unflattened.length; i++){
             context.beginPath();
-            for(let j = 0; j < unflattened[i][0].length; j++){
+            for(let j = 0; j < unflattened[i].length; j++){
                 if(j == 0){
-                    context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
+                    context.moveTo(denormalise(destandardize(unflattened[i][0])).x,denormalise(destandardize(unflattened[i][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
+                    context.lineTo(denormalise(destandardize(unflattened[i][j])).x, denormalise(destandardize(unflattened[i][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(denormalise(destandardize(unflattened[i][0][j-3])),denormalise(destandardize(unflattened[i][0][j-2])),denormalise(destandardize(unflattened[i][0][j-1])),denormalise(destandardize(unflattened[i][0][j])),0.05,context);
+                    CatRomGraph(denormalise(destandardize(unflattened[i][j-3])),denormalise(destandardize(unflattened[i][j-2])),denormalise(destandardize(unflattened[i][j-1])),denormalise(destandardize(unflattened[i][j])),0.005,context);
                 }
             }
             context.stroke();
@@ -252,18 +252,18 @@ darkbuttonmob.addEventListener("click",() => {
         context.globalCompositeOperation = "destination-out";
         context.lineWidth = 30;
         context.lineCap = "round";
-        context.lineJoin = "round";    
+        context.lineJoin = "round";
         for(let i = 0; i < eraserunflattened.length; i++){
             context.beginPath();
-            for(let j = 0; j < eraserunflattened[i][0].length; j++){
+            for(let j = 0; j < eraserunflattened[i].length; j++){
                 if(j == 0){
-                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0][0])).x,denormalise(destandardize(eraserunflattened[i][0][0])).y);
+                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0])).x,denormalise(destandardize(eraserunflattened[i][0])).y);
                 }
                 if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(eraserunflattened[i][0][j])).x, denormalise(destandardize(eraserunflattened[i][0][j])).y);
+                    context.lineTo(denormalise(destandardize(eraserunflattened[i][j])).x, denormalise(destandardize(eraserunflattened[i][j])).y);
                 }
                 if(j>=3){
-                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][0][j-3])),denormalise(destandardize(eraserunflattened[i][0][j-2])),denormalise(destandardize(eraserunflattened[i][0][j-1])),denormalise(destandardize(eraserunflattened[i][0][j])),0.05,context);
+                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][j-3])),denormalise(destandardize(eraserunflattened[i][j-2])),denormalise(destandardize(eraserunflattened[i][j-1])),denormalise(destandardize(eraserunflattened[i][j])),0.005,context);
                 }
             }
             context.stroke();
@@ -271,11 +271,11 @@ darkbuttonmob.addEventListener("click",() => {
         //UserDrawing();
     }
 });
-const aftersubmitbutton = document.getElementsByClassName("aftersubmitbutton");
+const aftersubmitbutton = document.getElementsByClassName("aftersubmitbutton");   
 if(!is_submit){
     for(let button of aftersubmitbutton){
         button.style.display = "none";
-    }    
+    }
 }
 submitbutton.addEventListener("click",() => {
     document.body.style.cursor = "default";
@@ -299,7 +299,7 @@ submitbutton.addEventListener("click",() => {
                 DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
             }
         });
-        
+
         penbutton.disabled = true;
         eraserbutton.disabled = true;
         undobutton.disabled = true;
@@ -338,7 +338,7 @@ submitbutton.addEventListener("click",() => {
                 DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
             }
         });
-        
+
         penbutton.disabled = true;
         eraserbutton.disabled = true;
         undobutton.disabled = true;
@@ -388,60 +388,23 @@ eraserbutton.addEventListener("click",() => {
     }
 });
 undobutton.addEventListener("click", ()=>{
-    let mx = 0;
-    for (let i = 0; i < unflattened.length; i++) {
-        mx=Math.max(mx,unflattened[i][1]);
-    }
-    for (let i = 0; i < eraserunflattened.length; i++) {
-        mx=Math.max(mx,eraserunflattened[i][1]);
-    }
-    for (let i = 0; i < unflattened.length; i++) {
-        if (unflattened[i][1]==mx) {
-            unflattened.splice(i, 1);
-            i--;
-        }
-    }
-    for (let i = 0; i < eraserunflattened.length; i++) {
-        if (eraserunflattened[i][1]==mx) {
-            eraserunflattened.splice(i,1);
-            i--;
-        }
-    }
+    if (drawingHistory.length==0) return;
+    drawingHistory.pop();
     mousecoord = [];
+    unflattened = [];
     erasecoord = [];
-    for (let i = 0; i < unflattened.length; i++) {
-        for (let j = 0; j < unflattened[i][0].length; j++) {
-            mousecoord.push(unflattened[i][0][j]);
-        }
-    }
-    for (let i = 0; i < eraserunflattened.length; i++) {
-        for (let j = 0; j < eraserunflattened[i][0].length; j++) {
-            erasecoord.push(eraserunflattened[i][0][j]);
-        }
-    }
-    context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
-    let i = 0;
-    let j = 0;
-    while (i < unflattened.length || j < eraserunflattened.length) {
-        if (j == eraserunflattened.length || (j < eraserunflattened.length && i < unflattened.length && unflattened[i][1]<eraserunflattened[j][1])) {
+    eraserunflattened = [];
+    context.clearRect(0, 0, DrawingPlane.width, DrawingPlane.height);
+    for (let i = 0; i < drawingHistory.length; i++) {
+        if (drawingHistory[i][0].length==0) continue;
+        if (drawingHistory[i][1]=="pen") {
             context.beginPath();
             context.globalCompositeOperation = "source-over";
             context.lineWidth = 3;
             context.lineCap = "round";
             context.lineJoin = "round";
             context.strokeStyle = defaultcolour2;
-            context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
-            for (let k = 1; k < unflattened[i][0].length; k++) {
-                if (k == 1) {
-                    context.lineTo(denormalise(destandardize(unflattened[i][0][k])).x,denormalise(destandardize(unflattened[i][0][k])).y);
-                }
-                else if (k>=3){
-                    CatRomGraph(denormalise(destandardize(unflattened[i][0][k-3])),denormalise(destandardize(unflattened[i][0][k-2])), denormalise(destandardize(unflattened[i][0][k-1])), denormalise(destandardize(unflattened[i][0][k])), 0.05, context);
-                }
-            }
-
-            context.stroke();
-            i++;
+            unflattened.push(drawingHistory[i][0]);
         }
         else {
             context.beginPath();
@@ -449,18 +412,29 @@ undobutton.addEventListener("click", ()=>{
             context.lineWidth = 30;
             context.lineCap = "round";
             context.lineJoin = "round";
-            context.moveTo(denormalise(destandardize(eraserunflattened[j][0][0])).x,denormalise(destandardize(unflattened[j][0][0])).y);
-            for (let k = 1; k < eraserunflattened[j][0].length; k++) {
-                if (k == 1) {
-                    context.lineTo(denormalise(destandardize(eraserunflattened[j][0][k])).x,denormalise(destandardize(eraserunflattened[j][0][k])).y);
-                }
-                else if (k>=3){
-                    CatRomGraph(denormalise(destandardize(eraserunflattened[j][0][k-3])),denormalise(destandardize(eraserunflattened[j][0][k-2])), denormalise(destandardize(eraserunflattened[j][0][k-1])), denormalise(destandardize(eraserunflattened[j][0][k])), 0.05, context);
-                }
+            context.strokeStyle = defaultcolour2;
+            eraserunflattened.push(drawingHistory[i][0]);
+        }
+        context.moveTo(denormalise(destandardize(drawingHistory[i][0][0])).x,denormalise(destandardize(drawingHistory[i][0][0])).y);
+        for (let j = 1; j < drawingHistory[i][0].length; j++) {
+            if (j <= 2) {
+                context.lineTo(denormalise(destandardize(drawingHistory[i][0][j])).x,denormalise(destandardize(drawingHistory[i][0][j])).y);
             }
-
-            context.stroke();
-            j++;
+            else {
+                CatRomGraph(denormalise(destandardize(drawingHistory[i][0][j-3])),denormalise(destandardize(drawingHistory[i][0][j-2])), denormalise(destandardize(drawingHistory[i][0][j-1])), denormalise(destandardize(drawingHistory[i][0][j])), 0.005, context);
+            }
+        }
+        context.stroke();
+    }
+    mousecoord = unflattened.flat();
+    erasecoord = eraserunflattened.flat();
+    for (let i = 0; i < erasecoord.length; i++) {
+        for (let j = 0; j < mousecoord.length; j++) {
+            if(EuclideanDist(denormalise(destandardize(erasecoord[i])),denormalise(destandardize(mousecoord[j])))<=15){
+                mousecoord.splice(j,1);
+                deletepoint(unflattened, j);
+                j--;
+            }
         }
     }
 });
@@ -491,60 +465,24 @@ eraserbuttonmob.addEventListener("click",() => {
     }
 });
 undobuttonmob.addEventListener("click", ()=>{
-    let mx = 0;
-    for (let i = 0; i < unflattened.length; i++) {
-        mx=Math.max(mx,unflattened[i][1]);
-    }
-    for (let i = 0; i < eraserunflattened.length; i++) {
-        mx=Math.max(mx,eraserunflattened[i][1]);
-    }
-    for (let i = 0; i < unflattened.length; i++) {
-        if (unflattened[i][1]==mx) {
-            unflattened.splice(i, 1);
-            i--;
-        }
-    }
-    for (let i = 0; i < eraserunflattened.length; i++) {
-        if (eraserunflattened[i][1]==mx) {
-            eraserunflattened.splice(i,1);
-            i--;
-        }
-    }
+    
+        if (drawingHistory.length==0) return;
+    drawingHistory.pop();
     mousecoord = [];
+    unflattened = [];
     erasecoord = [];
-    for (let i = 0; i < unflattened.length; i++) {
-        for (let j = 0; j < unflattened[i][0].length; j++) {
-            mousecoord.push(unflattened[i][0][j]);
-        }
-    }
-    for (let i = 0; i < eraserunflattened.length; i++) {
-        for (let j = 0; j < eraserunflattened[i][0].length; j++) {
-            erasecoord.push(eraserunflattened[i][0][j]);
-        }
-    }
-    context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
-    let i = 0;
-    let j = 0;
-    while (i < unflattened.length || j < eraserunflattened.length) {
-        if (j == eraserunflattened.length || (j < eraserunflattened.length && i < unflattened.length && unflattened[i][1]<eraserunflattened[j][1])) {
+    eraserunflattened = [];
+    context.clearRect(0, 0, DrawingPlane.width, DrawingPlane.height);
+    for (let i = 0; i < drawingHistory.length; i++) {
+        if (drawingHistory[i][0].length==0) continue;
+        if (drawingHistory[i][1]=="pen") {
             context.beginPath();
             context.globalCompositeOperation = "source-over";
             context.lineWidth = 3;
             context.lineCap = "round";
             context.lineJoin = "round";
             context.strokeStyle = defaultcolour2;
-            context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x,denormalise(destandardize(unflattened[i][0][0])).y);
-            for (let k = 1; k < unflattened[i][0].length; k++) {
-                if (k == 1) {
-                    context.lineTo(denormalise(destandardize(unflattened[i][0][k])).x,denormalise(destandardize(unflattened[i][0][k])).y);
-                }
-                else if (k>=3){
-                    CatRomGraph(denormalise(destandardize(unflattened[i][0][k-3])),denormalise(destandardize(unflattened[i][0][k-2])), denormalise(destandardize(unflattened[i][0][k-1])), denormalise(destandardize(unflattened[i][0][k])), 0.05, context);
-                }
-            }
-
-            context.stroke();
-            i++;
+            unflattened.push(drawingHistory[i][0]);
         }
         else {
             context.beginPath();
@@ -552,25 +490,36 @@ undobuttonmob.addEventListener("click", ()=>{
             context.lineWidth = 30;
             context.lineCap = "round";
             context.lineJoin = "round";
-            context.moveTo(denormalise(destandardize(eraserunflattened[j][0][0])).x,denormalise(destandardize(unflattened[j][0][0])).y);
-            for (let k = 1; k < eraserunflattened[j][0].length; k++) {
-                if (k == 1) {
-                    context.lineTo(denormalise(destandardize(eraserunflattened[j][0][k])).x,denormalise(destandardize(eraserunflattened[j][0][k])).y);
-                }
-                else if (k>=3){
-                    CatRomGraph(denormalise(destandardize(eraserunflattened[j][0][k-3])),denormalise(destandardize(eraserunflattened[j][0][k-2])), denormalise(destandardize(eraserunflattened[j][0][k-1])), denormalise(destandardize(eraserunflattened[j][0][k])), 0.05, context);
-                }
+            context.strokeStyle = defaultcolour2;
+            eraserunflattened.push(drawingHistory[i][0]);
+        }
+        context.moveTo(denormalise(destandardize(drawingHistory[i][0][0])).x,denormalise(destandardize(drawingHistory[i][0][0])).y);
+        for (let j = 1; j < drawingHistory[i][0].length; j++) {
+            if (j <= 2) {
+                context.lineTo(denormalise(destandardize(drawingHistory[i][0][j])).x,denormalise(destandardize(drawingHistory[i][0][j])).y);
             }
-
-            context.stroke();
-            j++;
+            else {
+                CatRomGraph(denormalise(destandardize(drawingHistory[i][0][j-3])),denormalise(destandardize(drawingHistory[i][0][j-2])), denormalise(destandardize(drawingHistory[i][0][j-1])), denormalise(destandardize(drawingHistory[i][0][j])), 0.005, context);
+            }
+        }
+        context.stroke();
+    }
+    mousecoord = unflattened.flat();
+    erasecoord = eraserunflattened.flat();
+    for (let i = 0; i < erasecoord.length; i++) {
+        for (let j = 0; j < mousecoord.length; j++) {
+            if(EuclideanDist(denormalise(destandardize(erasecoord[i])),denormalise(destandardize(mousecoord[j])))<=15){
+                mousecoord.splice(j,1);
+                deletepoint(unflattened, j);
+                j--;
+            }
         }
     }
 });
 document.addEventListener("keydown", (event) => {
     if(event.ctrlKey && event.key === "z"){
         event.preventDefault();
-        if(window.matchMedia("max-width: 768px")){
+        if(window.matchMedia("max-width: 768px").matches){
             undobuttonmob.click();
         }
         else{

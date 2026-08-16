@@ -14,7 +14,7 @@ if(colourmode == "dark"){
         DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
     }
     if(mode == "eraser"){
-        DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16 auto";
+        DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
     }
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
 }
@@ -30,7 +30,7 @@ else {
         DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
     }
     if(mode == "eraser"){
-        DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16 auto";
+        DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
     }
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
 }
@@ -61,7 +61,7 @@ window.addEventListener("resize",()=>{
     vw = window.innerWidth/100;
     vh = window.innerHeight/100;
     if(vw>1.1*vh){
-       vw = 1.238*vh;
+       vw = 1.1*vh;
     }
     if(vh>1.2*vw){
         vh = 1.2*vw;
@@ -74,10 +74,6 @@ window.addEventListener("resize",()=>{
 
     cw = 80*vw;
     ch = 80*vh;
-    origin = {
-        x: cw/2,
-        y: ch/2
-    }
     canvas.style.width = cw + "px";
     canvas.style.height = ch + "px";
     plane.width = cw;
@@ -94,15 +90,15 @@ window.addEventListener("resize",()=>{
     context.strokeStyle = defaultcolour2;
     for(let i = 0; i < unflattened.length; i++){
         context.beginPath();
-        for(let j = 0; j < unflattened[i][0].length; j++){
+        for(let j = 0; j < unflattened[i].length; j++){
             if(j == 0){
-                context.moveTo(denormalise(destandardize(unflattened[i][0][0])).x, denormalise(destandardize(unflattened[i][0][0])).y);
+                context.moveTo(denormalise(destandardize(unflattened[i][0])).x, denormalise(destandardize(unflattened[i][0])).y);
             }
             if(1<=j && j<2){
-                context.lineTo(denormalise(destandardize(unflattened[i][0][j])).x, denormalise(destandardize(unflattened[i][0][j])).y);
+                context.lineTo(denormalise(destandardize(unflattened[i][j])).x, denormalise(destandardize(unflattened[i][j])).y);
             }
             if(j>=3){
-                CatRomGraph(denormalise(destandardize(unflattened[i][0][j-3])),denormalise(destandardize(unflattened[i][0][j-2])),denormalise(destandardize(unflattened[i][0][j-1])),denormalise(destandardize(unflattened[i][0][j])),0.05,context);
+                CatRomGraph(denormalise(destandardize(unflattened[i][j-3])),denormalise(destandardize(unflattened[i][j-2])),denormalise(destandardize(unflattened[i][j-1])),denormalise(destandardize(unflattened[i][j])),0.05,context);
             }
         }
         context.stroke();
@@ -113,15 +109,15 @@ window.addEventListener("resize",()=>{
     context.lineJoin = "round";    
     for(let i = 0; i < eraserunflattened.length; i++){
         context.beginPath();
-        for(let j = 0; j < eraserunflattened[i][0].length; j++){
+        for(let j = 0; j < eraserunflattened[i].length; j++){
             if(j == 0){
-                context.moveTo(denormalise(destandardize(eraserunflattened[i][0][0])).x,denormalise(destandardize(eraserunflattened[i][0][0])).y);
+                context.moveTo(denormalise(destandardize(eraserunflattened[i][0])).x,denormalise(destandardize(eraserunflattened[i][0])).y);
             }
             if(1<=j && j<2){
-                context.lineTo(denormalise(destandardize(eraserunflattened[i][0][j])).x, denormalise(destandardize(eraserunflattened[i][0][j])).y);
+                context.lineTo(denormalise(destandardize(eraserunflattened[i][j])).x, denormalise(destandardize(eraserunflattened[i][j])).y);
             }
             if(j>=3){
-                CatRomGraph(denormalise(destandardize(eraserunflattened[i][0][j-3])),denormalise(destandardize(eraserunflattened[i][0][j-2])),denormalise(destandardize(eraserunflattened[i][0][j-1])),denormalise(destandardize(eraserunflattened[i][0][j])),0.05,context);
+                CatRomGraph(denormalise(destandardize(eraserunflattened[i][j-3])),denormalise(destandardize(eraserunflattened[i][j-2])),denormalise(destandardize(eraserunflattened[i][j-1])),denormalise(destandardize(eraserunflattened[i][j])),0.05,context);
             }
         }
         context.stroke();

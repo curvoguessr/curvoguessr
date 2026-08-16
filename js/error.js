@@ -96,10 +96,13 @@ function resampleCatRom(mousecoord, spacing) {
         acc += EuclideanDist(dense[i-1],dense[i]);
         if (acc >= spacing) {
             user.push(dense[i]);
-            acc = 0;
+            acc -= spacing;
         }
     }
-    if (user[user.length-1] != dense[dense.length-1]) user.push(dense[dense.length-1]);
+    const last = dense[dense.length-1];
+    if (user[user.length-1].x !== last.x || user[user.length-1].y !== last.y) {
+        user.push(last);
+    }
     for (let i = 0; i < user.length; i++) {
         user[i]=Convert(user[i]);
     }
@@ -108,13 +111,17 @@ function resampleCatRom(mousecoord, spacing) {
 function FindError(mousecoord, unflattened, colour) {
     let distUser = 0;
     for (let i = 0; i < unflattened.length; i++) {
-        for (let j = 1; j < unflattened[i][0].length; j++) {
-            let p1 = Convert(denormalise(destandardize(unflattened[i][0][j])));
-            let p2 = Convert(denormalise(destandardize(unflattened[i][0][j-1])));
+        for (let j = 1; j < unflattened[i].length; j++) {
+            let p1 = Convert(denormalise(destandardize(unflattened[i][j])));
+            let p2 = Convert(denormalise(destandardize(unflattened[i][j-1])));
             distUser += EuclideanDist(p1,p2);
         }
     }
-    let user = resampleCatRom(mousecoord, 0.1);
+    let user = [];
+    for (let i = 0; i < unflattened.length; i++) {
+        user.push(resampleCatRom(unflattened[i],0.1));
+    }
+    user = user.flat();
     let errorUser = 0, errorActual = 0;
     const len = user.length;
     for (let i = 0; i < len; i++) {

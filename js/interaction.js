@@ -1,10 +1,13 @@
 function deletepoint(a, i){
     for(let j = 0; j < a.length; j++){
-        if(i < a[j][0].length){
-            a[j][0].splice(i, 1);
+        if(i < a[j].length){
+            let first = a[j].slice(0,i);
+            let second = a[j].slice(i+1);
+            a[j]=first;
+            a.splice(j+1,0,second);
             return;
         }
-        i -= a[j][0].length;
+        i -= a[j].length;
     }
 }
 function normalise(a){
@@ -30,6 +33,7 @@ let mousecoord = [];
 let erasecoord = [];
 let unflattened = [];
 let eraserunflattened = [];
+let drawingHistory = [];
 let drawIndex = 0;
 function UserDrawing() {
     const DrawingPlane = document.getElementById("drawingplane");
@@ -75,18 +79,15 @@ function UserDrawing() {
             }
             if(mode == "pen"){
                 mousecoord.push(event2);
-                mousecoord.push(event2);
-                unflattened.push([[],drawIndex]);
-                unflattened[unflattened.length-1][0].push(event2);
-                unflattened[unflattened.length-1][0].push(event2);
+                unflattened.push([]);
+                unflattened[unflattened.length-1].push(event2);
             }
             if(mode == "eraser"){
                 erasecoord.push(event2);
-                erasecoord.push(event2);
-                eraserunflattened.push([[],drawIndex]);
-                eraserunflattened[eraserunflattened.length-1][0].push(event2);
+                eraserunflattened.push([]);
+                eraserunflattened[eraserunflattened.length-1].push(event2);
                 for(let i = 0; i < mousecoord.length; i++){
-                    if(EuclideanDist(denormalise(destandardize(mousecoord[i])),denormalise(destandardize(event2)))<=18){
+                    if(EuclideanDist(denormalise(destandardize(mousecoord[i])),denormalise(destandardize(event2)))<=15){
                         mousecoord.splice(i,1);
                         deletepoint(unflattened, i);
                         i--;
@@ -118,13 +119,13 @@ function UserDrawing() {
                     lazybrush(9,events);
                     if(mode == "pen"){
                         mousecoord.push({x:brush.x,y:brush.y});
-                        unflattened[unflattened.length - 1][0].push({x:brush.x,y:brush.y});
+                        unflattened[unflattened.length - 1].push({x:brush.x,y:brush.y});
                     }
                     if(mode == "eraser"){
                         erasecoord.push({x:brush.x,y:brush.y});
-                        eraserunflattened[eraserunflattened.length - 1][0].push({x : brush.x, y : brush.y});
+                        eraserunflattened[eraserunflattened.length - 1].push({x : brush.x, y : brush.y});
                         for(let i = 0; i < mousecoord.length; i++){
-                            if(EuclideanDist(denormalise(destandardize(mousecoord[i])),denormalise(destandardize(brush)))<=18){
+                            if(EuclideanDist(denormalise(destandardize(mousecoord[i])),denormalise(destandardize(brush)))<=15){
                                 mousecoord.splice(i,1);
                                 deletepoint(unflattened, i);
                                 i--;
@@ -159,8 +160,14 @@ function UserDrawing() {
         }
         if (CurrentlyDrawing) {
             CurrentlyDrawing = false;
+            if (mode == "pen") {
+                drawingHistory.push([structuredClone(unflattened[unflattened.length-1]),"pen"]);
+            }
+            else {
+                drawingHistory.push([structuredClone(eraserunflattened[eraserunflattened.length-1]),"eraser"]);
+            }
             drawIndex++;
         }
-        DrawingPlane.setPointerCapture(event.pointerId);
+        DrawingPlane.releasePointerCapture(event.pointerId);
     });
 }
