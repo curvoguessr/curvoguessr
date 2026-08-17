@@ -11,7 +11,7 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
     }
     context.beginPath();
     context.strokeStyle = defaultcolour2;
-    context.lineWidth = 0.2;
+    context.lineWidth = (cw+ch)/2640;
     for (let i = -Math.floor((ch/2)/yunit)*yunit+subyunit; i <= Math.floor((ch/2)/yunit)*yunit-subyunit; i+=yunit) {
         context.moveTo(-(cw/2),i);
         context.lineTo((cw/2),i);
@@ -24,7 +24,7 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
 
     context.beginPath();
     context.strokeStyle = defaultcolour2;
-    context.lineWidth = 1;
+    context.lineWidth = (cw+ch)/880;
     for (let i = -Math.floor((ch/2)/yunit)*yunit; i <= Math.floor((ch/2)/yunit)*yunit; i += yunit) {
         context.moveTo(-(cw/2),i);
         context.lineTo((cw/2),i);
@@ -38,7 +38,6 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
     context.beginPath();
     context.strokeStyle = defaultcolour2;
     context.lineWidth = (cw+ch)/220;
-    
     context.moveTo(-cw/2+(subxunit/2),0);
     context.lineTo(cw/2-(subxunit/2),0);
     context.moveTo(0,-ch/2+(subyunit/2));
@@ -47,7 +46,7 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
 
     context.beginPath();
     context.strokeStyle = defaultcolour2;
-    context.lineWidth = 1;
+    context.lineWidth = (cw+ch)/880;
     
     context.moveTo(-cw/2,0);
     context.lineTo(-cw/2+(2*subxunit/3),(2*subyunit/3));
@@ -58,7 +57,7 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
 
     context.beginPath();
     context.strokeStyle = defaultcolour2;
-    context.lineWidth = 1;
+    context.lineWidth = (cw+ch)/880;
     
     context.moveTo(cw/2,0);
     context.lineTo(cw/2-(2*subxunit/3),(2*subyunit/3));
@@ -69,7 +68,7 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
     
     context.beginPath();
     context.strokeStyle = defaultcolour2;
-    context.lineWidth = 1;
+    context.lineWidth = (cw+ch)/880;
     context.moveTo(0,-ch/2);
     context.lineTo((2*subxunit/3),-ch/2+(2*subyunit/3));
     context.lineTo(-(2*subxunit/3),-ch/2+(2*subyunit/3));
@@ -79,7 +78,7 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
 
     context.beginPath();
     context.strokeStyle = defaultcolour2;
-    context.lineWidth = 1;
+    context.lineWidth = (cw+ch)/880;
     context.moveTo(0,ch/2);
     context.lineTo((2*subxunit/3),ch/2-(2*subyunit/3));
     context.lineTo(-(2*subxunit/3),ch/2-(2*subyunit/3));
@@ -144,7 +143,7 @@ function DrawGraph(t_1, t_2, Function_x, Function_y){
     TransformCanvas(context,cw,ch);
     context.beginPath();
     context.strokeStyle = "Red";
-    context.lineWidth = 4;
+    context.lineWidth = (cw+ch)/220;
 
     DrawGraphSegment(t_1,t_2,Function_x, Function_y, 0.001, context);
     context.stroke();
