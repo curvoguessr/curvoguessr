@@ -91,6 +91,15 @@
         align-items: center;
         text-align: center;
     }
+    /*
+    .equation67{
+        height: min(8vw,47px);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    */
     #lvlicon{
         height: min(8vw,47px);
     }
@@ -285,6 +294,20 @@
     padding-right: 3vw;
     border-radius: calc((1vw + 1vh));
 }
+/*
+.equation67{
+    font-size: calc(min(60px,3 * (1vw + 1vh)/2));
+    transform: translateY(-37px) ;
+    border: 2px solid #DED019;
+    background-color: #FFF001;
+    padding-left:3vw;
+    padding-right: 3vw;
+    border-radius: calc((1vw + 1vh));
+}
+#easteregg{
+    cursor: pointer;
+}
+*/
 #submitbutton{
     cursor: pointer;
 }
