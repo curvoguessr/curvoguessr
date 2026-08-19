@@ -287,7 +287,7 @@ submitbutton.addEventListener("click",() => {
         }
         let Accuracy = document.getElementById("accuracy");
         Accuracy.style.color = defaultcolour2;
-        Accuracy.innerHTML = "Accuracy: " + 0;
+        Accuracy.innerHTML = "Accuracy: 0%";
         const replaybutton = document.getElementById("replaybutton");
         replaybutton.addEventListener("click",() => {
             location.reload();
