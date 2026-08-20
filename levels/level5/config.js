@@ -49,8 +49,7 @@ let range= {
     yl: -10,
     yr: 10
 }
-/*
+
 easteregg.addEventListener("click", ()=>{
     window.location.href="../level67/index.html";
 });
-*/
