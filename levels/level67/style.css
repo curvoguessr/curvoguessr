@@ -1,0 +1,385 @@
+/* .canvas-setup {
+    position: relative;
+    width: 800px;
+    height: 1000px;
+    margin: 0 auto;
+}
+.canvas-setup canvas {
+    position: absolute;
+    display: block;
+} */
+@font-face {
+    font-family: "BreeSerif";
+    src: url("../fonts/BreeSerif.ttf") format("truetype");
+}
+:root{
+    --gap: 0px;
+}
+ @media(max-width:768px){
+    .centerthings{
+        position:relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        min-height: 100vh;
+        justify-content: center;
+        transform : translateY(calc(min(4.8vw,66.64px) + 10px));
+    }
+    #canvas{
+        position: relative;
+        margin-bottom: 1vh;
+        /* width: min(80vw,88vh);
+        height: min(80vh,101.6vw); */
+    }
+    #plane, #drawingplane{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    #submitbutton{
+        margin-top: 2%;
+        width: auto;
+        height: auto;
+        white-space: normal;
+        /* font-size: 2vw; */
+    }
+    #error{
+        margin-top: 5vh;
+    }
+    #smthg{
+        display: none;
+    }
+    #penbutton, #eraserbutton, #undobutton, #lightbutton, #darkbutton{
+        pointer-events: none;
+    }
+    .buttonsmob{
+        pointer-events: none;
+    }
+    .buttonimgmob{
+        pointer-events: auto;
+        cursor: pointer;
+    }
+    .centerthings{
+        margin-top: -1vh;
+    }
+    #error{
+        margin-top: 1vh;
+    }
+    .buttonsmob{
+        background: none;
+        border: none;
+        padding: 0;
+    }
+    #smthgmob{
+        display: flex;
+        position: absolute;
+        top: 4px;
+        left: 0;
+        width: calc(100vw - 20px);
+        gap:max(1px,calc(1.8vw - 2px));
+    }
+    .buttonimgmob{
+        display: block;
+        height: min(8vw,47px);
+        width: auto;
+    }
+    #tutorialbuttonmob{
+        margin-left: auto;
+    }
+    #equation{
+        height: auto;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    /*
+    .equation67{
+        height: min(8vw,47px);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    */
+    #lvlicon{
+        height: min(8vw,47px);
+    }
+ }
+ @media(min-width:769px){
+    .centerthings{
+        margin-top : calc(min(2.4vw,33.32px) + 5px);
+        position:relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #canvas{
+        position: relative;
+        margin-bottom: 1vh;
+        /* width: min(80vw,88vh);
+        height: min(80vh,101.6vw); */
+    }
+    #plane, #drawingplane{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+    #submitbutton{
+        margin-top: 2%;
+        width: auto;
+        height: auto;
+        white-space: normal;
+        /* font-size: 2vw; */
+    }
+    #error{
+        font-size: min(4vw,51.24px);
+        margin-top: 5vh;
+    }
+    #smthgmob{
+        display: none;
+    }
+    #penbuttonmob, #eraserbuttonmob, #undobuttonmob, #lightbuttonmob, #darkbuttonmob{
+        pointer-events: none;
+    }
+    .imgbuttons{
+        pointer-events: none;
+    }
+    .buttonimg{
+        pointer-events: auto;
+        cursor: pointer;
+    }
+    #smthg1{
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: min(1vw,15px);
+        left: 5px;
+        gap:2.5vh;
+    }
+    .imgbuttons{
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+    #smthg2{
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: min(1vw,15px);
+        right: 5px;
+        gap:0.75vw;
+    }
+    .buttonimg{
+        display: block;
+        width: min(7.2vw,70px);
+        height: auto;
+    }
+    #lvlicon{
+        width: min(7.2vw,99.96px);
+        height: auto;
+    }
+ }
+ /* @media(min-width:824px){
+    #submitbutton{
+        font-size: min(30px,2.4vw);
+    }
+    .aftersubmitbutton{
+        font-size: min(30px,2.4vw);
+    }
+ }
+ @media(min-width-824px) and (max-width:969px){
+    #submitbutton{
+        font-size: 3vw;
+    }
+    .aftersubmitbutton{
+        font-size: 3vw;
+    }
+ }
+ @media(max-width: 449px){
+    #submitbutton{
+        font-size:4.5vw;
+    }
+    .aftersubmitbutton{
+        font-size: 4.5vw;
+    }
+ }
+ @media(min-width: 449px) and (max-width:515px){
+    #submitbutton{
+        font-size:4vw;
+    }
+    .aftersubmitbutton{
+        font-size: 4vw;
+    }
+ }
+ @media(min-width: 514px) and (max-width:680px){
+    #submitbutton{
+        font-size: 3vw;
+    }
+    .aftersubmitbutton{
+        font-size: 3vw;
+    }
+ }
+ @media(min-width: 680px) and (max-width:794px){
+    #submitbutton{
+        font-size: 3.1vw;
+    }
+    .aftersubmitbutton{
+        font-size: 3.1vw;
+    }
+ }
+ @media(min-width: 794px) and (max-width : 823px){
+    #submitbutton{
+        font-size: 2.9vw;
+    }
+    .aftersubmitbutton{
+        font-size: 2.9vw;
+    }
+ } */
+#submitbutton{
+    font-size: 3vh;
+    margin-bottom: 1vh;
+  }
+.aftersubmitbutton{
+    font-size: 3vh;
+}
+#replaybutton{
+    width: 120px;
+}
+#nextlevelbutton{
+    width: 120px;
+}
+ #plane{
+    z-index: 1;
+ }
+ #drawingplane{
+    z-index: 2;
+}
+/* .buttons{
+    position: absolute;
+    bottom: 0;
+    left:0;
+    z-index: 3;
+ } */
+#error-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    background: red;
+    padding: 60px 60px;
+    border-radius: 10px;
+    
+    display: none;
+    opacity: 0;
+}
+#accuracy{
+    font-size: 4.5vh;
+    font-family: 'BreeSerif', serif;
+}
+#equation{
+    font-size: 2vh;
+    transform: translateY(-37px) ;
+    border: 2px solid #DED019;
+    background-color: #FFF001;
+    /* border: 2px solid #FFF001;
+    background-color: #DED019;; */
+    padding-left:3vw;
+    padding-right: 3vw;
+    border-radius: calc((1vw + 1vh));
+}
+/*
+.equation67{
+    font-size: calc(min(60px,3 * (1vw + 1vh)/2));
+    transform: translateY(-37px) ;
+    border: 2px solid #DED019;
+    background-color: #FFF001;
+    padding-left:3vw;
+    padding-right: 3vw;
+    border-radius: calc((1vw + 1vh));
+}
+#easteregg{
+    cursor: pointer;
+}
+*/
+#submitbutton{
+    cursor: pointer;
+}
+.aftersubmitbutton{
+    cursor: pointer;
+}
+#drawingplane, #plane {
+    touch-action: none;
+}
+#tutorial{
+    border: calc((2vw + 2vh) / 10) solid #5077BE;
+    background-color: #6495ED;
+    border-radius: calc(2 * (1vw + 1vh) / 3);
+    position: fixed;
+    top: calc(min(6.72vw,79px) / 2);
+    left: 60vw;
+    /* left: calc(clamp(203px, 60.75vw, 810px) + 0.2*(100vw - calc(min(7vw,82px) + 20px) - clamp(203px, 60.75vw, 810px))); */
+    right:  calc(min(4.8vw,66.64px) + 15px);
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    align-items: center;
+    /* width: calc(48vw - min(6.72vw,79px)); */
+    font-size: 2vw;
+    z-index: 670;
+}
+ #tutorialtab{
+    border: calc((2vw + 2vh) / 10) solid #5077BE;
+    background-color: #6495ED;
+    border-radius: max(calc(2 * (1vw + 1vh) / 3),10px);
+    position: fixed;
+    top: calc(min(8vw,47px) + 8px);
+    right: 5px;
+    /* left: calc(100vw - (min(24vw,141px) + max(2px,3.6vw - 4px) + 20px)); */
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    align-items: center;
+    /* width: calc(48vw - min(6.72vw,79px)); */
+    font-size: 2.5vw;
+    z-index: 670;
+}
+#tutorialheadertab{
+    margin: 0;
+    padding: 0;
+}
+#tutorialtexttab{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+#tutorialheader{
+    margin: 0;
+    padding: 0;
+}
+#tutorialtext{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+#tutorial{
+    display: none;
+}
+#tutorialtab{
+    display: none;
+}
+body {
+    transition: background-color 0.2s ease;
+}
