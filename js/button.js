@@ -44,7 +44,7 @@ function RedrawUser() {
         if (drawingHistory[i][1]=="pen") {
             context.beginPath();
             context.globalCompositeOperation = "source-over";
-            context.lineWidth = 1.434*Math.sqrt(cw*cw+ch*ch)/penScale;
+            context.lineWidth = 1.3*Math.sqrt(cw*cw+ch*ch)/penScale;
             context.lineCap = "round";
             context.lineJoin = "round";
             context.strokeStyle = defaultcolour2;
@@ -53,7 +53,7 @@ function RedrawUser() {
         else {
             context.beginPath();
             context.globalCompositeOperation = "destination-out";
-            context.lineWidth = 1.434*Math.sqrt(cw*cw+ch*ch)/eraserScale;
+            context.lineWidth = Math.sqrt(cw*cw+ch*ch)/eraserScale;
             context.lineCap = "round";
             context.lineJoin = "round";
             context.strokeStyle = defaultcolour2;
