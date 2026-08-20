@@ -17,6 +17,10 @@ if(colourmode == "dark"){
         DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
     }
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
+    disable(darkbutton);
+    disable(darkbuttonmob);
+    enable(lightbutton);
+    enable(lightbuttonmob);
 }
 else {
     defaultcolour1 = "#d6d6d6";
@@ -33,6 +37,10 @@ else {
         DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
     }
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
+    disable(lightbutton);
+    disable(lightbuttonmob);
+    enable(darkbutton);
+    enable(darkbuttonmob);
 }
 // function overlap(){
 //     const plane = document.getElementById("plane");
@@ -47,16 +55,39 @@ else {
 // window.addEventListener("load",()=>{
 //     overlap();
 // });
-
+let equation1 = document.getElementById("equation");
+let equationleft = equation1.getBoundingClientRect().left;
+let equationright = equation1.getBoundingClientRect().right;
+let centerthings1 = document.querySelector(".centerthings");
+let undobuttonmob1 = document.getElementById("undobuttonmob");
+let undobuttonmobxcoord = undobuttonmob1.getBoundingClientRect().left + undobuttonmob.getBoundingClientRect().width;
+let tutorialbuttonmob1 = document.getElementById("tutorialbuttonmob");
+let tutotiralbuttonmobxcoord = tutorialbuttonmob1.getBoundingClientRect().left;
+if(window.matchMedia("(max-width: 768px)").matches){
+    if(tutotiralbuttonmobxcoord <= equationright + 10 || undobuttonmobxcoord + 10 >= equationleft ){
+        //centerthings1.style.transform = "translateY(100px)";
+        centerthings1.style.transform = "translateY(calc(min(8vw, 47px) + 9px + min(4.8vw,66.64px) + 10px))";
+    }
+}
 window.addEventListener("resize",()=>{
     const canvas = document.getElementById('canvas');
     const plane = document.getElementById('plane');
     const drawingplane = document.getElementById('drawingplane');
     const context1 = plane.getContext("2d");
     const context = drawingplane.getContext("2d");
+    let equation1 = document.getElementById("equation");
+    let equationleft = equation1.getBoundingClientRect().left;
+    let equationright = equation1.getBoundingClientRect().right;
+    let centerthings1 = document.querySelector(".centerthings");
+    let undobuttonmob1 = document.getElementById("undobuttonmob");
+    let undobuttonmobxcoord = undobuttonmob1.getBoundingClientRect().left + undobuttonmob.getBoundingClientRect().width;
+    let tutorialbuttonmob1 = document.getElementById("tutorialbuttonmob");
+    let tutotiralbuttonmobxcoord = tutorialbuttonmob1.getBoundingClientRect().left;
+    
     context1.resetTransform();
+    context1.clearRect(0,0,plane.width,plane.height);
     context.resetTransform();
-    context.clearRect(0,0,plane.width,plane.height);
+    context.clearRect(0,0,drawingplane.width,drawingplane.height);
 
     vw = window.innerWidth/100;
     vh = window.innerHeight/100;
@@ -83,48 +114,16 @@ window.addEventListener("resize",()=>{
     //overlap();
     // TransformCanvas(context,cw,ch);
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
-    context.globalCompositeOperation = "source-over";
-    context.lineWidth = 3;
-    context.lineCap = "round";
-    context.lineJoin = "round";
-    context.strokeStyle = defaultcolour2;
-    for(let i = 0; i < unflattened.length; i++){
-        context.beginPath();
-        for(let j = 0; j < unflattened[i].length; j++){
-            if(j == 0){
-                context.moveTo(denormalise(destandardize(unflattened[i][0])).x, denormalise(destandardize(unflattened[i][0])).y);
-            }
-            if(1<=j && j<2){
-                context.lineTo(denormalise(destandardize(unflattened[i][j])).x, denormalise(destandardize(unflattened[i][j])).y);
-            }
-            if(j>=3){
-                CatRomGraph(denormalise(destandardize(unflattened[i][j-3])),denormalise(destandardize(unflattened[i][j-2])),denormalise(destandardize(unflattened[i][j-1])),denormalise(destandardize(unflattened[i][j])),0.05,context);
-            }
-        }
-        context.stroke();
-    }
-    context.globalCompositeOperation = "destination-out";
-    context.lineWidth = 30;
-    context.lineCap = "round";
-    context.lineJoin = "round";    
-    for(let i = 0; i < eraserunflattened.length; i++){
-        context.beginPath();
-        for(let j = 0; j < eraserunflattened[i].length; j++){
-            if(j == 0){
-                context.moveTo(denormalise(destandardize(eraserunflattened[i][0])).x,denormalise(destandardize(eraserunflattened[i][0])).y);
-            }
-            if(1<=j && j<2){
-                context.lineTo(denormalise(destandardize(eraserunflattened[i][j])).x, denormalise(destandardize(eraserunflattened[i][j])).y);
-            }
-            if(j>=3){
-                CatRomGraph(denormalise(destandardize(eraserunflattened[i][j-3])),denormalise(destandardize(eraserunflattened[i][j-2])),denormalise(destandardize(eraserunflattened[i][j-1])),denormalise(destandardize(eraserunflattened[i][j])),0.05,context);
-            }
-        }
-        context.stroke();
-    }
+    RedrawUser();
     if (giveup) {
         for (let i = 0; i < Graph.length; i++) {
             DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
+        }
+    }
+    if(window.matchMedia("(max-width: 768px)").matches){
+        if(tutotiralbuttonmobxcoord <= equationright + 10 || undobuttonmobxcoord + 10 >= equationleft ){
+            //centerthings1.style.transform = "translateY(100px)";
+            centerthings1.style.transform = "translateY(calc(min(8vw, 47px) + 9px + min(4.8vw,66.64px) + 10px))";
         }
     }
 });

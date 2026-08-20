@@ -35,6 +35,8 @@ let unflattened = [];
 let eraserunflattened = [];
 let drawingHistory = [];
 let drawIndex = 0;
+let coalevents;
+let t;       
 function UserDrawing() {
     const DrawingPlane = document.getElementById("drawingplane");
     const context = DrawingPlane.getContext('2d');
@@ -62,11 +64,11 @@ function UserDrawing() {
             context.strokeStyle = defaultcolour3;
             if(mode == "pen"){
                 context.globalCompositeOperation = "source-over";
-                context.lineWidth = 2;
+                context.lineWidth = Math.sqrt(cw*cw+ch*ch)/penScale;
             }
             if(mode == "eraser"){
                 context.globalCompositeOperation = "destination-out";
-                context.lineWidth = 30;
+                context.lineWidth = Math.sqrt(cw*cw+ch*ch)/eraserScale;
             }
             context.lineCap = "round";
             context.lineJoin = "round";
@@ -114,7 +116,15 @@ function UserDrawing() {
         let inRange = true;
             if (CurrentlyDrawing) {
                 inRange = true;
-                const coalevents = (typeof event.getCoalescedEvents === 'function') ? event.getCoalescedEvents() : [event];
+                // const coalevents = (typeof event.getCoalescedEvents === 'function') ? event.getCoalescedEvents() : [event];
+                if(event.getCoalescedEvents){
+                    coalevents = event.getCoalescedEvents();
+                    t = 0.005;
+                }
+                else{
+                    coalevents = [event];
+                    t = 0.0025;
+                }
                 for(const events of coalevents){
                     lazybrush(9,events);
                     if(mode == "pen"){
@@ -134,7 +144,7 @@ function UserDrawing() {
                     }
                     if(mode == "pen"){
                         if(mousecoord.length-oldsize>=4){
-                            CatRomGraph(denormalise(destandardize(mousecoord[mousecoord.length-4])),denormalise(destandardize(mousecoord[mousecoord.length-3])),denormalise(destandardize(mousecoord[mousecoord.length-2])),denormalise(destandardize(mousecoord[mousecoord.length-1])),0.005,context);
+                            CatRomGraph(denormalise(destandardize(mousecoord[mousecoord.length-4])),denormalise(destandardize(mousecoord[mousecoord.length-3])),denormalise(destandardize(mousecoord[mousecoord.length-2])),denormalise(destandardize(mousecoord[mousecoord.length-1])),t,context);
                         }
                         else{
                             context.lineTo(brush.x*cw/1000, brush.y*ch/1000);
@@ -142,7 +152,7 @@ function UserDrawing() {
                     }
                     if(mode == "eraser"){
                         if(erasecoord.length-oldsize>=4){
-                            CatRomGraph(denormalise(destandardize(erasecoord[erasecoord.length-4])),denormalise(destandardize(erasecoord[erasecoord.length-3])),denormalise(destandardize(erasecoord[erasecoord.length-2])),denormalise(destandardize(erasecoord[erasecoord.length-1])),0.05,context);
+                            CatRomGraph(denormalise(destandardize(erasecoord[erasecoord.length-4])),denormalise(destandardize(erasecoord[erasecoord.length-3])),denormalise(destandardize(erasecoord[erasecoord.length-2])),denormalise(destandardize(erasecoord[erasecoord.length-1])),10*t,context);
                         }
                         else{
                             context.lineTo(brush.x*cw/1000,brush.y*ch/1000);
@@ -167,6 +177,7 @@ function UserDrawing() {
                 drawingHistory.push([structuredClone(eraserunflattened[eraserunflattened.length-1]),"eraser"]);
             }
             drawIndex++;
+            RedrawUser();
         }
         DrawingPlane.releasePointerCapture(event.pointerId);
     });

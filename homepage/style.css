@@ -6,8 +6,8 @@ html, body{
     min-height: 100vw; */
 }
 @font-face {
-    font-family: "bodoni";
-    src: url("../fonts/Bodoni.ttf") format("truetype");
+    font-family: "BreeSerif";
+    src: url("../fonts/BreeSerif.ttf") format("truetype");
 }
 .smthg{
     display: flex;
@@ -45,7 +45,7 @@ html, body{
 }
 #playtext{
     margin: 0;
-    border: calc((1vw + 1vh)/4) solid #29B80F;
+    border: calc((1vw + 1vh)/4) solid #DED019;
     border-radius: 1vw;
     padding-left: 5vw;
     padding-right: 5vw;
@@ -53,8 +53,9 @@ html, body{
     padding-bottom: 1vh;
     display: inline;
     font-size: 5vw;
-    font-family: 'bodoni',serif;
-    background-color: #39FF14; 
+    font-family: 'BreeSerif',serif;
+    background-color: #FFF001; 
+    color:#121212;
     grid-column: 1/-1;
     grid-row: 1;
     align-content: center;
@@ -77,9 +78,9 @@ html, body{
 
 #welcometext{
     font-size: clamp(25px,3.4vw,70px);
-    font-family: 'bodoni', serif;
-    text-shadow: 1px 0.3px black;
-    color: black;
+    font-family: 'BreeSerif', serif;
+    text-shadow: 1px 0.3px #121212;
+    color: #121212;
     margin: 0;
     margin-left: 10%;
     /*transform: translate(30%,0%); */
@@ -88,13 +89,15 @@ html, body{
     margin-left: -11111%;
     height: 3px;
     width: 11111111vw;
-    background-color: black;
+    background-color: #121212;
+    z-index: 966;
 }
 #welcometextbottomborder{
     margin-left: -11111%;
     height: 3px;
     width: 111111vw;
-    background-color: black;
+    background-color: #121212;
+    z-index: 966;
 }
 .welcome{
     flex: 1;
@@ -137,8 +140,8 @@ html, body{
     cursor: pointer;
 }
 #tutorial{
-    border: calc((2vw + 2vh) / 5) solid #DED019;
-    background-color: #FFF001;
+    border: calc((2vw + 2vh) / 5) solid #5077BE;
+    background-color: #6495ED;
     border-radius: calc(2 * (1vw + 1vh) / 3);
     position: absolute;
     top: calc(min(6.72vw,79px) / 2);
@@ -252,8 +255,8 @@ html, body{
         font-size: clamp(1px,4vw, 25000px);
     }
     #tutorial{
-        border: calc((2vw + 2vh) / 5) solid #DED019;
-        background-color: #FFF001;
+        border: calc((2vw + 2vh) / 5) solid #5077BE;
+        background-color: #6495ED;
         border-radius: calc(2 * (1vw + 1vh) / 3);
         position: absolute;
         top: 9vw;
@@ -308,8 +311,8 @@ html, body{
         gap: 1vw;
     }
     #tutorialtab{
-        border: calc((2vw + 2vh) / 5) solid #DED019;
-        background-color: #FFF001;
+        border: calc((2vw + 2vh) / 5) solid #5077BE;
+        background-color: #6495ED;
         border-radius: calc(2 * (1vw + 1vh) / 3);
         width: calc(98vw - 1px - clamp(199px, 59.535vw, 793.8px));
         display: flex;
@@ -344,6 +347,9 @@ html, body{
 }
 #tutorialtab{
     display: none;
+}
+.buttons{
+    z-index: 967;
 }
 /* @media(min-width:1500px) and (max-width:1570px){
     .welcome{
@@ -425,3 +431,6 @@ html, body{
         margin-top: -650px;
     }
 } */
+body {
+    transition: background-color 0.2s ease;
+}

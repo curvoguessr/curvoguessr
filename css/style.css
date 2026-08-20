@@ -8,6 +8,10 @@
     position: absolute;
     display: block;
 } */
+@font-face {
+    font-family: "BreeSerif";
+    src: url("../fonts/BreeSerif.ttf") format("truetype");
+}
 :root{
     --gap: 0px;
 }
@@ -74,14 +78,14 @@
         top: 4px;
         left: 0;
         width: calc(100vw - 20px);
-        gap:calc(1.8vw - 2px);
+        gap:max(1px,calc(1.8vw - 2px));
     }
     .buttonimgmob{
         display: block;
         height: min(8vw,47px);
         width: auto;
     }
-    #lightbuttonmob{
+    #tutorialbuttonmob{
         margin-left: auto;
     }
     #equation{
@@ -153,8 +157,8 @@
         display: flex;
         flex-direction: column;
         position: fixed;
-        top: 0;
-        left: 0;
+        top: min(1vw,15px);
+        left: 5px;
         gap:2.5vh;
     }
     .imgbuttons{
@@ -168,7 +172,7 @@
         flex-direction: column;
         position: fixed;
         top: min(1vw,15px);
-        right: 20px;
+        right: 5px;
         gap:0.75vw;
     }
     .buttonimg{
@@ -282,6 +286,7 @@
 }
 #accuracy{
     font-size: 4.5vh;
+    font-family: 'BreeSerif', serif;
 }
 #equation{
     font-size: calc(min(60px,3 * (1vw + 1vh)/2));
@@ -316,4 +321,65 @@
 }
 #drawingplane, #plane {
     touch-action: none;
+}
+#tutorial{
+    border: calc((2vw + 2vh) / 10) solid #5077BE;
+    background-color: #6495ED;
+    border-radius: calc(2 * (1vw + 1vh) / 3);
+    position: fixed;
+    top: calc(min(6.72vw,79px) / 2);
+    left: 60vw;
+    /* left: calc(clamp(203px, 60.75vw, 810px) + 0.2*(100vw - calc(min(7vw,82px) + 20px) - clamp(203px, 60.75vw, 810px))); */
+    right:  calc(min(4.8vw,66.64px) + 15px);
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    align-items: center;
+    /* width: calc(48vw - min(6.72vw,79px)); */
+    font-size: 2vw;
+    z-index: 670;
+}
+ #tutorialtab{
+    border: calc((2vw + 2vh) / 10) solid #5077BE;
+    background-color: #6495ED;
+    border-radius: max(calc(2 * (1vw + 1vh) / 3),10px);
+    position: fixed;
+    top: calc(min(8vw,47px) + 8px);
+    right: 5px;
+    /* left: calc(100vw - (min(24vw,141px) + max(2px,3.6vw - 4px) + 20px)); */
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    align-items: center;
+    /* width: calc(48vw - min(6.72vw,79px)); */
+    font-size: 2.5vw;
+    z-index: 670;
+}
+#tutorialheadertab{
+    margin: 0;
+    padding: 0;
+}
+#tutorialtexttab{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+#tutorialheader{
+    margin: 0;
+    padding: 0;
+}
+#tutorialtext{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+#tutorial{
+    display: none;
+}
+#tutorialtab{
+    display: none;
+}
+body {
+    transition: background-color 0.2s ease;
 }

@@ -11,16 +11,21 @@ const lightbuttonmob = document.getElementById("lightbuttonmob");
 const darkbuttonmob = document.getElementById("darkbuttonmob");    
 const images = document.getElementById("drawingbutton");
 const imagesmob = document.getElementById("drawingbuttonmob");
+const tutorialbutton = document.getElementById("tutorialbutton");
+const tutorialbuttonmob = document.getElementById("tutorialbuttonmob");
+const tutorial = document.getElementById("tutorial");
+const tutorialtab = document.getElementById("tutorialtab");
 let is_submit = false;
 let giveup = false;
 const DrawingPlane = document.getElementById("drawingplane");
 const context = DrawingPlane.getContext('2d');
 const rect = DrawingPlane.getBoundingClientRect();
+const centerthings = document.getElementsByClassName("centerthings")
 let colourmode = "light";
 let defaultcolour1 = "#d6d6d6";
 let defaultcolour2 = "#121212";
 let defaultcolour3 = "black";
-
+let isTutorial = false;
 // function invertcolor(canvas){
 //     const context = canvas.getContext("2d");
 //     const image = context.getImageData(0, 0, canvas.width, canvas.height);     
@@ -31,7 +36,55 @@ let defaultcolour3 = "black";
 //         imagecolor[i+2] = 255-imagecolor[i+2];
 //     }
 //     context.putImageData(image, 0, 0)
-// }
+// }'
+function RedrawUser() {
+    context.clearRect(0, 0, DrawingPlane.width, DrawingPlane.height);
+    for (let i = 0; i < drawingHistory.length; i++) {
+        if (drawingHistory[i][0].length==0) continue;
+        if (drawingHistory[i][1]=="pen") {
+            context.beginPath();
+            context.globalCompositeOperation = "source-over";
+            context.lineWidth = 1.434*Math.sqrt(cw*cw+ch*ch)/penScale;
+            context.lineCap = "round";
+            context.lineJoin = "round";
+            context.strokeStyle = defaultcolour2;
+            unflattened.push(drawingHistory[i][0]);
+        }
+        else {
+            context.beginPath();
+            context.globalCompositeOperation = "destination-out";
+            context.lineWidth = 1.434*Math.sqrt(cw*cw+ch*ch)/eraserScale;
+            context.lineCap = "round";
+            context.lineJoin = "round";
+            context.strokeStyle = defaultcolour2;
+            eraserunflattened.push(drawingHistory[i][0]);
+        }
+        context.moveTo(denormalise(destandardize(drawingHistory[i][0][0])).x,denormalise(destandardize(drawingHistory[i][0][0])).y);
+        for (let j = 1; j < drawingHistory[i][0].length; j++) {
+            if (j <= 2) {
+                context.lineTo(denormalise(destandardize(drawingHistory[i][0][j])).x,denormalise(destandardize(drawingHistory[i][0][j])).y);
+            }
+            else {
+                CatRomGraph(denormalise(destandardize(drawingHistory[i][0][j-3])),denormalise(destandardize(drawingHistory[i][0][j-2])), denormalise(destandardize(drawingHistory[i][0][j-1])), denormalise(destandardize(drawingHistory[i][0][j])), t, context);
+            }
+        }
+        context.stroke();
+    }
+}
+function disable(button){
+    button.style.transition = "opacity 0.2s ease, filter 0.2s ease";
+    button.style.cursor = "not-allowed";
+    button.style.opacity = "0.67";
+    button.style.filter = "grayscale(33%)";
+}
+disable(penbutton);
+disable(penbuttonmob);
+function enable(button){
+    button.style.transition = "opacity 0.2s ease, filter 0.2s ease";
+    button.style.cursor = "pointer";
+    button.style.opacity = "";
+    button.style.filter = "";
+}
 lightbutton.addEventListener("click",() => {
     if(colourmode == "dark"){
         colourmode = "light";
@@ -48,47 +101,13 @@ lightbutton.addEventListener("click",() => {
         if(mode == "eraser"){
             DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
         }
-        context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
         DrawAxis(subxunit, xunit,cw,subyunit,yunit,ch);
-        context.globalCompositeOperation = "source-over";
-        context.lineWidth = 3;
-        context.lineCap = "round";
-        context.lineJoin = "round";
-        context.strokeStyle = defaultcolour2;
-        for(let i = 0; i < unflattened.length; i++){
-            context.beginPath();
-            for(let j = 0; j < unflattened[i].length; j++){
-                if(j == 0){
-                    context.moveTo(denormalise(destandardize(unflattened[i][0])).x,denormalise(destandardize(unflattened[i][0])).y);
-                }
-                if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(unflattened[i][j])).x, denormalise(destandardize(unflattened[i][j])).y);
-                }
-                if(j>=3){
-                    CatRomGraph(denormalise(destandardize(unflattened[i][j-3])),denormalise(destandardize(unflattened[i][j-2])),denormalise(destandardize(unflattened[i][j-1])),denormalise(destandardize(unflattened[i][j])),0.005,context);
-                }
-            }
-            context.stroke();
-        }
-        context.globalCompositeOperation = "destination-out";
-        context.lineWidth = 30;
-        context.lineCap = "round";
-        context.lineJoin = "round";
-        for(let i = 0; i < eraserunflattened.length; i++){
-            context.beginPath();
-            for(let j = 0; j < eraserunflattened[i].length; j++){
-                if(j == 0){
-                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0])).x,denormalise(destandardize(eraserunflattened[i][0])).y);
-                }
-                if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(eraserunflattened[i][j])).x, denormalise(destandardize(eraserunflattened[i][j])).y);
-                }
-                if(j>=3){
-                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][j-3])),denormalise(destandardize(eraserunflattened[i][j-2])),denormalise(destandardize(eraserunflattened[i][j-1])),denormalise(destandardize(eraserunflattened[i][j])),0.005,context);
-                }
-            }
-            context.stroke();
-        }
+        RedrawUser();
+        setTimeout(()=>{
+            disable(lightbutton);
+            disable(lightbuttonmob);
+            enable(darkbutton);
+            enable(darkbuttonmob);}, 50);
         //UserDrawing();
     }
 });
@@ -108,47 +127,14 @@ darkbutton.addEventListener("click",() => {
         if(mode == "eraser"){
             DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
         }
-        context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
-        context.globalCompositeOperation = "source-over";
-        context.lineWidth = 3;
-        context.lineCap = "round";
-        context.lineJoin = "round";
-        context.strokeStyle = defaultcolour2;
-        for(let i = 0; i < unflattened.length; i++){
-            context.beginPath();
-            for(let j = 0; j < unflattened[i].length; j++){
-                if(j == 0){
-                    context.moveTo(denormalise(destandardize(unflattened[i][0])).x,denormalise(destandardize(unflattened[i][0])).y);
-                }
-                if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(unflattened[i][j])).x, denormalise(destandardize(unflattened[i][j])).y);
-                }
-                if(j>=3){
-                    CatRomGraph(denormalise(destandardize(unflattened[i][j-3])),denormalise(destandardize(unflattened[i][j-2])),denormalise(destandardize(unflattened[i][j-1])),denormalise(destandardize(unflattened[i][j])),0.005,context);
-                }
-            }
-            context.stroke();
-        }
-        context.globalCompositeOperation = "destination-out";
-        context.lineWidth = 30;
-        context.lineCap = "round";
-        context.lineJoin = "round";
-        for(let i = 0; i < eraserunflattened.length; i++){
-            context.beginPath();
-            for(let j = 0; j < eraserunflattened[i].length; j++){
-                if(j == 0){
-                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0])).x,denormalise(destandardize(eraserunflattened[i][0])).y);
-                }
-                if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(eraserunflattened[i][j])).x, denormalise(destandardize(eraserunflattened[i][j])).y);
-                }
-                if(j>=3){
-                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][j-3])),denormalise(destandardize(eraserunflattened[i][j-2])),denormalise(destandardize(eraserunflattened[i][j-1])),denormalise(destandardize(eraserunflattened[i][j])),0.005,context);
-                }
-            }
-            context.stroke();
-        }
+        RedrawUser();
+        setTimeout(()=>{
+            enable(lightbutton);
+            enable(lightbuttonmob);
+            disable(darkbutton);
+            disable(darkbuttonmob);
+        }, 50);
     }
 });
 lightbuttonmob.addEventListener("click",() => {
@@ -167,48 +153,13 @@ lightbuttonmob.addEventListener("click",() => {
         if(mode == "eraser"){
             DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
         }
-        context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
-        context.globalCompositeOperation = "source-over";
-        context.lineWidth = 3;
-        context.lineCap = "round";
-        context.lineJoin = "round";
-        context.strokeStyle = defaultcolour2;
-        for(let i = 0; i < unflattened.length; i++){
-            context.beginPath();
-            for(let j = 0; j < unflattened[i].length; j++){
-                if(j == 0){
-                    context.moveTo(denormalise(destandardize(unflattened[i][0])).x,denormalise(destandardize(unflattened[i][0])).y);
-                }
-                if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(unflattened[i][j])).x, denormalise(destandardize(unflattened[i][j])).y);
-                }
-                if(j>=3){
-                    CatRomGraph(denormalise(destandardize(unflattened[i][j-3])),denormalise(destandardize(unflattened[i][j-2])),denormalise(destandardize(unflattened[i][j-1])),denormalise(destandardize(unflattened[i][j])),0.005,context);
-                }
-            }
-            context.stroke();
-        }
-        context.globalCompositeOperation = "destination-out";
-        context.lineWidth = 30;
-        context.lineCap = "round";
-        context.lineJoin = "round";
-        for(let i = 0; i < eraserunflattened.length; i++){
-            context.beginPath();
-            for(let j = 0; j < eraserunflattened[i].length; j++){
-                if(j == 0){
-                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0])).x,denormalise(destandardize(eraserunflattened[i][0])).y);
-                }
-                if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(eraserunflattened[i][j])).x, denormalise(destandardize(eraserunflattened[i][j])).y);
-                }
-                if(j>=3){
-                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][j-3])),denormalise(destandardize(eraserunflattened[i][j-2])),denormalise(destandardize(eraserunflattened[i][j-1])),denormalise(destandardize(eraserunflattened[i][j])),0.005,context);
-                }
-            }
-            context.stroke();
-        }
-        //UserDrawing();
+        RedrawUser();
+        setTimeout(()=>{
+            disable(lightbutton);
+            disable(lightbuttonmob);
+            enable(darkbutton);
+            enable(darkbuttonmob);}, 50);
     }
 });
 darkbuttonmob.addEventListener("click",() => {
@@ -227,48 +178,14 @@ darkbuttonmob.addEventListener("click",() => {
         if(mode == "eraser"){
                 DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
         }
-        context.clearRect(0,0,DrawingPlane.width,DrawingPlane.height);
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
-        context.globalCompositeOperation = "source-over";
-        context.lineWidth = 3;
-        context.lineCap = "round";
-        context.lineJoin = "round";
-        context.strokeStyle = defaultcolour2;
-        for(let i = 0; i < unflattened.length; i++){
-            context.beginPath();
-            for(let j = 0; j < unflattened[i].length; j++){
-                if(j == 0){
-                    context.moveTo(denormalise(destandardize(unflattened[i][0])).x,denormalise(destandardize(unflattened[i][0])).y);
-                }
-                if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(unflattened[i][j])).x, denormalise(destandardize(unflattened[i][j])).y);
-                }
-                if(j>=3){
-                    CatRomGraph(denormalise(destandardize(unflattened[i][j-3])),denormalise(destandardize(unflattened[i][j-2])),denormalise(destandardize(unflattened[i][j-1])),denormalise(destandardize(unflattened[i][j])),0.005,context);
-                }
-            }
-            context.stroke();
-        }
-        context.globalCompositeOperation = "destination-out";
-        context.lineWidth = 30;
-        context.lineCap = "round";
-        context.lineJoin = "round";
-        for(let i = 0; i < eraserunflattened.length; i++){
-            context.beginPath();
-            for(let j = 0; j < eraserunflattened[i].length; j++){
-                if(j == 0){
-                    context.moveTo(denormalise(destandardize(eraserunflattened[i][0])).x,denormalise(destandardize(eraserunflattened[i][0])).y);
-                }
-                if(1<=j && j<2){
-                    context.lineTo(denormalise(destandardize(eraserunflattened[i][j])).x, denormalise(destandardize(eraserunflattened[i][j])).y);
-                }
-                if(j>=3){
-                    CatRomGraph(denormalise(destandardize(eraserunflattened[i][j-3])),denormalise(destandardize(eraserunflattened[i][j-2])),denormalise(destandardize(eraserunflattened[i][j-1])),denormalise(destandardize(eraserunflattened[i][j])),0.005,context);
-                }
-            }
-            context.stroke();
-        }
-        //UserDrawing();
+        RedrawUser();
+        setTimeout(()=>{
+            enable(lightbutton);
+            enable(lightbuttonmob);
+            disable(darkbutton);
+            disable(darkbuttonmob);
+        }, 50);
     }
 });
 const aftersubmitbutton = document.getElementsByClassName("aftersubmitbutton");   
@@ -306,20 +223,12 @@ submitbutton.addEventListener("click",() => {
         penbuttonmob.disabled = true;
         eraserbuttonmob.disabled = true;
         undobuttonmob.disabled = true;
-        penbutton.style.cursor = "default";
-        penbutton.style.opacity = "0.7";
-        penbuttonmob.style.cursor = "default";
-        penbuttonmob.style.opacity = "0.7";
-        eraserbutton.style.cursor = "default";
-        eraserbutton.style.opacity = "0.7";
-        eraserbuttonmob.style.cursor = "default";
-        eraserbuttonmob.style.opacity = "0.7";
-        undobutton.style.cursor = "default";
-        undobutton.style.opacity = "0.7";
-        undobuttonmob.style.cursor = "default";
-        undobuttonmob.style.opacity = "0.7";
-        images.style.filter = "brightness(80%)";
-        imagesmob.style.filter = "brightness(80%)";
+        disable(penbutton);
+        disable(eraserbutton);
+        disable(undobutton);
+        disable(penbuttonmob);
+        disable(eraserbuttonmob);
+        disable(undobuttonmob);
     }
     else {
         is_submit = true;
@@ -345,20 +254,12 @@ submitbutton.addEventListener("click",() => {
         penbuttonmob.disabled = true;
         eraserbuttonmob.disabled = true;
         undobuttonmob.disabled = true;
-        penbutton.style.cursor = "default";
-        penbutton.style.opacity = "0.7";
-        penbuttonmob.style.cursor = "default";
-        penbuttonmob.style.opacity = "0.7";
-        eraserbutton.style.cursor = "default";
-        eraserbutton.style.opacity = "0.7";
-        eraserbuttonmob.style.cursor = "default";
-        eraserbuttonmob.style.opacity = "0.7";
-        undobutton.style.cursor = "default";
-        undobutton.style.opacity = "0.7";
-        undobuttonmob.style.cursor = "default";
-        undobuttonmob.style.opacity = "0.7";
-        images.style.filter = "brightness(80%)";
-        imagesmob.style.filter = "brightness(80%)";
+        disable(penbutton);
+        disable(eraserbutton);
+        disable(undobutton);
+        disable(penbuttonmob);
+        disable(eraserbuttonmob);
+        disable(undobuttonmob);
     }
 });
 penbutton.addEventListener("click",() => {
@@ -371,6 +272,10 @@ penbutton.addEventListener("click",() => {
             if(colourmode == "dark"){
                 DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto"
             }
+            enable(eraserbutton);
+            enable(eraserbuttonmob);
+            disable(penbutton);
+            disable(penbuttonmob);
         }
     }
 });
@@ -385,6 +290,10 @@ eraserbutton.addEventListener("click",() => {
                 DrawingPlane.style.cursor = "url('../../images/erasercursordark.png')16 16, auto";
             }
         }
+        enable(penbutton);
+        enable(penbuttonmob);
+        disable(eraserbutton);
+        disable(eraserbuttonmob);
     }
 });
 undobutton.addEventListener("click", ()=>{
@@ -394,38 +303,8 @@ undobutton.addEventListener("click", ()=>{
     unflattened = [];
     erasecoord = [];
     eraserunflattened = [];
-    context.clearRect(0, 0, DrawingPlane.width, DrawingPlane.height);
-    for (let i = 0; i < drawingHistory.length; i++) {
-        if (drawingHistory[i][0].length==0) continue;
-        if (drawingHistory[i][1]=="pen") {
-            context.beginPath();
-            context.globalCompositeOperation = "source-over";
-            context.lineWidth = 3;
-            context.lineCap = "round";
-            context.lineJoin = "round";
-            context.strokeStyle = defaultcolour2;
-            unflattened.push(drawingHistory[i][0]);
-        }
-        else {
-            context.beginPath();
-            context.globalCompositeOperation = "destination-out";
-            context.lineWidth = 30;
-            context.lineCap = "round";
-            context.lineJoin = "round";
-            context.strokeStyle = defaultcolour2;
-            eraserunflattened.push(drawingHistory[i][0]);
-        }
-        context.moveTo(denormalise(destandardize(drawingHistory[i][0][0])).x,denormalise(destandardize(drawingHistory[i][0][0])).y);
-        for (let j = 1; j < drawingHistory[i][0].length; j++) {
-            if (j <= 2) {
-                context.lineTo(denormalise(destandardize(drawingHistory[i][0][j])).x,denormalise(destandardize(drawingHistory[i][0][j])).y);
-            }
-            else {
-                CatRomGraph(denormalise(destandardize(drawingHistory[i][0][j-3])),denormalise(destandardize(drawingHistory[i][0][j-2])), denormalise(destandardize(drawingHistory[i][0][j-1])), denormalise(destandardize(drawingHistory[i][0][j])), 0.005, context);
-            }
-        }
-        context.stroke();
-    }
+    
+    RedrawUser();
     mousecoord = unflattened.flat();
     erasecoord = eraserunflattened.flat();
     for (let i = 0; i < erasecoord.length; i++) {
@@ -448,6 +327,10 @@ penbuttonmob.addEventListener("click",() => {
             if(colourmode == "dark"){
                 DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto"
             }
+            enable(eraserbutton);
+            enable(eraserbuttonmob);
+            disable(penbutton);
+            disable(penbuttonmob);
         }
     }
 });
@@ -461,6 +344,10 @@ eraserbuttonmob.addEventListener("click",() => {
             else{
                 DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
             }
+            disable(eraserbutton);
+            disable(eraserbuttonmob);
+            enable(penbutton);
+            enable(penbuttonmob);
         }
     }
 });
@@ -472,38 +359,9 @@ undobuttonmob.addEventListener("click", ()=>{
     unflattened = [];
     erasecoord = [];
     eraserunflattened = [];
-    context.clearRect(0, 0, DrawingPlane.width, DrawingPlane.height);
-    for (let i = 0; i < drawingHistory.length; i++) {
-        if (drawingHistory[i][0].length==0) continue;
-        if (drawingHistory[i][1]=="pen") {
-            context.beginPath();
-            context.globalCompositeOperation = "source-over";
-            context.lineWidth = 3;
-            context.lineCap = "round";
-            context.lineJoin = "round";
-            context.strokeStyle = defaultcolour2;
-            unflattened.push(drawingHistory[i][0]);
-        }
-        else {
-            context.beginPath();
-            context.globalCompositeOperation = "destination-out";
-            context.lineWidth = 30;
-            context.lineCap = "round";
-            context.lineJoin = "round";
-            context.strokeStyle = defaultcolour2;
-            eraserunflattened.push(drawingHistory[i][0]);
-        }
-        context.moveTo(denormalise(destandardize(drawingHistory[i][0][0])).x,denormalise(destandardize(drawingHistory[i][0][0])).y);
-        for (let j = 1; j < drawingHistory[i][0].length; j++) {
-            if (j <= 2) {
-                context.lineTo(denormalise(destandardize(drawingHistory[i][0][j])).x,denormalise(destandardize(drawingHistory[i][0][j])).y);
-            }
-            else {
-                CatRomGraph(denormalise(destandardize(drawingHistory[i][0][j-3])),denormalise(destandardize(drawingHistory[i][0][j-2])), denormalise(destandardize(drawingHistory[i][0][j-1])), denormalise(destandardize(drawingHistory[i][0][j])), 0.005, context);
-            }
-        }
-        context.stroke();
-    }
+    
+    RedrawUser();
+    
     mousecoord = unflattened.flat();
     erasecoord = eraserunflattened.flat();
     for (let i = 0; i < erasecoord.length; i++) {
@@ -514,6 +372,61 @@ undobuttonmob.addEventListener("click", ()=>{
                 j--;
             }
         }
+    }
+});
+tutorialbutton.addEventListener("click",()=>{
+    if(isTutorial == false){
+        isTutorial = true;
+        tutorial.style.display = "flex";
+    }
+    else{
+        isTutorial = false;
+        tutorial.style.display = "none";
+    }
+})
+tutorialbuttonmob.addEventListener("click",()=>{
+     if(isTutorial == false){
+        isTutorial = true;
+        tutorialtab.style.display = "flex";
+    }
+    else{
+        isTutorial = false;
+        tutorialtab.style.display = "none";
+    }
+})
+tutorialbutton.addEventListener("mouseleave",()=>{
+    if(isTutorial == true){
+        isTutorial = false;
+        tutorialtab.style.display = "none";
+        tutorial.style.display = "none";
+    }
+});
+tutorialbuttonmob.addEventListener("mouseleave",()=>{
+    if(isTutorial == true){
+        isTutorial = false;
+        tutorialtab.style.display = "none";
+        tutorial.style.display = "none";
+    }
+});
+window.addEventListener("touchstart",()=>{
+    if(isTutorial == true){
+        isTutorial = false;
+        tutorialtab.style.display = "none";
+        tutorial.style.display = "none";
+    }
+});
+window.addEventListener("resize",()=>{
+    if(isTutorial == true){
+        isTutorial = false;
+        tutorialtab.style.display = "none";
+        tutorial.style.display = "none";
+    }
+});
+window.addEventListener("scroll",()=>{
+    if(isTutorial == true){
+        isTutorial = false;
+        tutorialtab.style.display = "none";
+        tutorial.style.display = "none";
     }
 });
 document.addEventListener("keydown", (event) => {

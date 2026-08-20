@@ -1,7 +1,3 @@
-const axisScale = 110;
-const borderScale = 2*axisScale;
-const gridlineScale = 3.2*axisScale;
-const minorGridlineScale = 2.7*gridlineScale;
 function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
     const canvas = document.getElementById('plane');
     const context = canvas.getContext('2d');
@@ -150,7 +146,7 @@ function DrawGraph(t_1, t_2, Function_x, Function_y){
     TransformCanvas(context,cw,ch);
     context.beginPath();
     context.strokeStyle = "Red";
-    context.lineWidth = 6;
+    context.lineWidth = (cw+ch)/borderScale;
 
     DrawGraphSegment(t_1,t_2,Function_x, Function_y, 0.001, context);
     context.stroke();

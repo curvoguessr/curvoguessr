@@ -13,65 +13,78 @@
 
 <body>
     <div class="centerthings">
-        <div id="equation"></div>
-        <div id="canvas">
+        <div id = "equation"></div>
+        <div id = "canvas">
             <canvas id="plane"></canvas>
             <canvas id="drawingplane"></canvas>
         </div>
         <div>
-            <button type="button" class="buttons" id="submitbutton">
+            <button type = "button" class = "buttons" id = "submitbutton">
                 Submit
             </button>
         </div>
         <div>
-            <button id="replaybutton" class="aftersubmitbutton">Replay</button>
-            <button id="giveupbutton" class="aftersubmitbutton">Giveup</button>
-            <button id="nextlevelbutton" class="aftersubmitbutton"
-                onclick='window.location.href="../level17/index.html"'>Next</button>
+            <button id = "replaybutton" class ="aftersubmitbutton">Replay</button>
+            <button id = "giveupbutton" class = "aftersubmitbutton">Giveup</button>
+            <button id = "nextlevelbutton" class = "aftersubmitbutton" onclick='window.location.href="../level17/index.html"'>Next</button>
         </div>
-        <h1 style="text-align: center" id="accuracy">Accuracy: </h1>
+        <h1 style = "text-align: center" id = "accuracy" >Accuracy: </h1>
     </div>
-    <div id="smthg">
-        <div id="smthg1">
-            <img src="../../images/lvl16.png" id="lvlicon">
-            <button type="button" class="imgbuttons" id="penbutton">
-                <img src="../../images/pen.png" class="drawingbutton buttonimg">
+    <div id = "smthg">
+        <div id = "smthg1">
+            <img src = "../../images/lvl16.png" id = "lvlicon">
+            <button type = "button" class = "imgbuttons" id = "penbutton">
+                <img src = "../../images/pen.png"; class = "drawinggbutton buttonimg">
             </button>
-            <button type="button" class="imgbuttons" id="eraserbutton">
-                <img src="../../images/eraser.png" class="drawingbutton buttonimg">
+            <button type="button" class = "imgbuttons" id = "eraserbutton">
+                <img src = "../../images/eraser.png" class = "drawingbutton buttonimg">
             </button>
-            <button type="button" class="imgbuttons" id="undobutton">
-                <img src="../../images/undo.png" class="drawingbutton buttonimg">
-            </button>
-        </div>
-        <div id="smthg2">
-            <button type="button" class="imgbuttons" id="lightbutton">
-                <img src="../../images/lightmode.png" class="buttonimg">
-            </button>
-            <button type="button" class="imgbuttons" id="darkbutton">
-                <img src="../../images/darkmode.png" class="buttonimg">
+            <button type = "button" class = "imgbuttons" id = "undobutton">
+                <img src = "../../images/undo.png" class = "drawingbutton buttonimg">
             </button>
         </div>
+        <div id = "smthg2">
+            <button type = "button" class = "imgbuttons" id = "tutorialbutton">
+                <img src = "../../images/questionmark.png" class = "buttonimg">
+            </button>
+            <button type = "button" class = "imgbuttons" id = "lightbutton">
+                <img src = "../../images/lightmode.png" class = "buttonimg">
+            </button>
+            <button type = "button" class = "imgbuttons" id = "darkbutton">
+                <img src = "../../images/darkmode.png" class = "buttonimg">
+            </button>
+        </div>
     </div>
-    <div id="smthgmob">
-        <img src="../../images/lvl16.png" id="lvlicon">
-        <button type="button" class="buttonsmob" id="penbuttonmob">
-            <img src="../../images/pen.png" class="drawingbuttonmob buttonimgmob">
+    <div id = "tutorial" class = "tutorial">
+        <h2 id = "tutorialheader" class = "tutorialtext">How to play</h2>
+        <p id = "tutorialtext" class = "tutorialtext">You will be shown an equation, and you must draw what you think it'll look like on the Cartesian plane. You'll get an accuracy score based on how closely your drawing matches the actual curve. Play through a variety of levels and test your intuition!</p>
+    </div>
+    <div id = "smthgmob">
+        <img src = "../../images/lvl16.png" id="lvlicon">
+        <button type = "button" class = "buttonsmob" id = "penbuttonmob">
+            <img src = "../../images/pen.png" class = "drawingbuttonmob buttonimgmob">
         </button>
-        <button type="button" class="buttonsmob" id="eraserbuttonmob">
-            <img src="../../images/eraser.png" class="drawingbuttonmob buttonimgmob">
+        <button type="button" class = "buttonsmob" id = "eraserbuttonmob">
+            <img src = "../../images/eraser.png" class = "drawingbuttonmob buttonimgmob">
         </button>
-        <button type="button" class="buttonsmob" id="undobuttonmob">
-            <img src="../../images/undo.png" class="drawingbuttonmob buttonimgmob">
+        <button type = "button" class = "buttonsmob" id = "undobuttonmob">
+            <img src = "../../images/undo.png" class = "drawingbuttonmob buttonimgmob">
         </button>
-        <button type="button" class="buttonsmob" id="lightbuttonmob">
-            <img src="../../images/lightmode.png" class="buttonimgmob">
+        <button type = "button" class = "buttonsmob" id = "tutorialbuttonmob">
+            <img src = "../../images/questionmark.png" class = "buttonimgmob">
         </button>
-        <button type="button" class="buttonsmob" id="darkbuttonmob">
-            <img src="../../images/darkmode.png" class="buttonimgmob">
+        <button type = "button" class = "buttonsmob" id = "lightbuttonmob">
+            <img src = "../../images/lightmode.png" class = "buttonimgmob">
+        </button>
+        <button type = "button" class = "buttonsmob" id = "darkbuttonmob">
+            <img src = "../../images/darkmode.png" class = "buttonimgmob">
         </button>
     </div>
-
+    <div id = "tutorialtab" class = "tutorial">
+        <h2 id = "tutorialheadertab" class = "tutorialtext">How to play</h2>
+        <p id = "tutorialtexttab" class = "tutorialtext">You will be shown an equation, and you must draw what you think it'll look like on the Cartesian plane. You'll get an accuracy score based on how closely your drawing matches the actual curve. Play through a variety of levels and test your intuition!</p>
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.js"></script>
     <script src="config.js"></script>
     <script src="../../js/math.js"></script>
@@ -82,5 +95,4 @@
 
     <script src="../../js/main.js"></script>
 </body>
-
 </html>
