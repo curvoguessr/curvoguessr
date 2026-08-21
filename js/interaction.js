@@ -54,7 +54,7 @@ function UserDrawing() {
             brush.y = event2.y-((event2.y-brush.y)*lazyradi)/dist;
         }
     }
-    function endDrawing(){
+    function endDrawing(event){
         if(is_submit){
             return;
         }
@@ -68,9 +68,11 @@ function UserDrawing() {
             }
             splinepointcount.push(t);
             drawIndex++;
-            RedrawUser();
+            //RedrawUser();
         }
-        DrawingPlane.releasePointerCapture(event.pointerId);
+        if (DrawingPlane.hasPointerCapture(event.pointerId)) {
+            DrawingPlane.releasePointerCapture(event.pointerId);
+        }
     }
     let oldsize = 0;
     DrawingPlane.addEventListener('pointerdown',(event) => {
@@ -80,10 +82,10 @@ function UserDrawing() {
             }
             DrawingPlane.setPointerCapture(event.pointerId);
             context.beginPath();
-            context.strokeStyle = defaultcolour3;
             if(mode == "pen"){
                 context.globalCompositeOperation = "source-over";
                 context.lineWidth = Math.sqrt(cw*cw+ch*ch)/penScale;
+                context.strokeStyle = defaultcolour2;
             }
             if(mode == "eraser"){
                 context.globalCompositeOperation = "destination-out";
@@ -187,15 +189,15 @@ function UserDrawing() {
             }
     });
     DrawingPlane.addEventListener('pointerup', (event) => {
-        endDrawing();
+        endDrawing(event);
     });
     DrawingPlane.addEventListener("pointercancel",(event)=>{
-        endDrawing();
+        endDrawing(event);
     });
     window.addEventListener("blur",(event)=>{
-        endDrawing();
+        endDrawing(event);
     })
     window.addEventListener("keydown",(event)=>{
-        endDrawing();
+        endDrawing(event);
     });
 }
