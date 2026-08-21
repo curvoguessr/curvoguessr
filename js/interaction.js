@@ -53,6 +53,23 @@ function UserDrawing() {
             brush.y = event2.y-((event2.y-brush.y)*lazyradi)/dist;
         }
     }
+    function endDrawing(){
+        if(is_submit){
+            return;
+        }
+        if (CurrentlyDrawing) {
+            CurrentlyDrawing = false;
+            if (mode == "pen") {
+                drawingHistory.push([structuredClone(unflattened[unflattened.length-1]),"pen"]);
+            }
+            else {
+                drawingHistory.push([structuredClone(eraserunflattened[eraserunflattened.length-1]),"eraser"]);
+            }
+            drawIndex++;
+            RedrawUser();
+        }
+        DrawingPlane.releasePointerCapture(event.pointerId);
+    }
     let oldsize = 0;
     DrawingPlane.addEventListener('pointerdown',(event) => {
             const event2 = standardize(normalise(getCoordinates(event)));
@@ -165,20 +182,15 @@ function UserDrawing() {
             }
     });
     DrawingPlane.addEventListener('pointerup', (event) => {
-        if(is_submit){
-            return;
-        }
-        if (CurrentlyDrawing) {
-            CurrentlyDrawing = false;
-            if (mode == "pen") {
-                drawingHistory.push([structuredClone(unflattened[unflattened.length-1]),"pen"]);
-            }
-            else {
-                drawingHistory.push([structuredClone(eraserunflattened[eraserunflattened.length-1]),"eraser"]);
-            }
-            drawIndex++;
-            RedrawUser();
-        }
-        DrawingPlane.releasePointerCapture(event.pointerId);
+        endDrawing();
+    });
+    DrawingPlane.addEventListener("pointercancel",(event)=>{
+        endDrawing();
+    });
+    window.addEventListener("blur",(event)=>{
+        endDrawing();
+    })
+    window.addEventListener("keydown",(event)=>{
+        endDrawing();
     });
 }
