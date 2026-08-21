@@ -368,6 +368,8 @@ tutorialbutton.addEventListener("click",() => {
     }
     else{
         isTutorial = false;
+
+        tutorialtab.style.display = "none";
         tutorial.style.display = "none";
     }
     // tutorial.style.position = "absolute";
@@ -379,6 +381,7 @@ tutorialbuttontab.addEventListener("click",() => {
     }
     else{
         isTutorial = false;
+        tutorial.style.display = "none";
         tutorialtab.style.display = "none";
     }
 });
@@ -403,13 +406,13 @@ window.addEventListener("scroll",()=>{
         tutorial.style.display = "none";
     }
 });
-window.addEventListener("touchstart",()=>{
-    if(event.target === tutorialbuttontab){
-        return;
-    }
-    if(event.target === tutorialbutton){
-        return;
-    }
+tutorialbutton.addEventListener("touchstart",(event)=>{
+    event.stopPropagation();
+});
+tutorialbuttontab.addEventListener("touchstart",(event)=>{
+    event.stopPropagation();
+});
+window.addEventListener("touchstart",(event)=>{
     if(isTutorial == true){
         isTutorial = false;
         tutorialtab.style.display = "none";
