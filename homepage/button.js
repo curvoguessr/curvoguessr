@@ -404,6 +404,12 @@ window.addEventListener("scroll",()=>{
     }
 });
 window.addEventListener("touchstart",()=>{
+    if(event.target === tutorialbuttontab){
+        return;
+    }
+    if(event.target === tutorialbutton){
+        return;
+    }
     if(isTutorial == true){
         isTutorial = false;
         tutorialtab.style.display = "none";
