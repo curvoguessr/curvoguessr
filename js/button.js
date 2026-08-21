@@ -44,7 +44,7 @@ function RedrawUser() {
         if (drawingHistory[i][1]=="pen") {
             context.beginPath();
             context.globalCompositeOperation = "source-over";
-            context.lineWidth = 1.3*Math.sqrt(cw*cw+ch*ch)/penScale;
+            context.lineWidth = 1.2*Math.sqrt(cw*cw+ch*ch)/penScale;
             context.lineCap = "round";
             context.lineJoin = "round";
             context.strokeStyle = defaultcolour2;
@@ -63,7 +63,7 @@ function RedrawUser() {
                 context.lineTo(denormalise(destandardize(drawingHistory[i][0][j])).x,denormalise(destandardize(drawingHistory[i][0][j])).y);
             }
             else {
-                CatRomGraph(denormalise(destandardize(drawingHistory[i][0][j-3])),denormalise(destandardize(drawingHistory[i][0][j-2])), denormalise(destandardize(drawingHistory[i][0][j-1])), denormalise(destandardize(drawingHistory[i][0][j])), t, context);
+                CatRomGraph(denormalise(destandardize(drawingHistory[i][0][j-3])),denormalise(destandardize(drawingHistory[i][0][j-2])), denormalise(destandardize(drawingHistory[i][0][j-1])), denormalise(destandardize(drawingHistory[i][0][j])), splinepointcount[i], context);
             }
         }
         context.stroke();
