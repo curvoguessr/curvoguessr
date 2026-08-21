@@ -38,35 +38,39 @@ let isTutorial = false;
 //     context.putImageData(image, 0, 0)
 // }'
 function RedrawUser() {
-    context.clearRect(0, 0, DrawingPlane.width, DrawingPlane.height);
+    context.clearRect(0, 0, cw, ch);
     for (let i = 0; i < drawingHistory.length; i++) {
-        if (drawingHistory[i][0].length==0) continue;
-        if (drawingHistory[i][1]=="pen") {
-            context.beginPath();
+        const [points, strokeMode] = drawingHistory[i];
+        const t = splinepointcount[i];
+        if (points.length == 0) continue;
+        context.beginPath();
+        if (strokeMode == "pen") {
             context.globalCompositeOperation = "source-over";
-            context.lineWidth = 1.2*Math.sqrt(cw*cw+ch*ch)/penScale;
-            context.lineCap = "round";
-            context.lineJoin = "round";
+            context.lineWidth = Math.sqrt(cw*cw+ch*ch)/penScale;
             context.strokeStyle = defaultcolour2;
         }
         else {
-            context.beginPath();
             context.globalCompositeOperation = "destination-out";
             context.lineWidth = Math.sqrt(cw*cw+ch*ch)/eraserScale;
-            context.lineCap = "round";
-            context.lineJoin = "round";
-            context.strokeStyle = defaultcolour2;
         }
-        context.moveTo(denormalise(destandardize(drawingHistory[i][0][0])).x,denormalise(destandardize(drawingHistory[i][0][0])).y);
-        for (let j = 1; j < drawingHistory[i][0].length; j++) {
-            if (j <= 2) {
-                context.lineTo(denormalise(destandardize(drawingHistory[i][0][j])).x,denormalise(destandardize(drawingHistory[i][0][j])).y);
+        context.lineCap = "round";
+        context.lineJoin = "round";
+        for (let j = 0; j < points.length; j++) {
+            if (j < 3) {
+                context.lineTo(points[j].x * cw / 1000, points[j].y * ch / 1000);
             }
             else {
-                CatRomGraph(denormalise(destandardize(drawingHistory[i][0][j-3])),denormalise(destandardize(drawingHistory[i][0][j-2])), denormalise(destandardize(drawingHistory[i][0][j-1])), denormalise(destandardize(drawingHistory[i][0][j])), splinepointcount[i], context);
+                CatRomGraph(
+                    denormalise(destandardize(points[j - 3])),
+                    denormalise(destandardize(points[j - 2])),
+                    denormalise(destandardize(points[j - 1])),
+                    denormalise(destandardize(points[j])),
+                    t,
+                    context
+                );
             }
+            context.stroke();
         }
-        context.stroke();
     }
 }
 function disable(button){
