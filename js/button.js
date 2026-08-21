@@ -48,7 +48,6 @@ function RedrawUser() {
             context.lineCap = "round";
             context.lineJoin = "round";
             context.strokeStyle = defaultcolour2;
-            unflattened.push(drawingHistory[i][0]);
         }
         else {
             context.beginPath();
@@ -57,7 +56,6 @@ function RedrawUser() {
             context.lineCap = "round";
             context.lineJoin = "round";
             context.strokeStyle = defaultcolour2;
-            eraserunflattened.push(drawingHistory[i][0]);
         }
         context.moveTo(denormalise(destandardize(drawingHistory[i][0][0])).x,denormalise(destandardize(drawingHistory[i][0][0])).y);
         for (let j = 1; j < drawingHistory[i][0].length; j++) {
