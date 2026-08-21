@@ -140,11 +140,11 @@ function UserDrawing() {
                 // const coalevents = (typeof event.getCoalescedEvents === 'function') ? event.getCoalescedEvents() : [event];
                 if(event.getCoalescedEvents){
                     coalevents = event.getCoalescedEvents();
-                    t = 0.05;
+                    t = 0.01;
                 }
                 else{
                     coalevents = [event];
-                    t = 0.025;
+                    t = 0.005;
                 }
                 if(mode == "eraser"){
                     t *= 10;
