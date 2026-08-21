@@ -36,6 +36,7 @@ let eraserunflattened = [];
 let drawingHistory = [];
 let drawIndex = 0;
 let coalevents;
+let splinepointcount = [];
 let t;       
 function UserDrawing() {
     const DrawingPlane = document.getElementById("drawingplane");
@@ -65,6 +66,7 @@ function UserDrawing() {
             else {
                 drawingHistory.push([structuredClone(eraserunflattened[eraserunflattened.length-1]),"eraser"]);
             }
+            splinepointcount.push(t);
             drawIndex++;
             RedrawUser();
         }
@@ -136,11 +138,14 @@ function UserDrawing() {
                 // const coalevents = (typeof event.getCoalescedEvents === 'function') ? event.getCoalescedEvents() : [event];
                 if(event.getCoalescedEvents){
                     coalevents = event.getCoalescedEvents();
-                    t = 0.005;
+                    t = 0.05;
                 }
                 else{
                     coalevents = [event];
-                    t = 0.0025;
+                    t = 0.025;
+                }
+                if(mode == "eraser"){
+                    t *= 10;
                 }
                 for(const events of coalevents){
                     lazybrush(9,events);
@@ -169,7 +174,7 @@ function UserDrawing() {
                     }
                     if(mode == "eraser"){
                         if(erasecoord.length-oldsize>=4){
-                            CatRomGraph(denormalise(destandardize(erasecoord[erasecoord.length-4])),denormalise(destandardize(erasecoord[erasecoord.length-3])),denormalise(destandardize(erasecoord[erasecoord.length-2])),denormalise(destandardize(erasecoord[erasecoord.length-1])),10*t,context);
+                            CatRomGraph(denormalise(destandardize(erasecoord[erasecoord.length-4])),denormalise(destandardize(erasecoord[erasecoord.length-3])),denormalise(destandardize(erasecoord[erasecoord.length-2])),denormalise(destandardize(erasecoord[erasecoord.length-1])),t,context);
                         }
                         else{
                             context.lineTo(brush.x*cw/1000,brush.y*ch/1000);
