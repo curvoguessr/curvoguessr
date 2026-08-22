@@ -157,6 +157,17 @@ html, body{
 }
 #tutorial{
     display: none;
+    opacity: 0;
+    transition: display 0.2s allow-discrete, opacity 0.2s ease, transform 0.2s ease;
+}
+#tutorial.show{
+    display: flex;
+    opacity: 1;
+}
+@starting-style {
+    #tutorial.show {
+        opacity: 0;
+    }
 }
 #tutorialheader{
     margin: 0;
@@ -347,6 +358,17 @@ html, body{
 }
 #tutorialtab{
     display: none;
+    opacity: 0;
+    transition: display 0.2s allow-discrete, opacity 0.2s ease, transform 0.2s ease;
+}
+#tutorialtab.show{
+    display: flex;
+    opacity: 1;
+}
+@starting-style {
+    #tutorialtab.show {
+        opacity: 0;
+    }
 }
 .buttons{
     z-index: 967;

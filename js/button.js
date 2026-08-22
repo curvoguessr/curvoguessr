@@ -379,56 +379,56 @@ undobuttonmob.addEventListener("click", ()=>{
 tutorialbutton.addEventListener("click",()=>{
     if(isTutorial == false){
         isTutorial = true;
-        tutorial.style.display = "flex";
+        tutorial.classList.add('show');
     }
     else{
         isTutorial = false;
-        tutorial.style.display = "none";
+        tutorial.classList.remove('show');
     }
 })
 tutorialbuttonmob.addEventListener("click",()=>{
      if(isTutorial == false){
         isTutorial = true;
-        tutorialtab.style.display = "flex";
+        tutorialtab.classList.add('show');
     }
     else{
         isTutorial = false;
-        tutorialtab.style.display = "none";
+        tutorialtab.classList.remove('show');
     }
 })
 tutorialbutton.addEventListener("mouseleave",()=>{
     if(isTutorial == true){
         isTutorial = false;
-        tutorialtab.style.display = "none";
-        tutorial.style.display = "none";
+        tutorialtab.classList.remove('show');
+        tutorial.classList.remove('show');
     }
 });
 tutorialbuttonmob.addEventListener("mouseleave",()=>{
     if(isTutorial == true){
         isTutorial = false;
-        tutorialtab.style.display = "none";
-        tutorial.style.display = "none";
+        tutorialtab.classList.remove('show');
+        tutorial.classList.remove('show');
     }
 });
 window.addEventListener("touchstart",()=>{
     if(isTutorial == true){
         isTutorial = false;
-        tutorialtab.style.display = "none";
-        tutorial.style.display = "none";
+        tutorialtab.classList.remove('show');
+        tutorial.classList.remove('show');
     }
 });
 window.addEventListener("resize",()=>{
     if(isTutorial == true){
         isTutorial = false;
-        tutorialtab.style.display = "none";
-        tutorial.style.display = "none";
+        tutorialtab.classList.remove('show');
+        tutorial.classList.remove('show');
     }
 });
 window.addEventListener("scroll",()=>{
     if(isTutorial == true){
         isTutorial = false;
-        tutorialtab.style.display = "none";
-        tutorial.style.display = "none";
+        tutorialtab.classList.remove('show');
+        tutorial.classList.remove('show');
     }
 });
 document.addEventListener("keydown", (event) => {
