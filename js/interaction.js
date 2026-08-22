@@ -144,7 +144,7 @@ function UserDrawing() {
                 }
                 else{
                     coalevents = [event];
-                    t = 0.005;
+                    t = 0.008;
                 }
                 if(mode == "eraser"){
                     t *= 10;
