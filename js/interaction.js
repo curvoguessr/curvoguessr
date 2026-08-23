@@ -28,6 +28,60 @@ function standardize(c){
 function destandardize(d){
     return{x : d.x/1000, y: d.y/1000};
 }
+class SpatialGrid{
+    constructor(sizeX, sizeY){
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+        this.cells = new Map();
+    }
+    key(point){
+        return Math.floor(point.x/this.sizeX) + "," + Math.floor(point.y/this.sizeY);
+    }
+    add(point){
+        let key = this.key(point);
+        if(!this.cells.has(key)){
+            this.cells.set(key, new Set());
+        }
+        this.cells.get(key).add(point);
+    }
+    delete(point){
+        let key = this.key(point);
+        let cell = this.cells.get(key);
+        if(cell){
+            if(cell.size === 1){
+                this.cells.delete(key);
+            }
+            else{
+            cell.delete(point);
+            }
+        }
+    }
+    nearbytargets(point, radiiX, radiiY){
+        let [keyx, keyy] = this.key(point).split(",").map(Number);
+        let CellX = Math.ceil(radiiX / this.sizeX);
+        let CellY = Math.ceil(radiiY / this.sizeY);
+        let targetpoint = [];
+        for(let cellsx = -CellX; cellsx <= CellX; cellsx += 1){
+            for(let cellsy = -CellY; cellsy <= CellY; cellsy += 1){
+                let key = (keyx + cellsx) + "," + (keyy + cellsy);
+                let targetcell = this.cells.get(key);
+                if(targetcell){
+                    for(const p of targetcell){
+                        targetpoint.push(p);
+                    }
+                }
+            }
+        }
+        return targetpoint;
+    }
+    deletecell(point){
+        let key = this.key(point);
+        let cell = this.cells.get(key);
+        if(cell){
+            this.cells.delete(key);
+        }
+    }
+}
 let mode = "pen";
 let mousecoord = [];
 let erasecoord = [];
@@ -37,10 +91,23 @@ let drawingHistory = [];
 let drawIndex = 0;
 let coalevents;
 let splinepointcount = [];
-let t;       
+let t;
+function rebuilderasergrid(){
+    const drawingplane = document.getElementById("drawingplane");
+    const cw = drawingplane.width;
+    const ch = drawingplane.height;
+    eraserradius = Math.sqrt(cw*cw+ch*ch)/(2*eraserScale);
+    SizeX = (eraserradius*1000)/cw;
+    SizeY = (eraserradius*1000)/ch;
+    erasergrid = new SpatialGrid(SizeX, SizeY);
+    for(const point of mousecoord){
+        erasergrid.add(point);
+    }
+}      
 function UserDrawing() {
     const DrawingPlane = document.getElementById("drawingplane");
     const context = DrawingPlane.getContext('2d');
+    rebuilderasergrid();
     let brush = {x:67,y:67};
     let CurrentlyDrawing = false;
     function lazybrush(lazyradi,event){
@@ -104,16 +171,19 @@ function UserDrawing() {
                 mousecoord.push(event2);
                 unflattened.push([]);
                 unflattened[unflattened.length-1].push(event2);
+                erasergrid.add(event2);
             }
             if(mode == "eraser"){
                 erasecoord.push(event2);
                 eraserunflattened.push([]);
                 eraserunflattened[eraserunflattened.length-1].push(event2);
-                for(let i = 0; i < mousecoord.length; i++){
-                    if(EuclideanDist(denormalise(destandardize(mousecoord[i])),denormalise(destandardize(event2)))<=15){
+                let nearbytargets = erasergrid.nearbytargets(event2, SizeX, SizeY);
+                for(const points of nearbytargets){
+                    if(EuclideanDist(denormalise(destandardize(points)), denormalise(destandardize(event2)))<= eraserradius){
+                        erasergrid.delete(points);
+                        let i = mousecoord.indexOf(points);
                         mousecoord.splice(i,1);
-                        deletepoint(unflattened, i);
-                        i--;
+                        deletepoint(unflattened,i);
                     }
                 }
             }
@@ -137,7 +207,6 @@ function UserDrawing() {
         let inRange = true;
             if (CurrentlyDrawing) {
                 inRange = true;
-                // const coalevents = (typeof event.getCoalescedEvents === 'function') ? event.getCoalescedEvents() : [event];
                 if(event.getCoalescedEvents){
                     coalevents = event.getCoalescedEvents();
                     t = 0.01;
@@ -150,19 +219,29 @@ function UserDrawing() {
                     t *= 10;
                 }
                 for(const events of coalevents){
-                    lazybrush(9,events);
                     if(mode == "pen"){
-                        mousecoord.push({x:brush.x,y:brush.y});
-                        unflattened[unflattened.length - 1].push({x:brush.x,y:brush.y});
+                        if(event.pointerType == "touch"){
+                            lazybrush(3,events);
+                        }
+                        else{
+                            lazybrush(7,events);
+                        }
+                        let brushpoint = {x: brush.x, y: brush.y};
+                        mousecoord.push(brushpoint);
+                        unflattened[unflattened.length - 1].push(brushpoint);
+                        erasergrid.add(brushpoint);
                     }
                     if(mode == "eraser"){
-                        erasecoord.push({x:brush.x,y:brush.y});
-                        eraserunflattened[eraserunflattened.length - 1].push({x : brush.x, y : brush.y});
-                        for(let i = 0; i < mousecoord.length; i++){
-                            if(EuclideanDist(denormalise(destandardize(mousecoord[i])),denormalise(destandardize(brush)))<=15){
+                        let brushpoint = standardize(normalise(getCoordinates(events)));
+                        erasecoord.push(brushpoint);
+                        eraserunflattened[eraserunflattened.length - 1].push(brushpoint);
+                        let nearbytargets = erasergrid.nearbytargets(brushpoint, SizeX, SizeY);
+                        for(const points of nearbytargets){
+                            if(EuclideanDist(denormalise(destandardize(points)), denormalise(destandardize({x : brushpoint.x,y : brushpoint.y})))<= eraserradius){
+                                erasergrid.delete(points);
+                                let i = mousecoord.indexOf(points);
                                 mousecoord.splice(i,1);
-                                deletepoint(unflattened, i);
-                                i--;
+                                deletepoint(unflattened,i);
                             }
                         }
                     }
