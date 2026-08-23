@@ -90,7 +90,6 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
     context.fill();
     context.resetTransform();
     const fontsz = (cw+ch)/60;
-    console.log(document.fonts.check(`${fontsz}px BreeSerif`));
     context.font = `${fontsz}px BreeSerif`;
     context.fillStyle = defaultcolour2;
     context.textBaseline = "top";
