@@ -3,6 +3,7 @@ const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
+const lvl = 13;
 let vh = window.innerHeight/100;
 katex.render("\\sin(y) = x^3", equation);
 if(vw>1.1*vh){
@@ -29,7 +30,7 @@ plane.height = ch;
 drawingplane.height = plane.height;
 let Graph = [
 ]
-for (let i = -10; i <= 6; i += 4) {
+for (let i = -10; i <= 5; i += 5) {
     let add = {
         Function_x: function(t) {
             if (Math.sin(t)>=0) return Math.pow(Math.sin(t),1/3);
@@ -45,6 +46,7 @@ for (let i = -10; i <= 6; i += 4) {
     };
     Graph.push(add);
 }
+const graphLen = 27.38;
 let range= {
     xl: -10,
     xr: 10,

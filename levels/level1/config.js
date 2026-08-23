@@ -2,6 +2,7 @@ const equation = document.getElementById('equation');
 const plane = document.getElementById('plane');
 const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
+const lvl = 1;
 let vw = window.innerWidth/100;
 let vh = window.innerHeight/100;
 katex.render("y = x", equation);
@@ -41,6 +42,7 @@ const Graph = [
         }
     }
 ]
+const graphLen = Math.sqrt(800);
 let range= {
     xl: -10,
     xr: 10,

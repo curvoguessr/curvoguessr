@@ -3,6 +3,7 @@ const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
+const lvl = 17;
 let vh = window.innerHeight/100;
 katex.render("\\ln(y^2) = x^3 - x^2", equation);
 if(vw>1.1*vh){
@@ -37,7 +38,7 @@ let Graph = [
         },
         pRange: {
             l: -2,
-            r: 10
+            r: 2.072
         }
     },
     {
@@ -49,10 +50,11 @@ let Graph = [
         },
         pRange: {
             l: -2,
-            r: 10
+            r: 2.072
         }
     }
 ]
+const graphLen = 25.052;
 let range= {
     xl: -10,
     xr: 10,

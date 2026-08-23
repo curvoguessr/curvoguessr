@@ -3,6 +3,7 @@ const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
+const lvl = 4;
 let vh = window.innerHeight/100;
 katex.render("x^2 + y^2 = x^4", equation);
 if(vw>1.1*vh){
@@ -36,11 +37,24 @@ const Graph = [
             return Math.tan(t)/Math.cos(t);
         },
         pRange: {
-            l: 3*Math.PI/2+0.01,
-            r: 4*Math.PI
+            l: -1.257,
+            r: 1.257
+        }
+    },
+    {
+        Function_x: function(t) {
+            return 1/Math.cos(t); 
+        },
+        Function_y: function(t) {
+            return Math.tan(t)/Math.cos(t);
+        },
+        pRange: {
+            l: 1.88,
+            r: 4.41
         }
     }
 ]
+const graphLen = 12.96;
 let range= {
     xl: -10,
     xr: 10,

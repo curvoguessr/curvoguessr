@@ -3,6 +3,7 @@ const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
+const lvl = 24;
 let vh = window.innerHeight/100;
 katex.render("y = 5\\sum_{k=1}^{12}\\frac{\\sin\\left(\\left(2k+1\\right)\\cdot x\\right)}{2k+1}", equation);
 if(vw>1.1*vh){
@@ -63,6 +64,7 @@ let Graph = [
         }
     }
 ]
+const graphLen = 124.32;
 let range= {
     xl: -10,
     xr: 10,

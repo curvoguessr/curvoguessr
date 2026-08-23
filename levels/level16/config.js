@@ -3,6 +3,7 @@ const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
+const lvl = 16;
 let vh = window.innerHeight/100;
 katex.render("y^2 = x^3 \\sin(x)", equation);
 if(vw>1.1*vh){
@@ -49,6 +50,18 @@ let Graph = [
         },
         pRange: {
             l: 2*Math.PI+0.000000001,
+            r: 6.63
+        }
+    },
+    {
+        Function_x: function(t) {
+            return t;
+        },
+        Function_y: function(t) {
+            return Math.sqrt(Math.pow(t,3)*Math.sin(t));
+        },
+        pRange: {
+            l: 9.3,
             r: 3*Math.PI
         }
     },
@@ -73,10 +86,24 @@ let Graph = [
         },
         pRange: {
             l: -3*Math.PI,
+            r: -9.3
+        }
+    },
+    {
+        Function_x: function(t) {
+            return t;
+        },
+        Function_y: function(t) {
+            return Math.sqrt(Math.pow(t,3)*Math.sin(t));
+        },
+        pRange: {
+            l: -6.63,
             r: -2*Math.PI-0.000000001
         }
     },
-        {
+
+    // Negative sqrt
+    {
         Function_x: function(t) {
             return t;
         },
@@ -97,6 +124,18 @@ let Graph = [
         },
         pRange: {
             l: 2*Math.PI+0.000000001,
+            r: 6.63
+        }
+    },
+    {
+        Function_x: function(t) {
+            return t;
+        },
+        Function_y: function(t) {
+            return -Math.sqrt(Math.pow(t,3)*Math.sin(t));
+        },
+        pRange: {
+            l: 9.3,
             r: 3*Math.PI
         }
     },
@@ -121,10 +160,23 @@ let Graph = [
         },
         pRange: {
             l: -3*Math.PI,
+            r: -9.3
+        }
+    },
+    {
+        Function_x: function(t) {
+            return t;
+        },
+        Function_y: function(t) {
+            return -Math.sqrt(Math.pow(t,3)*Math.sin(t));
+        },
+        pRange: {
+            l: -6.63,
             r: -2*Math.PI-0.000000001
         }
     }
-]
+]; 
+const graphLen = 109.6;
 let range= {
     xl: -10,
     xr: 10,

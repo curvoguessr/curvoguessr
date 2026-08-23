@@ -3,6 +3,7 @@ const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
+const lvl = 21;
 let vh = window.innerHeight/100;
 katex.render("x^2 + y^2 = e^x", equation);
 if(vw>1.1*vh){
@@ -37,7 +38,7 @@ let Graph = [
         },
         pRange: {
             l: -0.703467,
-            r: 5
+            r: 4.81
         }
     },
     {
@@ -49,10 +50,11 @@ let Graph = [
         },
         pRange: {
             l: -0.703467,
-            r: 5
+            r: 4.81
         }
     }
 ]
+const graphLen = 24.22;
 let range= {
     xl: -10,
     xr: 10,

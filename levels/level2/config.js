@@ -3,6 +3,7 @@ const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
+const lvl = 2;
 let vh = window.innerHeight/100;
 katex.render("\\sqrt{|x|}+\\sqrt{|y|} = 3", equation);
 if(vw>1.1*vh){
@@ -38,7 +39,7 @@ const Graph = [
         pRange: {
             l: 0,
             r: 3
-        }
+        },
     },
     {
         Function_x: function(t) {
@@ -50,7 +51,7 @@ const Graph = [
         pRange: {
             l: 3,
             r: 6
-        }
+        },
     },
     {
         Function_x: function(t) {
@@ -62,7 +63,7 @@ const Graph = [
         pRange: {
             l: 6,
             r: 9
-        }
+        },
     },
     {
         Function_x: function(t) {
@@ -74,9 +75,10 @@ const Graph = [
         pRange: {
             l: 9,
             r: 12
-        }
+        },
     }
 ]
+const graphLen = 14.605*4;
 let range= {
     xl: -10,
     xr: 10,

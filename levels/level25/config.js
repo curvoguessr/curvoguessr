@@ -3,6 +3,7 @@ const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
+const lvl = 25;
 let vh = window.innerHeight/100;
 katex.render("y = \\sin(\\pi^3 x)\\sqrt{\\frac{e^2-x^2}{2}}+\\sqrt{|x|}", equation);
 if(vw>1.1*vh){
@@ -41,6 +42,7 @@ let Graph = [
         }
     }
 ]
+const graphLen = 180;
 let range= {
     xl: -10,
     xr: 10,

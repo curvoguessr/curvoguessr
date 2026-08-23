@@ -3,6 +3,7 @@ const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
+const lvl = 15;
 let vh = window.innerHeight/100;
 katex.render("16x^6-24x^4+9x^2+4y^4-4y^2 = 0", equation);
 if(vw>1.1*vh){
@@ -77,6 +78,7 @@ let Graph = [
         }
     }
 ]
+const graphLen = 15.28;
 let range= {
     xl: -10,
     xr: 10,

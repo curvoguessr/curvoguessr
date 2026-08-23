@@ -3,7 +3,8 @@ const plane = document.getElementById('plane');
 const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
-let vw = window.innerWidth/100;
+const lvl = 10;
+let vh = window.innerHeight/100;
 let vh = window.innerHeight/100;
 katex.render("\\ln(y) = \\sin(x)", equation);
 if(vw>1.1*vh){
@@ -42,6 +43,7 @@ let Graph = [
         }
     },
 ]
+const graphLen = 26.35;
 let range= {
     xl: -10,
     xr: 10,

@@ -3,7 +3,8 @@ const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation1');
 const easteregg = document.getElementById('easteregg');
-let vw = window.innerWidth/100;
+const lvl = 5;
+let vh = window.innerHeight/100;
 let vh = window.innerHeight/100;
 katex.render("x^2 + y^2 = ", equation);
 katex.render("67", easteregg);
@@ -43,6 +44,7 @@ const Graph = [
         }
     }
 ]
+const graphLen = 25.71;
 let range= {
     xl: -10,
     xr: 10,

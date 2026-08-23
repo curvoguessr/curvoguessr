@@ -3,6 +3,7 @@ const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
+const lvl = 20;
 let vh = window.innerHeight/100;
 katex.render("(x^2+y^2)^2 = 36(x^2-y^2)", equation);
 if(vw>1.1*vh){
@@ -77,6 +78,7 @@ let Graph = [
         }
     }
 ]
+const graphLen = 31.46;
 let range= {
     xl: -10,
     xr: 10,

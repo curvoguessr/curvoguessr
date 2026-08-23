@@ -3,6 +3,7 @@ const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
+const lvl = 23;
 let vh = window.innerHeight/100;
 katex.render("y = 5\\cos(x) - \\cos(5x)", equation);
 if(vw>1.1*vh){
@@ -41,6 +42,7 @@ let Graph = [
         }
     }
 ]
+const graphLen = 83.92;
 let range= {
     xl: -10,
     xr: 10,
