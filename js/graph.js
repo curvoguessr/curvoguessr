@@ -88,6 +88,29 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
     context.closePath();
     context.fillStyle = defaultcolour2;
     context.fill();
+    context.resetTransform();
+    const fontsz = (cw+ch)/60;
+    console.log(document.fonts.check(`${fontsz}px BreeSerif`));
+    context.font = `${fontsz}px BreeSerif`;
+    context.fillStyle = defaultcolour2;
+    context.textBaseline = "top";
+    context.textAlign = "center";
+    for (let i = -9; i < 0; i++) {
+        context.fillText(i, (i+10)*xunit, ch/2 + subyunit/8);
+    }
+    context.textAlign = "left";
+    for (let i = 1; i < 10; i++) {
+        context.fillText(i, (i+10)*xunit, ch/2 + subyunit/8);
+    }
+    context.fillText("0", 10*xunit + subxunit/8, ch/2 + subyunit/8);
+    context.textBaseline = "middle";
+    context.textAlign = "right";
+    for (let i = -9; i < 0; i++) {
+        context.fillText(i, cw/2 - subxunit/4, (-i+10)*yunit + subyunit/4);
+    }
+    for (let i = 1; i < 10; i++) {
+        context.fillText(i, cw/2 - subxunit/4, (-i+10)*yunit + subyunit/4);
+    }
 }
 function DrawGraphSegment(t_1, t_2, Function_x, Function_y, mxerr, context, depth=0){
     const MAX_DEPTH = 30;

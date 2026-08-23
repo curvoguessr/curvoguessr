@@ -16,7 +16,10 @@ if(colourmode == "dark"){
     if(mode == "eraser"){
         DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
     }
-    DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
+    const fontsz = (cw+ch)/60;
+    document.fonts.load(`${fontsz}px BreeSerif`).then(() => {
+        DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
+    });
     disable(darkbutton);
     disable(darkbuttonmob);
     enable(lightbutton);
@@ -36,7 +39,10 @@ else {
     if(mode == "eraser"){
         DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
     }
-    DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
+    const fontsz = (cw+ch)/60;
+    document.fonts.load(`${fontsz}px BreeSerif`).then(() => {
+        DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
+    });
     disable(lightbutton);
     disable(lightbuttonmob);
     enable(darkbutton);
