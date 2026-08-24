@@ -211,7 +211,7 @@
     touch-action: none;
 }
 #tutorial{
-    border: calc((2vw + 2vh) / 10) solid #5077BE;
+    border: calc((2vw + 2vh) / 5) solid #5077BE;
     background-color: #6495ED;
     border-radius: calc(2 * (1vw + 1vh) / 3);
     position: fixed;
@@ -228,7 +228,7 @@
     z-index: 670;
 }
  #tutorialtab{
-    border: calc((2vw + 2vh) / 10) solid #5077BE;
+    border: calc((2vw + 2vh) / 5) solid #5077BE;
     background-color: #6495ED;
     border-radius: max(calc(2 * (1vw + 1vh) / 3),10px);
     position: fixed;
