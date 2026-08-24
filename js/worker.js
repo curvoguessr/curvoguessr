@@ -201,6 +201,6 @@ self.onmessage = (event) => {
     let error = KuhnMarkes(dists, actuallen, actuallen);
     error /= actuallen;
     let accuracy = 100*Math.exp(-0.1*error);
-    accuracy = Math.round(accuracy*100)/100
+    accuracy = Math.round(accuracy*100)/100;
     self.postMessage(accuracy);
 };
