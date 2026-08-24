@@ -1,14 +1,14 @@
-const submitbutton = document.getElementById("submitbutton");      
-const penbutton = document.getElementById("penbutton");
-const eraserbutton = document.getElementById("eraserbutton");      
-const undobutton = document.getElementById("undobutton"); 
-const lightbutton = document.getElementById("lightbutton");        
-const darkbutton = document.getElementById("darkbutton");
-const penbuttonmob = document.getElementById("penbuttonmob");      
-const eraserbuttonmob = document.getElementById("eraserbuttonmob");
-const undobuttonmob = document.getElementById("undobuttonmob");    
-const lightbuttonmob = document.getElementById("lightbuttonmob");  
-const darkbuttonmob = document.getElementById("darkbuttonmob");    
+const submit = document.getElementById("submit");      
+const pen = document.getElementById("pen");
+const eraser = document.getElementById("eraser");      
+const undo = document.getElementById("undo"); 
+const light = document.getElementById("light");        
+const dark = document.getElementById("dark");
+const penmob = document.getElementById("penmob");      
+const erasermob = document.getElementById("erasermob");
+const undomob = document.getElementById("undomob");    
+const lightmob = document.getElementById("lightmob");  
+const darkmob = document.getElementById("darkmob");    
 const images = document.getElementById("drawingbutton");
 const imagesmob = document.getElementById("drawingbuttonmob");
 const tutorialbutton = document.getElementById("tutorialbutton");
@@ -17,26 +17,18 @@ const tutorial = document.getElementById("tutorial");
 const tutorialtab = document.getElementById("tutorialtab");
 let is_submit = false;
 let giveup = false;
+let isTutorial = false;
 const DrawingPlane = document.getElementById("drawingplane");
 const context = DrawingPlane.getContext('2d');
 const rect = DrawingPlane.getBoundingClientRect();
-const centerthings = document.getElementsByClassName("centerthings")
+const centerthings = document.getElementsByClassName("centerthings");
+const home = document.getElementById("home");
+const homebuttonmob = document.getElementById("homebuttonmob");
 let colourmode = "light";
 let defaultcolour1 = "#d6d6d6";
 let defaultcolour2 = "#121212";
 let defaultcolour3 = "black";
-let isTutorial = false;
-// function invertcolor(canvas){
-//     const context = canvas.getContext("2d");
-//     const image = context.getImageData(0, 0, canvas.width, canvas.height);     
-//     const imagecolor = image.data;
-//     for(let i = 0; i < imagecolor.length; i+=4){
-//         imagecolor[i] = 255-imagecolor[i];
-//         imagecolor[i+1] = 255-imagecolor[i+1];
-//         imagecolor[i+2] = 255-imagecolor[i+2];
-//     }
-//     context.putImageData(image, 0, 0)
-// }'
+
 function RedrawUser() {
     context.clearRect(0, 0, cw, ch);
     for (let i = 0; i < drawingHistory.length; i++) {
@@ -79,24 +71,26 @@ function disable(button){
     button.style.opacity = "0.67";
     button.style.filter = "grayscale(33%)";
 }
-disable(penbutton);
-disable(penbuttonmob);
+disable(pen);
+disable(penmob);
 function enable(button){
     button.style.transition = "opacity 0.2s ease, filter 0.2s ease";
     button.style.cursor = "pointer";
     button.style.opacity = "";
     button.style.filter = "";
 }
-lightbutton.addEventListener("click",() => {
+light.addEventListener("click",() => {
     if(colourmode == "dark"){
         colourmode = "light";
-        sessionStorage.setItem("colourmode", colourmode);
+        localStorage.setItem("colourmode", colourmode);
         defaultcolour1 = "#d6d6d6";
         defaultcolour2 = "#121212";
         defaultcolour3 = "black";
         document.body.style.backgroundColor = defaultcolour1;
         let Accuracy = document.getElementById("accuracy");
         Accuracy.style.color = defaultcolour2;
+        let Best = document.getElementById("best");
+        Best.style.color = defaultcolour2
         if(mode == "pen"){
             DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
         }
@@ -106,23 +100,24 @@ lightbutton.addEventListener("click",() => {
         DrawAxis(subxunit, xunit,cw,subyunit,yunit,ch);
         RedrawUser();
         setTimeout(()=>{
-            disable(lightbutton);
-            disable(lightbuttonmob);
-            enable(darkbutton);
-            enable(darkbuttonmob);}, 50);
-        //UserDrawing();
+            disable(light);
+            disable(lightmob);
+            enable(dark);
+            enable(darkmob);}, 50);
     }
 });
-darkbutton.addEventListener("click",() => {
+dark.addEventListener("click",() => {
     if(colourmode == "light"){
         colourmode = "dark";
-        sessionStorage.setItem("colourmode", colourmode);
+        localStorage.setItem("colourmode", colourmode);
         defaultcolour1 = "#121212";
         defaultcolour2 = "#d6d6d6";
         defaultcolour3 = "white";
         document.body.style.backgroundColor = defaultcolour1;
         let accuracy = document.getElementById("accuracy");
         accuracy.style.color = defaultcolour2;
+        let Best = document.getElementById("best");
+        Best.style.color = defaultcolour2
         if(mode == "pen"){
             DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
         }
@@ -132,23 +127,25 @@ darkbutton.addEventListener("click",() => {
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         RedrawUser();
         setTimeout(()=>{
-            enable(lightbutton);
-            enable(lightbuttonmob);
-            disable(darkbutton);
-            disable(darkbuttonmob);
+            enable(light);
+            enable(lightmob);
+            disable(dark);
+            disable(darkmob);
         }, 50);
     }
 });
-lightbuttonmob.addEventListener("click",() => {
+lightmob.addEventListener("click",() => {
     if(colourmode == "dark"){
         colourmode = "light";
-        sessionStorage.setItem("colourmode", colourmode);
+        localStorage.setItem("colourmode", colourmode);
         defaultcolour1 = "#d6d6d6";
         defaultcolour2 = "#121212";
         defaultcolour3 = "black";
         document.body.style.backgroundColor = defaultcolour1;
         let accuracy = document.getElementById("accuracy");
         accuracy.style.color = defaultcolour2;
+        let Best = document.getElementById("best");
+        Best.style.color = defaultcolour2
         if(mode == "pen"){
             DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
         }
@@ -158,22 +155,24 @@ lightbuttonmob.addEventListener("click",() => {
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         RedrawUser();
         setTimeout(()=>{
-            disable(lightbutton);
-            disable(lightbuttonmob);
-            enable(darkbutton);
-            enable(darkbuttonmob);}, 50);
+            disable(light);
+            disable(lightmob);
+            enable(dark);
+            enable(darkmob);}, 50);
     }
 });
-darkbuttonmob.addEventListener("click",() => {
+darkmob.addEventListener("click",() => {
     if(colourmode == "light"){
         colourmode = "dark";
-        sessionStorage.setItem("colourmode", colourmode);
+        localStorage.setItem("colourmode", colourmode);
         defaultcolour1 = "#121212";
         defaultcolour2 = "#d6d6d6";
         defaultcolour3 = "white";
         document.body.style.backgroundColor = defaultcolour1;
         let accuracy = document.getElementById("accuracy");
         accuracy.style.color = defaultcolour2;
+        let Best = document.getElementById("best");
+        Best.style.color = defaultcolour2
         if(mode == "pen"){
                 DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
         }
@@ -183,88 +182,185 @@ darkbuttonmob.addEventListener("click",() => {
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         RedrawUser();
         setTimeout(()=>{
-            enable(lightbutton);
-            enable(lightbuttonmob);
-            disable(darkbutton);
-            disable(darkbuttonmob);
+            enable(light);
+            enable(lightmob);
+            disable(dark);
+            disable(darkmob);
         }, 50);
     }
 });
-const aftersubmitbutton = document.getElementsByClassName("aftersubmitbutton");   
+const aftersubmit = document.querySelector(".aftersubmit");   
 if(!is_submit){
-    for(let button of aftersubmitbutton){
-        button.style.display = "none";
-    }
+    const replay = document.getElementById("replay");
+    const giveup = document.getElementById("giveup");
+    const share = document.getElementById("share");
+    const next = document.getElementById("next");
+    replay.style.display = "none";
+    giveup.style.display = "none";
+    share.style.display = "none";
+    next.style.display = "none";
 }
-submitbutton.addEventListener("click",() => {
+submit.addEventListener("click",async() => {
     document.body.style.cursor = "default";
     mode = "none";
-    if (mousecoord.length == 0) {
-         is_submit = true;
-        for(let button of aftersubmitbutton){
-            button.style.display = "";
+    if (mousecoord.length <= 1) {
+        is_submit = true;
+        pen.disabled = true;
+        eraser.disabled = true;
+        undo.disabled = true;
+        penmob.disabled = true;
+        erasermob.disabled = true;
+        undomob.disabled = true;
+        disable(pen);
+        disable(eraser);
+        disable(undo);
+        disable(penmob);
+        disable(erasermob);
+        disable(undomob);
+        DrawingPlane.style.cursor = "default";
+        pen.style.cursor = "default";
+        eraser.style.cursor = "default";
+        undo.style.cursor = "default";
+        penmob.style.cursor = "default";
+        erasermob.style.cursor = "default";
+        undomob.style.cursor = "default";
+        const replay = document.getElementById("replay");
+        const giveupbutton = document.getElementById("giveup");
+        const share = document.getElementById("share");
+        const next = document.getElementById("next");
+        replay.style.display = "inline-block";
+        giveupbutton.style.display = "inline-block";
+        share.style.display = "inline-block";
+        if(lvl !== 25){
+            next.style.display = "inline-block";
         }
         let Accuracy = document.getElementById("accuracy");
+        let Best = document.getElementById("best");
         Accuracy.style.color = defaultcolour2;
-        Accuracy.innerHTML = "Accuracy: 0%";
-        const replaybutton = document.getElementById("replaybutton");
-        replaybutton.addEventListener("click",() => {
+        Accuracy.textContent = "Accuracy: 0%";
+        if (localStorage.getItem("lvl" + lvl)==null || localStorage.getItem("lvl" + lvl)==0) {
+           localStorage.setItem("lvl" + lvl,0);
+            Best.style.color = defaultcolour2;
+            Best.textContent = "Best: 0%"
+        }
+
+        replay.addEventListener("click",() => {
             location.reload();
         });
-        const giveupbutton = document.getElementById("giveupbutton");
         giveupbutton.addEventListener("click", () => {
             giveup = true;
             for (let i = 0; i < Graph.length; i++) {
                 DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
             }
         });
+        share.addEventListener("click",async()=>{
+            try{
+                await navigator.clipboard.writeText("I was " + 0 + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
+                share.textContent = "Copied";
 
-        penbutton.disabled = true;
-        eraserbutton.disabled = true;
-        undobutton.disabled = true;
-        penbuttonmob.disabled = true;
-        eraserbuttonmob.disabled = true;
-        undobuttonmob.disabled = true;
-        disable(penbutton);
-        disable(eraserbutton);
-        disable(undobutton);
-        disable(penbuttonmob);
-        disable(eraserbuttonmob);
-        disable(undobuttonmob);
+                setTimeout(()=>{
+                    share.textContent = "Share";
+                },1000);
+            }
+            catch{
+                share.textContent = "Failed";
+                setTimeout(()=>{
+                    share.textContent = "Share";
+                },1000);
+            }
+        });
     }
     else {
         is_submit = true;
-        for(let button of aftersubmitbutton){
-            button.style.display = "";
+        pen.disabled = true;
+        eraser.disabled = true;
+        undo.disabled = true;
+        penmob.disabled = true;
+        erasermob.disabled = true;
+        undomob.disabled = true;
+        disable(pen);
+        disable(eraser);
+        disable(undo);
+        disable(penmob);
+        disable(erasermob);
+        disable(undomob);
+        DrawingPlane.style.cursor = "default";
+        pen.style.cursor = "default";
+        eraser.style.cursor = "default";
+        undo.style.cursor = "default";
+        penmob.style.cursor = "default";
+        erasermob.style.cursor = "default";
+        undomob.style.cursor = "default";
+        const Accuracy = document.getElementById("accuracy");
+        let Best = document.getElementById("best");
+        Accuracy.style.color = defaultcolour2;
+        let dots = 1;
+        Accuracy.textContent = "Accuracy: .";
+        const loading = setInterval(()=>{
+            if(dots === 3){
+                Accuracy.textContent = "Accuracy: ...";
+                dots = 1;
+            }
+            else if(dots === 1){
+                Accuracy.textContent = "  Accuracy: .";
+                dots = 2;
+            }
+            else if(dots === 2){
+                Accuracy.textContent = " Accuracy: ..";
+                dots = 3;
+            }
+        }, 150);
+        await FindError(mousecoord, unflattened, defaultcolour2);
+        clearInterval(loading);
+        Accuracy.style.color = defaultcolour2;
+        Accuracy.textContent = "Accuracy: " + accuracy.toString() + "%";
+        if (localStorage.getItem("lvl" + lvl)==null || localStorage.getItem("lvl" + lvl) < accuracy) {
+           localStorage.setItem("lvl" + lvl,accuracy);
+            Best.style.color = defaultcolour2;
+            Best.textContent = "Best: " + + localStorage.getItem("lvl" + lvl).toString() + "%";
         }
-        FindError(mousecoord, unflattened, defaultcolour2);
-        const replaybutton = document.getElementById("replaybutton");
-        replaybutton.addEventListener("click",() => {
+
+        const replay = document.getElementById("replay");
+        const giveupbutton = document.getElementById("giveup");
+        const share = document.getElementById("share");
+        const next = document.getElementById("next");
+        replay.style.display = "inline-block";
+        giveupbutton.style.display = "inline-block";
+        share.style.display = "inline-block";
+        if(lvl !== 25){
+            next.style.display = "inline-block"
+        }
+        if(67 <= accuracy && accuracy < 100){
+            const easteregg = document.getElementById("easteregg");
+            easteregg.style.display = "inline-block";
+        }
+        replay.addEventListener("click",() => {
             location.reload();
         });
-        const giveupbutton = document.getElementById("giveupbutton");
         giveupbutton.addEventListener("click", () => {
             giveup = true;
             for (let i = 0; i < Graph.length; i++) {
                 DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
             }
         });
-
-        penbutton.disabled = true;
-        eraserbutton.disabled = true;
-        undobutton.disabled = true;
-        penbuttonmob.disabled = true;
-        eraserbuttonmob.disabled = true;
-        undobuttonmob.disabled = true;
-        disable(penbutton);
-        disable(eraserbutton);
-        disable(undobutton);
-        disable(penbuttonmob);
-        disable(eraserbuttonmob);
-        disable(undobuttonmob);
+        share.addEventListener("click",async()=>{
+            try{
+                await navigator.clipboard.writeText("I was " + accuracy + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
+                share.textContent = "Copied";
+                setTimeout(()=>{
+                    share.textContent = "Share";
+                },1000);
+            }
+            catch{
+                share.textContent = "Failed";
+                setTimeout(()=>{
+                    share.textContent = "Share";
+                },1000);
+            }
+        });
     }
-});
-penbutton.addEventListener("click",() => {
+}, {once: true});
+pen.addEventListener("click",() => {
     if (is_submit == false) {
         if(mode == "eraser"){
             mode = "pen";
@@ -274,14 +370,14 @@ penbutton.addEventListener("click",() => {
             if(colourmode == "dark"){
                 DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto"
             }
-            enable(eraserbutton);
-            enable(eraserbuttonmob);
-            disable(penbutton);
-            disable(penbuttonmob);
+            enable(eraser);
+            enable(erasermob);
+            disable(pen);
+            disable(penmob);
         }
     }
 });
-eraserbutton.addEventListener("click",() => {
+eraser.addEventListener("click",() => {
     if (is_submit == false) {
         if(mode == "pen"){
             mode = "eraser";
@@ -292,13 +388,13 @@ eraserbutton.addEventListener("click",() => {
                 DrawingPlane.style.cursor = "url('../../images/erasercursordark.png')16 16, auto";
             }
         }
-        enable(penbutton);
-        enable(penbuttonmob);
-        disable(eraserbutton);
-        disable(eraserbuttonmob);
+        enable(pen);
+        enable(penmob);
+        disable(eraser);
+        disable(erasermob);
     }
 });
-undobutton.addEventListener("click", ()=>{
+undo.addEventListener("click", ()=>{
     if (drawingHistory.length==0) return;
     drawingHistory.pop();
     mousecoord = [];
@@ -319,7 +415,7 @@ undobutton.addEventListener("click", ()=>{
         }
     }
 });
-penbuttonmob.addEventListener("click",() => {
+penmob.addEventListener("click",() => {
     if (is_submit == false) {
         if(mode == "eraser"){
             mode = "pen";
@@ -329,14 +425,14 @@ penbuttonmob.addEventListener("click",() => {
             if(colourmode == "dark"){
                 DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto"
             }
-            enable(eraserbutton);
-            enable(eraserbuttonmob);
-            disable(penbutton);
-            disable(penbuttonmob);
+            enable(eraser);
+            enable(erasermob);
+            disable(pen);
+            disable(penmob);
         }
     }
 });
-eraserbuttonmob.addEventListener("click",() => {
+erasermob.addEventListener("click",() => {
     if (is_submit == false) {
         if(mode == "pen"){
             mode = "eraser";
@@ -346,14 +442,14 @@ eraserbuttonmob.addEventListener("click",() => {
             else{
                 DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
             }
-            disable(eraserbutton);
-            disable(eraserbuttonmob);
-            enable(penbutton);
-            enable(penbuttonmob);
+            disable(eraser);
+            disable(erasermob);
+            enable(pen);
+            enable(penmob);
         }
     }
 });
-undobuttonmob.addEventListener("click", ()=>{
+undomob.addEventListener("click", ()=>{
     
         if (drawingHistory.length==0) return;
     drawingHistory.pop();
@@ -396,7 +492,7 @@ tutorialbuttonmob.addEventListener("click",()=>{
         tutorialtab.classList.remove('show');
     }
 })
-tutorialbutton.addEventListener("mouseleave",()=>{
+tutorial.addEventListener("mouseleave",()=>{
     if(isTutorial == true){
         isTutorial = false;
         tutorialtab.classList.remove('show');
@@ -434,11 +530,17 @@ window.addEventListener("scroll",()=>{
 document.addEventListener("keydown", (event) => {
     if(event.ctrlKey && event.key === "z"){
         event.preventDefault();
-        if(window.matchMedia("max-width: 768px").matches){
-            undobuttonmob.click();
+        if(window.matchMedia("(max-width: 768px)").matches){
+            undomob.click();
         }
         else{
-            undobutton.click();
+            undo.click();
         }
     }
+});
+home.addEventListener("click",()=>{
+    window.open("../../index.html", "_blank")
+});
+homebuttonmob.addEventListener("click",()=>{
+    window.open("../../index.html", "_blank")
 });
