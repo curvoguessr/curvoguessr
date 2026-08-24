@@ -99,6 +99,11 @@ light.addEventListener("click",() => {
         }
         DrawAxis(subxunit, xunit,cw,subyunit,yunit,ch);
         RedrawUser();
+        if (giveup) {
+            for (let i = 0; i < Graph.length; i++) {
+                DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
+            }
+        }
         setTimeout(()=>{
             disable(light);
             disable(lightmob);
@@ -126,6 +131,11 @@ dark.addEventListener("click",() => {
         }
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         RedrawUser();
+        if (giveup) {
+            for (let i = 0; i < Graph.length; i++) {
+                DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
+            }
+        }
         setTimeout(()=>{
             enable(light);
             enable(lightmob);
@@ -154,6 +164,11 @@ lightmob.addEventListener("click",() => {
         }
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         RedrawUser();
+        if (giveup) {
+            for (let i = 0; i < Graph.length; i++) {
+                DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
+            }
+        }
         setTimeout(()=>{
             disable(light);
             disable(lightmob);
@@ -181,6 +196,11 @@ darkmob.addEventListener("click",() => {
         }
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         RedrawUser();
+        if (giveup) {
+            for (let i = 0; i < Graph.length; i++) {
+                DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
+            }
+        }
         setTimeout(()=>{
             enable(light);
             enable(lightmob);
@@ -190,16 +210,6 @@ darkmob.addEventListener("click",() => {
     }
 });
 const aftersubmit = document.querySelector(".aftersubmit");   
-if(!is_submit){
-    const replay = document.getElementById("replay");
-    const giveup = document.getElementById("giveup");
-    const share = document.getElementById("share");
-    const next = document.getElementById("next");
-    replay.style.display = "none";
-    giveup.style.display = "none";
-    share.style.display = "none";
-    next.style.display = "none";
-}
 submit.addEventListener("click",async() => {
     document.body.style.cursor = "default";
     mode = "none";
