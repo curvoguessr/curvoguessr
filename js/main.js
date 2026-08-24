@@ -17,11 +17,11 @@ if(colourmode == "dark"){
     if(mode == "eraser"){
         DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
     }
-    // const fontsz = (cw+ch)/60;
-    // document.fonts.load(`${fontsz}px BreeSerif`)
-    //     .then(()=>DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch))
-    //     .catch(()=>DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch));
-    DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch)
+    const fontsz = (cw+ch)/60;
+    document.fonts.load(`${fontsz}px BreeSerif`)
+        .then(()=>DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch))
+        .catch(()=>DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch));
+    // DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch)
     disable(dark);
     disable(darkmob);
     enable(light);
@@ -43,9 +43,9 @@ else {
         DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
     }
     const fontsz = (cw+ch)/60;
-    document.fonts.load(`${fontsz}px BreeSerif`).then(() => {
-        DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
-    });
+    document.fonts.load(`${fontsz}px BreeSerif`)
+        .then(()=>DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch))
+        .catch(()=>DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch));
     disable(light);
     disable(lightmob);
     enable(dark);
