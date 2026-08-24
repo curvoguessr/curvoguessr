@@ -310,7 +310,7 @@ submit.addEventListener("click",async() => {
                 dots = 3;
             }
         }, 150);
-        await FindError(mousecoord, unflattened, defaultcolour2);
+        await FindError(unflattened);
         clearInterval(loading);
         Accuracy.style.color = defaultcolour2;
         Accuracy.textContent = "Accuracy: " + accuracy.toString() + "%";
