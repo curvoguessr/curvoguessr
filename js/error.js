@@ -63,7 +63,7 @@ function InitializeError() {
     actuallen = allActual.length;
 }
 
-const worker = new Worker("../../js/worker1.js");
+const worker = new Worker("../../js/worker.js");
 function FindError(mousecoord, unflattened, colour) {
     return new Promise((resolve) => {
         worker.onmessage = (event) => {
