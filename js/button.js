@@ -330,7 +330,7 @@ submit.addEventListener("click",async() => {
         if(lvl !== 25){
             next.style.display = "inline-block"
         }
-        if(67 <= accuracy && accuracy < 100){
+        if(67 <= accuracy && accuracy < 68){
             const easteregg = document.getElementById("easteregg");
             easteregg.style.display = "inline-block";
         }
