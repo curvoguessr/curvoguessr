@@ -1,12 +1,13 @@
 const plane = document.getElementById('plane');
 const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
-const equation = document.getElementById('equation1');
+const equation = document.getElementById('equation');
+const equation1 = document.getElementById('equation1');
 const eastereggsixseven = document.getElementById('eastereggsixseven');
 const lvl = 5;
 let vh = window.innerHeight/100;
 let vw = window.innerHeight/100;
-katex.render("x^2 + y^2 = ", equation);
+katex.render("x^2 + y^2 = ", equation1);
 katex.render("67", eastereggsixseven);
 if(vw>1.1*vh){
     vw = 1.1*vh;
