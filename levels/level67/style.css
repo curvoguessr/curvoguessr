@@ -1,6 +1,6 @@
 @font-face {
     font-family: "BreeSerif";
-    src: url("../fonts/BreeSerif.ttf") format("truetype");
+    src: url("../../fonts/BreeSerif.ttf") format("truetype");
 }
  @media(max-width:768px){
     .centerthings{
