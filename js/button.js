@@ -226,11 +226,15 @@ submit.addEventListener("click",async() => {
         undomob.style.cursor = "default";
         const replay = document.getElementById("replay");
         const giveupbutton = document.getElementById("giveup");
-        const share = document.getElementById("share");
+        if(lvl !== 67){
+            const share = document.getElementById("share");
+        }
         const next = document.getElementById("next");
         replay.style.display = "inline-block";
         giveupbutton.style.display = "inline-block";
-        share.style.display = "inline-block";
+        if(share){
+            share.style.display = "inline-block";
+        }
         if(lvl !== 25){
             next.style.display = "inline-block";
         }
@@ -253,7 +257,8 @@ submit.addEventListener("click",async() => {
                 DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
             }
         });
-        share.addEventListener("click",async()=>{
+        if(share){
+            share.addEventListener("click",async()=>{
             try{
                 await navigator.clipboard.writeText("I was " + 0 + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
                 share.textContent = "Copied";
@@ -268,7 +273,8 @@ submit.addEventListener("click",async() => {
                     share.textContent = "Share";
                 },1000);
             }
-        });
+            });
+        }
     }
     else {
         is_submit = true;
@@ -322,11 +328,15 @@ submit.addEventListener("click",async() => {
 
         const replay = document.getElementById("replay");
         const giveupbutton = document.getElementById("giveup");
-        const share = document.getElementById("share");
+        if(lvl !== 67){
+            const share = document.getElementById("share");
+        }
         const next = document.getElementById("next");
         replay.style.display = "inline-block";
         giveupbutton.style.display = "inline-block";
-        share.style.display = "inline-block";
+        if(share){
+            share.style.display = "inline-block";
+        }
         if(lvl !== 25){
             next.style.display = "inline-block"
         }
@@ -343,21 +353,23 @@ submit.addEventListener("click",async() => {
                 DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
             }
         });
-        share.addEventListener("click",async()=>{
-            try{
-                await navigator.clipboard.writeText("I was " + accuracy + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
-                share.textContent = "Copied";
-                setTimeout(()=>{
-                    share.textContent = "Share";
-                },1000);
-            }
-            catch{
-                share.textContent = "Failed";
-                setTimeout(()=>{
-                    share.textContent = "Share";
-                },1000);
-            }
-        });
+        if(share)
+            share.addEventListener("click",async()=>{
+                try{
+                    await navigator.clipboard.writeText("I was " + accuracy + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
+                    share.textContent = "Copied";
+                    setTimeout(()=>{
+                        share.textContent = "Share";
+                    },1000);
+                }
+                catch{
+                    share.textContent = "Failed";
+                    setTimeout(()=>{
+                        share.textContent = "Share";
+                    },1000);
+                }
+            });
+        }
     }
 }, {once: true});
 pen.addEventListener("click",() => {
