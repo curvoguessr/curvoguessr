@@ -23,12 +23,6 @@ https://curvoguessr.github.io/curvoguessr/
 - Automatic comparison between the user's drawing and the target curve
 - Accuracy scoring
 
-## Accuracy calculation
-
-First, both the user-drawn curve and the actual graph curve are sampled into arrays of approximately 500 points each. The Kuhn-Markes algorithm is then used to find a minimum-cost bijective matching between the two sets of points. The error is the sum of the Euclidean distances between all matched pairs. Finally, the accuracy is calculated as
-`100 × e^(-0.3 × error)`
-and expressed as a percentage.
-
 ## Technologies
 
 - HTML
