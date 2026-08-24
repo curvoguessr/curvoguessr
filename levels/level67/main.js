@@ -17,11 +17,7 @@ if(colourmode == "dark"){
     if(mode == "eraser"){
         DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
     }
-    const fontsz = (cw+ch)/60;
-    document.fonts.load(`${fontsz}px BreeSerif`)
-        .then(()=>DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch))
-        .catch(()=>DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch));
-    // DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch)
+    DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
     disable(dark);
     disable(darkmob);
     enable(light);
@@ -42,10 +38,7 @@ else {
     if(mode == "eraser"){
         DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
     }
-    const fontsz = (cw+ch)/60;
-    document.fonts.load(`${fontsz}px BreeSerif`)
-        .then(()=>DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch))
-        .catch(()=>DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch));
+    DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
     disable(light);
     disable(lightmob);
     enable(dark);
@@ -56,6 +49,7 @@ if(localStorage.getItem("lvl" + lvl) !== null){
     Best.style.color = defaultcolour2;
     Best.textContent = "Best: " + + localStorage.getItem("lvl" + lvl).toString() + "%";
 }
+InitializeError();
 let equationleft = equation.getBoundingClientRect().left;
 let equationright = equation.getBoundingClientRect().right;
 let equationwidth = equation.getBoundingClientRect().width;
@@ -71,9 +65,7 @@ let safety = 0;
 let centerthings1 = document.querySelector(".centerthings");
 const replay = document.getElementById("replay");
 const giveupbutton = document.getElementById("giveup");
-const share = document.getElementById("share");
 const next = document.getElementById("next");
-const easteregg = document.getElementById("easteregg");
             
 // let sharebutton1 = document.getElementById("share");
 // let replaybutton1 = document.getElementById("replay");
@@ -83,14 +75,15 @@ const easteregg = document.getElementById("easteregg");
 if(window.matchMedia("(max-width: 768px)").matches){
     if(homemobxcoord <= equationright + 10 || undomobxcoord + 10 >= equationleft ){
         //centerthings1.style.transform = "translateY(100px)";
-        centerthings1.style.marginTop = "calc(min(8vw, 47px) + 19px + 37px)";
+        // centerthings1.style.marginTop = "calc(min(8vw, 47px) + 9px + 4px)";
+        centerthings1.style.marginTop = "calc(min(8vw, 47px) + 37px + 19px)";
         alrTransformed = true;
     }
 }
 let drawingplaneleft = drawingplane.getBoundingClientRect().left;
 let drawingplaneright = drawingplane.getBoundingClientRect().right;
 let drawingplanewidth = drawingplane.getBoundingClientRect().width;
-while((equationleft <= drawingplaneleft + 10 || equationright > drawingplaneright + 10) && safety <= 300){
+while((equationleft <= drawingplaneleft + 10 || equationright >= drawingplaneright + 10) && safety <= 300){
     let currentfontsize = parseFloat(equation.style.fontSize) || 4.5;
     equation.style.fontSize = (currentfontsize*0.95) + "vh";
     equationleft = equation.getBoundingClientRect().left;
@@ -108,7 +101,7 @@ if(window.matchMedia("(min-width: 769px)").matches){
     equationright = equation.getBoundingClientRect().right;
     equationwidth = equation.getBoundingClientRect().width;
     undoxcoord = undo.getBoundingClientRect().left + undo.getBoundingClientRect().width;
-    darkxcoord = dark.getBoundingClientRect().left
+    darkxcoord = dark.getBoundingClientRect().left;
     while((equationleft <= undoxcoord + 10 || equationleft + equationwidth >= darkxcoord - 10) & safety <= 300){
         let currentfontsize = parseFloat(equation.style.fontSize);
         equation.style.fontSize = (currentfontsize*0.95) + "vh";
@@ -129,7 +122,7 @@ if(!alrTransformed){
     }
 }
 equationwidth = equation.getBoundingClientRect().width;
-while(equationwidth > drawingplanewidth * 0.8 && safety <= 300){
+while(equationwidth > drawingplanewidth && safety <= 300){
     let currentfontsize = parseFloat(equation.style.fontSize) || 4.5;
     equation.style.fontSize = (currentfontsize * 0.95) + "vh";
     equationwidth = equation.getBoundingClientRect().width;
@@ -140,19 +133,15 @@ submitwidth = submit.getBoundingClientRect().width;
 submit.style.fontSize = "3vh";
 replay.style.fontSize = "3vh";
 giveupbutton.style.fontSize = "3vh";
-share.style.fontSize = "3vh";
 next.style.fontSize = "3vh";
-easteregg.style.fontSize = "3vh";
 submitwidth = submit.getBoundingClientRect().width;
 while(submitwidth > drawingplanewidth * 0.2 && safety <= 300){
     let currentfontsize = parseFloat(submit.style.fontSize);
     submit.style.fontSize = (currentfontsize*0.95) + "vh";
     submitwidth = submit.getBoundingClientRect().width;
     replay.style.fontSize = (currentfontsize*0.95) + "vh";
-    share.style.fontSize = (currentfontsize*0.95) + "vh";
     giveupbutton.style.fontSize = (currentfontsize*0.95) + "vh";
     next.style.fontSize = (currentfontsize*0.95) + "vh";
-    easteregg.style.fontSize = (currentfontsize*0.95) + "vh";
     safety += 1;
 }
 safety = 0;
@@ -177,6 +166,7 @@ window.addEventListener("resize",()=>{
     context1.clearRect(0,0,plane.width,plane.height);
     context.resetTransform();
     context.clearRect(0,0,drawingplane.width,drawingplane.height);
+
     vw = window.innerWidth/100;
     vh = window.innerHeight/100;
     if(vw>1.1*vh){
@@ -218,8 +208,7 @@ window.addEventListener("resize",()=>{
         let equationycoord;
         let centerthings1 = document.querySelector(".centerthings");
         let undomobxcoord = undomob.getBoundingClientRect().left + undomob.getBoundingClientRect().width;
-        let homemobxcoord = homebuttonmob.getBoundingClientRect().left;
-        let homemobycoord = homebuttonmob.getBoundingClientRect().top;
+        let homemobycoord = homebuttonmob.getBoundingClientRect().left;
         let alrTransformed = false;
         let undoxcoord;
         let darkxcoord;
@@ -228,9 +217,7 @@ window.addEventListener("resize",()=>{
         let safety = 0;
         const replay = document.getElementById("replay");
         const giveupbutton = document.getElementById("giveup");
-        const share = document.getElementById("share");
-        const next = document.getElementById("next"); 
-        const easteregg = document.getElementById("easteregg"); 
+        const next = document.getElementById("next");     
         if(window.matchMedia("(max-width: 768px)").matches){
             if(homemobxcoord <= equationright + 10 || undomobxcoord + 10 >= equationleft ){
                 //centerthings1.style.transform = "translateY(100px)";
@@ -278,7 +265,7 @@ window.addEventListener("resize",()=>{
         }
         safety = 0;
         equationwidth = equation.getBoundingClientRect().width;
-        while((equationwidth > drawingplanewidth * 0.8) && safety <= 300){
+        while((equationwidth > drawingplanewidth) & safety <= 300){
             let currentfontsize = parseFloat(equation.style.fontSize) || 4.5;
             equation.style.fontSize = (currentfontsize * 0.95) + "vh";
             equationwidth = equation.getBoundingClientRect().width;
@@ -289,19 +276,15 @@ window.addEventListener("resize",()=>{
         submit.style.fontSize = "3vh";
         replay.style.fontSize = "3vh";
         giveupbutton.style.fontSize = "3vh";
-        share.style.fontSize = "3vh";
         next.style.fontSize = "3vh";
-        easteregg.style.fontSize = "3vh";
         submitwidth = submit.getBoundingClientRect().width;
-        while(submitwidth > drawingplanewidth * 0.2 && safety <= 300){
+        while(submitwidth > drawingplanewidth * 0.2 & safety <= 300){
             let currentfontsize = parseFloat(submit.style.fontSize);
             submit.style.fontSize = (currentfontsize*0.95) + "vh";
             submitwidth = submit.getBoundingClientRect().width;
             replay.style.fontSize = (currentfontsize*0.95) + "vh";
-            share.style.fontSize = (currentfontsize*0.95) + "vh";
             giveupbutton.style.fontSize = (currentfontsize*0.95) + "vh";
             next.style.fontSize = (currentfontsize*0.95) + "vh";
-            easteregg.style.fontSize = (currentfontsize*0.95) + "vh";
             safety += 1;
         }
         safety = 0;
@@ -309,7 +292,7 @@ window.addEventListener("resize",()=>{
         let best = document.getElementById("best");
         accuracyfont.style.fontSize = "4.5vh";
         accuracywidth = accuracyfont.getBoundingClientRect().width;
-        while(100*accuracywidth > 35*drawingplanewidth && safety <= 300){
+        while(100*accuracywidth > 35*drawingplanewidth & safety <= 300){
             let currentfontsize = parseFloat(accuracyfont.style.fontSize);
             accuracyfont.style.fontSize = (currentfontsize*0.95) + "vh";
             best.style.fontSize = (currentfontsize*0.95) + "vh";
@@ -324,6 +307,5 @@ window.addEventListener("load",()=>{
     }
     window.scrollTo(0,0);
 });
-InitializeError();
 
 UserDrawing();

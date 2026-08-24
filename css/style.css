@@ -1,19 +1,6 @@
-/* .canvas-setup {
-    position: relative;
-    width: 800px;
-    height: 1000px;
-    margin: 0 auto;
-}
-.canvas-setup canvas {
-    position: absolute;
-    display: block;
-} */
 @font-face {
     font-family: "BreeSerif";
     src: url("../fonts/BreeSerif.ttf") format("truetype");
-}
-:root{
-    --gap: 0px;
 }
  @media(max-width:768px){
     .centerthings{
@@ -23,13 +10,11 @@
         align-items: center; 
         min-height: 100vh;
         justify-content: center;
-        transform : translateY(calc(min(4.8vw,66.64px) + 10px));
+        margin-top: calc(min(4.8vw,66.64px) + 10px);
     }
     #canvas{
         position: relative;
         margin-bottom: 1vh;
-        /* width: min(80vw,88vh);
-        height: min(80vh,101.6vw); */
     }
     #plane, #drawingplane{
         position: absolute;
@@ -38,36 +23,35 @@
         width: 100%;
         height: 100%;
     }
-    #submitbutton{
+    #submit{
         margin-top: 2%;
         width: auto;
         height: auto;
         white-space: normal;
-        /* font-size: 2vw; */
     }
     #error{
         margin-top: 5vh;
     }
-    #smthg{
+    #laptopui{
         display: none;
     }
-    #penbutton, #eraserbutton, #undobutton, #lightbutton, #darkbutton{
+    #pen, #eraser, #undo,#home, #tutorialbutton, #light, #dark{
         pointer-events: none;
     }
-    .buttonsmob{
+    .imgbuttonsmob{
         pointer-events: none;
     }
-    .buttonimgmob{
+    .imagemob{
         pointer-events: auto;
         cursor: pointer;
     }
-    .centerthings{
-        margin-top: -1vh;
+    #canvas{
+        margin-bottom: 1vh;
     }
     #error{
         margin-top: 1vh;
     }
-    .buttonsmob{
+    .imgbuttonsmob{
         background: none;
         border: none;
         padding: 0;
@@ -80,12 +64,12 @@
         width: calc(100vw - 20px);
         gap:max(1px,calc(1.8vw - 2px));
     }
-    .buttonimgmob{
+    .imagemob{
         display: block;
         height: min(8vw,47px);
         width: auto;
     }
-    #tutorialbuttonmob{
+    #homebuttonmob{
         margin-left: auto;
     }
     #equation{
@@ -110,8 +94,6 @@
     #canvas{
         position: relative;
         margin-bottom: 1vh;
-        /* width: min(80vw,88vh);
-        height: min(80vh,101.6vw); */
     }
     #plane, #drawingplane{
         position: absolute;
@@ -120,12 +102,11 @@
         width: 100%;
         height: 100%;
     }
-    #submitbutton{
+    #submit{
         margin-top: 2%;
         width: auto;
         height: auto;
         white-space: normal;
-        /* font-size: 2vw; */
     }
     #error{
         font-size: min(4vw,51.24px);
@@ -134,17 +115,17 @@
     #smthgmob{
         display: none;
     }
-    #penbuttonmob, #eraserbuttonmob, #undobuttonmob, #lightbuttonmob, #darkbuttonmob{
+    #penmob, #erasermob, #undomob, #lightbuttonmob, #darkbuttonmob{
         pointer-events: none;
     }
     .imgbuttons{
         pointer-events: none;
     }
-    .buttonimg{
+    .image{
         pointer-events: auto;
         cursor: pointer;
     }
-    #smthg1{
+    #leftcolumn{
         display: flex;
         flex-direction: column;
         position: fixed;
@@ -158,15 +139,15 @@
         padding: 0;
         cursor: pointer;
     }
-    #smthg2{
+    #rightcolumn{
         display: flex;
         flex-direction: column;
         position: fixed;
         top: min(1vw,15px);
         right: 5px;
-        gap:0.75vw;
+        gap:2.5vh;
     }
-    .buttonimg{
+    .image{
         display: block;
         width: min(4.8vw,66.64px);
         height: auto;
@@ -176,74 +157,18 @@
         height: auto;
     }
  }
- /* @media(min-width:824px){
-    #submitbutton{
-        font-size: min(30px,2.4vw);
-    }
-    .aftersubmitbutton{
-        font-size: min(30px,2.4vw);
-    }
- }
- @media(min-width-824px) and (max-width:969px){
-    #submitbutton{
-        font-size: 3vw;
-    }
-    .aftersubmitbutton{
-        font-size: 3vw;
-    }
- }
- @media(max-width: 449px){
-    #submitbutton{
-        font-size:4.5vw;
-    }
-    .aftersubmitbutton{
-        font-size: 4.5vw;
-    }
- }
- @media(min-width: 449px) and (max-width:515px){
-    #submitbutton{
-        font-size:4vw;
-    }
-    .aftersubmitbutton{
-        font-size: 4vw;
-    }
- }
- @media(min-width: 514px) and (max-width:680px){
-    #submitbutton{
-        font-size: 3vw;
-    }
-    .aftersubmitbutton{
-        font-size: 3vw;
-    }
- }
- @media(min-width: 680px) and (max-width:794px){
-    #submitbutton{
-        font-size: 3.1vw;
-    }
-    .aftersubmitbutton{
-        font-size: 3.1vw;
-    }
- }
- @media(min-width: 794px) and (max-width : 823px){
-    #submitbutton{
-        font-size: 2.9vw;
-    }
-    .aftersubmitbutton{
-        font-size: 2.9vw;
-    }
- } */
-#submitbutton{
+#submit{
     font-size: 3vh;
     margin-bottom: 1vh;
-  }
-.aftersubmitbutton{
+}
+.aftersubmit{
+    margin-bottom: 1vh;
+}
+.belowsubmit{
     font-size: 3vh;
 }
-#replaybutton{
-    width: 120px;
-}
-#nextlevelbutton{
-    width: 120px;
+#next{
+    width: 6ch;
 }
  #plane{
     z-index: 1;
@@ -251,15 +176,15 @@
  #drawingplane{
     z-index: 2;
 }
-/* .buttons{
-    position: absolute;
-    bottom: 0;
-    left:0;
-    z-index: 3;
- } */
 #accuracy{
     font-size: 4.5vh;
     font-family: 'BreeSerif', serif;
+    margin-bottom: 0vh;
+}
+#best{
+    font-size: 3.8vh;
+    font-family: 'BreeSerif', serif;
+    margin-top: 0vh;
 }
 #equation{
     font-size: calc(min(60px,3 * (1vw + 1vh)/2));
@@ -276,10 +201,10 @@
 #easteregg{
     cursor: pointer;
 }
-#submitbutton{
+#submit{
     cursor: pointer;
 }
-.aftersubmitbutton{
+.belowsubmit{
     cursor: pointer;
 }
 #drawingplane, #plane {
@@ -290,7 +215,7 @@
     background-color: #6495ED;
     border-radius: calc(2 * (1vw + 1vh) / 3);
     position: fixed;
-    top: calc(min(6.72vw,79px) / 2);
+    top: calc((min(6.72vw,79px) / 2) + min(4.8vw,66.64px) + 0.75vw);
     left: 60vw;
     /* left: calc(clamp(203px, 60.75vw, 810px) + 0.2*(100vw - calc(min(7vw,82px) + 20px) - clamp(203px, 60.75vw, 810px))); */
     right:  calc(min(4.8vw,66.64px) + 15px);
@@ -342,34 +267,32 @@
     opacity: 0;
     transition: display 0.2s allow-discrete, opacity 0.2s ease;
 }
-
 #tutorial.show{
     display: flex;
     opacity: 1;
 }
-
-@starting-style {
-    #tutorial.show {
-        opacity: 0;
-    }
-}
-
 #tutorialtab{
     display: none;
     opacity: 0;
     transition: display 0.2s allow-discrete, opacity 0.2s ease;
 }
-
 #tutorialtab.show{
     display: flex;
     opacity: 1;
 }
-
-@starting-style {
-    #tutorialtab.show {
-        opacity: 0;
-    }
-}
 body {
     transition: background-color 0.2s ease;
+}
+#aftersubmit{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    gap: 0.5vw;
+}
+#easteregg{
+    display: none;
+}
+#replay, #giveup, #share, #next{
+    display: none;;
 }

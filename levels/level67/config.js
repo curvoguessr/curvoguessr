@@ -2,6 +2,7 @@ const plane = document.getElementById('plane');
 const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation');
+const lvl = 67;
 let vw = window.innerWidth/100;
 let vh = window.innerHeight/100;
 
@@ -235,41 +236,3 @@ let range= {
     yl: -10,
     yr: 10
 }
-if(window.matchMedia("(min-width: 769px)").matches){
-    const undobutton2 = document.getElementById("undobutton");
-    const equation2 = document.getElementById("equation");
-    const darkmodebutton2 = document.getElementById("darkbutton");
-    equation2.style.fontSize = "2vh";
-    let equationxcoordleft = equation2.getBoundingClientRect().left;
-    let equationxcoordright = equation2.getBoundingClientRect().right;
-    let undobuttonxcoord1 = undobutton2.getBoundingClientRect().left + undobutton2.getBoundingClientRect().width;
-    let darkbuttonxcoord = darkmodebutton2.getBoundingClientRect().right + darkmodebutton2.getBoundingClientRect().width;
-    while(equationxcoordleft <= undobuttonxcoord1 + 10 || equationxcoordright >= darkbuttonxcoord - 10){
-        let currentfontsize = parseFloat(equation2.style.fontSize);
-        equation2.style.fontSize = (currentfontsize*0.95) + "vh";
-        darkbuttonxcoord = darkmodebutton2.getBoundingClientRect().right + darkmodebutton2.getBoundingClientRect().width;
-        equationxcoordleft = equation2.getBoundingClientRect().left;
-        equationxcoordright = equation2.getBoundingClientRect().right;
-        undobuttonxcoord1 = undobutton2.getBoundingClientRect().left + undobutton2.getBoundingClientRect().width;
-    }
-}
-window.addEventListener("resize",()=>{
-    if(window.matchMedia("(min-width: 769px)").matches){
-         const undobutton2 = document.getElementById("undobutton");
-        const equation2 = document.getElementById("equation");
-        const darkmodebutton2 = document.getElementById("darkbutton");
-        equation2.style.fontSize = "2vh";
-        let equationxcoordleft = equation2.getBoundingClientRect().left;
-        let equationxcoordright = equation2.getBoundingClientRect().right;
-        let undobuttonxcoord1 = undobutton2.getBoundingClientRect().left + undobutton2.getBoundingClientRect().width;
-        let darkbuttonxcoord = darkmodebutton2.getBoundingClientRect().right + darkmodebutton2.getBoundingClientRect().width;
-        while(equationxcoordleft <= undobuttonxcoord1 + 10 || equationxcoordright >= darkbuttonxcoord - 10){
-            let currentfontsize = parseFloat(equation2.style.fontSize);
-            equation2.style.fontSize = (currentfontsize*0.95) + "vh";
-            darkbuttonxcoord = darkmodebutton2.getBoundingClientRect().right + darkmodebutton2.getBoundingClientRect().width;
-            equationxcoordleft = equation2.getBoundingClientRect().left;
-            equationxcoordright = equation2.getBoundingClientRect().right;
-            undobuttonxcoord1 = undobutton2.getBoundingClientRect().left + undobutton2.getBoundingClientRect().width;
-        }
-    }
-});
