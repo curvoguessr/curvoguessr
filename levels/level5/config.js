@@ -2,12 +2,12 @@ const plane = document.getElementById('plane');
 const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
 const equation = document.getElementById('equation1');
-const easteregg = document.getElementById('easteregg');
+const eastereggsixseven = document.getElementById('eastereggsixseven');
 const lvl = 5;
 let vh = window.innerHeight/100;
-let vh = window.innerHeight/100;
+let vw = window.innerHeight/100;
 katex.render("x^2 + y^2 = ", equation);
-katex.render("67", easteregg);
+katex.render("67", eastereggsixseven);
 if(vw>1.1*vh){
     vw = 1.1*vh;
 }
@@ -52,6 +52,6 @@ let range= {
     yr: 10
 }
 
-easteregg.addEventListener("click", ()=>{
+eastereggsixseven.addEventListener("click", ()=>{
     window.location.href="../level67/index.html";
 });
