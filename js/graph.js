@@ -96,7 +96,6 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
     context.textAlign = "center";
     let half = cw/(2*xunit);
     half = Math.round(half);
-    console.log(half);
     for (let i = -half+1; i < 0; i++) {
         context.fillText(i, (i+half)*xunit, ch/2 + subyunit/8);
     }
