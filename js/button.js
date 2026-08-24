@@ -192,12 +192,17 @@ darkmob.addEventListener("click",() => {
 const aftersubmit = document.querySelector(".aftersubmit");   
 if(!is_submit){
     const replay = document.getElementById("replay");
-    const giveup = document.getElementById("giveup");
-    const share = document.getElementById("share");
+    const giveupbutton = document.getElementById("giveup");
+    let share = null;
+    if(lvl !== 67){
+        share = document.getElementById("share");
+    }
     const next = document.getElementById("next");
     replay.style.display = "none";
-    giveup.style.display = "none";
-    share.style.display = "none";
+    giveupbutton.style.display = "none";
+    if(share){
+        share.style.display = "none";
+    }
     next.style.display = "none";
 }
 submit.addEventListener("click",async() => {
@@ -226,8 +231,9 @@ submit.addEventListener("click",async() => {
         undomob.style.cursor = "default";
         const replay = document.getElementById("replay");
         const giveupbutton = document.getElementById("giveup");
+        let share = null;
         if(lvl !== 67){
-            const share = document.getElementById("share");
+            share = document.getElementById("share");
         }
         const next = document.getElementById("next");
         replay.style.display = "inline-block";
@@ -328,8 +334,9 @@ submit.addEventListener("click",async() => {
 
         const replay = document.getElementById("replay");
         const giveupbutton = document.getElementById("giveup");
+        let share = null;
         if(lvl !== 67){
-            const share = document.getElementById("share");
+            share = document.getElementById("share");
         }
         const next = document.getElementById("next");
         replay.style.display = "inline-block";
