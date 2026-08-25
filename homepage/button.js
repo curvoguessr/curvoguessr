@@ -330,12 +330,12 @@ function enable(button){
     button.style.filter = "";
 }
 
-if (sessionStorage.getItem("colourmode")==null) {
-    sessionStorage.setItem("colourmode",colourmode);
+if (localStorage.getItem("colourmode")==null) {
+    localStorage.setItem("colourmode",colourmode);
 }
-colourmode = sessionStorage.getItem("colourmode");
+colourmode = localStorage.getItem("colourmode");
 if(colourmode == "dark"){
-    sessionStorage.setItem("colourmode", colourmode);
+    localStorage.setItem("colourmode", colourmode);
     defaultcolour1 = "#121212";
     defaultcolour2 = "#d6d6d6";
     document.body.style.backgroundColor = defaultcolour1;     
@@ -349,7 +349,7 @@ if(colourmode == "dark"){
 }
 else {
     colourmode = "light";
-    sessionStorage.setItem("colourmode", colourmode);
+    localStorage.setItem("colourmode", colourmode);
     defaultcolour1 = "#d6d6d6";
     defaultcolour2 = "#121212";
     document.body.style.backgroundColor = defaultcolour1;
@@ -424,7 +424,7 @@ window.addEventListener("resize",()=>{
 lightbutton.addEventListener("click",() => {
     if(colourmode == "dark"){
         colourmode = "light";
-        sessionStorage.setItem("colourmode", colourmode);
+        localStorage.setItem("colourmode", colourmode);
         defaultcolour1 = "#d6d6d6";
         defaultcolour2 = "#121212";
         document.body.style.backgroundColor = defaultcolour1;
@@ -442,7 +442,7 @@ lightbutton.addEventListener("click",() => {
 lightbuttontab.addEventListener("click",() => {
     if(colourmode == "dark"){
         colourmode = "light";
-        sessionStorage.setItem("colourmode", colourmode);
+        localStorage.setItem("colourmode", colourmode);
         defaultcolour1 = "#d6d6d6";
         defaultcolour2 = "#121212";
         document.body.style.backgroundColor = defaultcolour1;
@@ -458,7 +458,7 @@ lightbuttontab.addEventListener("click",() => {
 darkbutton.addEventListener("click",() => {
     if(colourmode == "light"){
         colourmode = "dark";
-        sessionStorage.setItem("colourmode", colourmode);
+        localStorage.setItem("colourmode", colourmode);
         defaultcolour1 = "#121212";
         defaultcolour2 = "#d6d6d6";
         document.body.style.backgroundColor = defaultcolour1;     
@@ -476,7 +476,7 @@ darkbutton.addEventListener("click",() => {
 darkbuttontab.addEventListener("click",() => {
     if(colourmode == "light"){
         colourmode = "dark";
-        sessionStorage.setItem("colourmode", colourmode);
+        localStorage.setItem("colourmode", colourmode);
         defaultcolour1 = "#121212";
         defaultcolour2 = "#d6d6d6";
         document.body.style.backgroundColor = defaultcolour1;     
