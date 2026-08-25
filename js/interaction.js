@@ -188,6 +188,8 @@ function UserDrawing() {
                 }
             }
             brush={x : event2.x, y : event2.y};
+            lastPoint = {x: brush.x*cw/1000, y: brush.y*ch/1000};
+            context.moveTo(lastPoint.x,lastPoint.y);
     });
     DrawingPlane.addEventListener('touchstart', (event) => {
         if(is_submit){
@@ -218,6 +220,9 @@ function UserDrawing() {
                 if(mode == "eraser"){
                     t *= 10;
                 }
+                context.beginPath();
+                context.moveTo(lastPoint.x,lastPoint.y);
+                let newPoint;
                 for(const events of coalevents){
                     if(mode == "pen"){
                         if(event.pointerType == "touch"){
@@ -248,22 +253,29 @@ function UserDrawing() {
                     if(mode == "pen"){
                         if(mousecoord.length-oldsize>=4){
                             CatRomGraph(denormalise(destandardize(mousecoord[mousecoord.length-4])),denormalise(destandardize(mousecoord[mousecoord.length-3])),denormalise(destandardize(mousecoord[mousecoord.length-2])),denormalise(destandardize(mousecoord[mousecoord.length-1])),t,context);
+                            newPoint = denormalise(destandardize(mousecoord[mousecoord.length-1]));
                         }
                         else{
                             context.lineTo(brush.x*cw/1000, brush.y*ch/1000);
+                            newPoint = {x : brush.x*cw/1000,y : brush.y*ch/1000};
                         }
                     }
                     if(mode == "eraser"){
                         if(erasecoord.length-oldsize>=4){
                             CatRomGraph(denormalise(destandardize(erasecoord[erasecoord.length-4])),denormalise(destandardize(erasecoord[erasecoord.length-3])),denormalise(destandardize(erasecoord[erasecoord.length-2])),denormalise(destandardize(erasecoord[erasecoord.length-1])),t,context);
+                            newPoint = denormalise(destandardize(erasecoord[erasecoord.length-1]));
                         }
                         else{
                             context.lineTo(brush.x*cw/1000,brush.y*ch/1000);
+                            newPoint = {x : brush.x*cw/1000,y : brush.y*ch/1000};
                         }
                     }
                 }
                 if (inRange) {
                     context.stroke();
+                }
+                if(newPoint){
+                    lastPoint = newPoint;
                 }
             }
     });

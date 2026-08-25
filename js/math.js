@@ -43,5 +43,5 @@ const axisScale = 110;
 const borderScale = 2*axisScale;
 const gridlineScale = 3.2*axisScale;
 const minorGridlineScale = 2.7*gridlineScale;
-const penScale = 280;
+const penScale = 200;
 const eraserScale = 21;

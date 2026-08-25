@@ -61,8 +61,8 @@ function RedrawUser() {
                     context
                 );
             }
-            context.stroke();
         }
+        context.stroke();
     }
 }
 function disable(button){
