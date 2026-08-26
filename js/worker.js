@@ -22,7 +22,7 @@ function denormalise(b){
     return{ x: b.x*cw, y: b.y*ch};
 }
 class KD {
-    constructor(point, axis) {
+    constructor(id, point, axis) {
         this.point = point;
         this.axis = axis;
         this.left = null;
@@ -108,26 +108,7 @@ function resampleCatRom(mousecoord, spacing) {
     }
     return user;
 }
-self.onmessage = (event) => {
-    cw = event.data.cw;
-    ch = event.data.ch;
-    xunit = event.data.xunit;
-    yunit = event.data.yunit;
-    const { unflattened, allActual, actuallen, distActual, rootActual} = event.data;
-    
-    let distUser = 0;
-    for (let i = 0; i < unflattened.length; i++) {
-        for (let j = 1; j < unflattened[i].length; j++) {
-            let p1 = Convert(denormalise(destandardize(unflattened[i][j])));
-            let p2 = Convert(denormalise(destandardize(unflattened[i][j-1])));
-            distUser += EuclideanDist(p1,p2);
-        }
-    }
-    let user = [];
-    for (let i = 0; i < unflattened.length; i++) {
-        user.push(resampleCatRom(unflattened[i],0.1));
-    }
-    user = user.flat();
+function ErrorNear(user, rootActual, allActual) {
     let errorUser = 0, errorActual = 0;
     const len = user.length;
     for (let i = 0; i < len; i++) {
@@ -142,10 +123,34 @@ self.onmessage = (event) => {
         errorActual += best.dist;
     }
     errorUser /= len;
-    errorActual /= actuallen;
+    errorActual /= allActual.length;
     let error = (errorUser + errorActual)/2;
-    let errorDist = Math.max(distActual/distUser, distUser/distActual);
-    error *= errorDist;
+    return error;
+}
+function ErrorDist(unflattened, distActual) {
+    let distUser = 0;
+    for (let i = 0; i < unflattened.length; i++) {
+        for (let j = 1; j < unflattened[i].length; j++) {
+            let p1 = Convert(denormalise(destandardize(unflattened[i][j])));
+            let p2 = Convert(denormalise(destandardize(unflattened[i][j-1])));
+            distUser += EuclideanDist(p1,p2);
+        }
+    }
+    return Math.max(distActual/distUser, distUser/distActual);
+}
+self.onmessage = (event) => {
+    cw = event.data.cw;
+    ch = event.data.ch;
+    xunit = event.data.xunit;
+    yunit = event.data.yunit;
+    const { unflattened, allActual, distActual, rootActual} = event.data;
+
+    let user = [];
+    for (let i = 0; i < unflattened.length; i++) {
+        user.push(resampleCatRom(unflattened[i],0.1));
+    }
+    user = user.flat();
+    let error = ErrorNear(user, rootActual, allActual)*ErrorDist(unflattened, distActual);
 
     let accFactor = 0.2;
     accuracy = 100*Math.exp(-accFactor*error);

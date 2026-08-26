@@ -76,39 +76,6 @@ function InitializeError() {
     actuallen = allActual.length;
     rootActual = KD.Build(allActual);
 }
-function resampleCatRom(mousecoord, spacing) {
-    if (mousecoord.length < 2) {
-        return mousecoord.map(p => denormalise(destandardize(p)));
-    }
-    let points = mousecoord.map(p => denormalise(destandardize(p)));
-
-    let dense = [];
-    const steps = 100;
-    for (let i = 3; i < points.length; i++) {
-        for (let j = 0; j < steps; j++) {
-            const t = j/steps;
-            dense.push(CatRom(points[i-3],points[i-2],points[i-1],points[i],t));
-        }
-    }
-    dense.push(points[points.length-1]);
-    let user = [dense[0]];
-    let acc = 0;
-    for (let i = 1; i < dense.length; i++) {
-        acc += EuclideanDist(dense[i-1],dense[i]);
-        if (acc >= spacing) {
-            user.push(dense[i]);
-            acc -= spacing;
-        }
-    }
-    const last = dense[dense.length-1];
-    if (user[user.length-1].x !== last.x || user[user.length-1].y !== last.y) {
-        user.push(last);
-    }
-    for (let i = 0; i < user.length; i++) {
-        user[i]=Convert(user[i]);
-    }
-    return user; 
-}
 const worker = new Worker("../../js/worker.js");
 function FindError(unflattened) {
     return new Promise((resolve)=>{
@@ -116,6 +83,7 @@ function FindError(unflattened) {
             accuracy = event.data;
             resolve();
         };
+        InitializeError();
         worker.postMessage({unflattened, allActual, actuallen, distActual, rootActual, cw, ch, xunit, yunit});
     });
 }
