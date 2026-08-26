@@ -503,16 +503,6 @@ tutorialbuttonmob.addEventListener("click",() => {
         tutorialtab.classList.remove('show');
     }
 });
-tutorialbutton.addEventListener("mouseenter",() => {
-    if(isTutorial == false){
-        isTutorial = true;
-        tutorial.classList.add('show');
-    }
-    else{
-        isTutorial = false;
-        tutorial.classList.remove('show');
-    }
-});
 tutorialbutton.addEventListener("mouseleave",()=>{
     if(isTutorial == true){
         isTutorial = false;
