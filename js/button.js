@@ -482,7 +482,7 @@ undomob.addEventListener("click", ()=>{
         }
     }
 });
-tutorialbutton.addEventListener("click",()=>{
+tutorialbutton.addEventListener("click",() => {
     if(isTutorial == false){
         isTutorial = true;
         tutorial.classList.add('show');
@@ -491,9 +491,10 @@ tutorialbutton.addEventListener("click",()=>{
         isTutorial = false;
         tutorial.classList.remove('show');
     }
-})
-tutorialbuttonmob.addEventListener("click",()=>{
-     if(isTutorial == false){
+    // tutorial.style.position = "absolute";
+});
+tutorialbuttonmob.addEventListener("click",() => {
+    if(isTutorial == false){
         isTutorial = true;
         tutorialtab.classList.add('show');
     }
@@ -501,11 +502,20 @@ tutorialbuttonmob.addEventListener("click",()=>{
         isTutorial = false;
         tutorialtab.classList.remove('show');
     }
-})
-tutorial.addEventListener("mouseleave",()=>{
+});
+tutorialbutton.addEventListener("mouseenter",() => {
+    if(isTutorial == false){
+        isTutorial = true;
+        tutorial.classList.add('show');
+    }
+    else{
+        isTutorial = false;
+        tutorial.classList.remove('show');
+    }
+});
+tutorialbutton.addEventListener("mouseleave",()=>{
     if(isTutorial == true){
         isTutorial = false;
-        tutorialtab.classList.remove('show');
         tutorial.classList.remove('show');
     }
 });
@@ -513,10 +523,22 @@ tutorialbuttonmob.addEventListener("mouseleave",()=>{
     if(isTutorial == true){
         isTutorial = false;
         tutorialtab.classList.remove('show');
+    }
+});
+window.addEventListener("scroll",()=>{
+    if(isTutorial == true){
+        isTutorial = false;
+        tutorialtab.classList.remove('show');
         tutorial.classList.remove('show');
     }
 });
-window.addEventListener("touchstart",()=>{
+tutorialbutton.addEventListener("touchstart",(event)=>{
+    event.stopPropagation();
+});
+tutorialbuttonmob.addEventListener("touchstart",(event)=>{
+    event.stopPropagation();
+});
+window.addEventListener("touchstart",(event)=>{
     if(isTutorial == true){
         isTutorial = false;
         tutorialtab.classList.remove('show');
@@ -530,24 +552,7 @@ window.addEventListener("resize",()=>{
         tutorial.classList.remove('show');
     }
 });
-window.addEventListener("scroll",()=>{
-    if(isTutorial == true){
-        isTutorial = false;
-        tutorialtab.classList.remove('show');
-        tutorial.classList.remove('show');
-    }
-});
-document.addEventListener("keydown", (event) => {
-    if(event.ctrlKey && event.key === "z"){
-        event.preventDefault();
-        if(window.matchMedia("(max-width: 768px)").matches){
-            undomob.click();
-        }
-        else{
-            undo.click();
-        }
-    }
-});
+
 home.addEventListener("click",()=>{
     window.open("../../index.html", "_blank")
 });
