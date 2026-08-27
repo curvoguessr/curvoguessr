@@ -91,13 +91,24 @@ function resampleCatRom(mousecoord, spacing) {
     }
     dense.push(points[points.length-1]);
     let user = [dense[0]];
-    let acc = 0;
+    let accum = 0;
     for (let i = 1; i < dense.length; i++) {
-        acc += EuclideanDist(dense[i-1],dense[i]);
-        if (acc >= spacing) {
-            user.push(dense[i]);
-            acc -= spacing;
+        let prev = dense[i-1];
+        let next = dense[i];
+        let dist = EuclideanDist(prev, next);
+        while (accum + dist >= spacing) {
+            let ratio = (spacing - accum)/dist;
+            let add = {
+                x: prev.x + ratio*(next.x-prev.x),
+                y: prev.y + ratio*(next.y-prev.y)
+            };
+            user.push(add);
+            dist -= spacing-accum;
+            prev = add;
+            accum = 0;
         }
+        accum += dist;
+        prev = next;
     }
     const last = dense[dense.length-1];
     if (user[user.length-1].x !== last.x || user[user.length-1].y !== last.y) {
@@ -108,7 +119,8 @@ function resampleCatRom(mousecoord, spacing) {
     }
     return user;
 }
-function ErrorNear(user, rootActual, allActual) {
+function ErrorNear(user, allActual) {
+    let rootActual = KD.Build([...allActual]);
     let errorUser = 0, errorActual = 0;
     const len = user.length;
     for (let i = 0; i < len; i++) {
@@ -116,7 +128,7 @@ function ErrorNear(user, rootActual, allActual) {
         KD.Nearest(rootActual, user[i], best);
         errorUser += best.dist;
     }
-    let rootUser = KD.Build(user);
+    let rootUser = KD.Build([...user]);
     for (let i = 0; i < allActual.length; i++) {
         let best = {dist: Infinity, point: null};
         KD.Nearest(rootUser, allActual[i], best);
@@ -143,14 +155,14 @@ self.onmessage = (event) => {
     ch = event.data.ch;
     xunit = event.data.xunit;
     yunit = event.data.yunit;
-    const { unflattened, allActual, distActual, rootActual} = event.data;
+    const { unflattened, allActual, distActual} = event.data;
 
     let user = [];
     for (let i = 0; i < unflattened.length; i++) {
-        user.push(resampleCatRom(unflattened[i],0.1));
+        user.push(resampleCatRom(unflattened[i],0.05));
     }
     user = user.flat();
-    let error = ErrorNear(user, rootActual, allActual)*ErrorDist(unflattened, distActual);
+    let error = ErrorNear(user, allActual)*ErrorDist(unflattened, distActual);
 
     let accFactor = 0.2;
     accuracy = 100*Math.exp(-accFactor*error);
