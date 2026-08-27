@@ -413,14 +413,35 @@ undo.addEventListener("click", ()=>{
     eraserunflattened = [];
     
     RedrawUser();
-    mousecoord = unflattened.flat();
-    erasecoord = eraserunflattened.flat();
-    for (let i = 0; i < erasecoord.length; i++) {
-        for (let j = 0; j < mousecoord.length; j++) {
-            if(EuclideanDist(denormalise(destandardize(erasecoord[i])),denormalise(destandardize(mousecoord[j])))<=15){
-                mousecoord.splice(j,1);
-                deletepoint(unflattened, j);
-                j--;
+    const drawingplane = document.getElementById("drawingplane");
+    const cw = drawingplane.width;
+    const ch = drawingplane.height;
+    eraserradius = Math.sqrt(cw*cw+ch*ch)/(2*eraserScale);
+    SizeX = (eraserradius*1000)/cw;
+    SizeY = (eraserradius*1000)/ch;
+    erasergrid = new SpatialGrid(SizeX, SizeY);
+    for (let i = 0; i < drawingHistory.length; i++) {
+        if (drawingHistory[i][1]=="pen") {
+            unflattened.push([...drawingHistory[i][0]]);
+            mousecoord.push(...drawingHistory[i][0]);
+            for (let event of drawingHistory[i][0]) {
+                erasergrid.add(event);
+            }
+        }
+        else {
+            eraserunflattened.push([...drawingHistory[i][0]]);
+            erasecoord.push(...drawingHistory[i][0]);
+            for (let brushpoint of drawingHistory[i][0]) {
+                let nearbytargets = erasergrid.nearbytargets(brushpoint, SizeX, SizeY);
+                for(const points of nearbytargets){
+                    if(EuclideanDist(denormalise(destandardize(points)), denormalise(destandardize({x : brushpoint.x,y : brushpoint.y})))<= eraserradius){
+                        erasergrid.delete(points);
+                        let j = mousecoord.indexOf(points);
+                        if (j==-1) console.log("j is -1");
+                        mousecoord.splice(j,1);
+                        deletepoint(unflattened,j);
+                    }
+                }
             }
         }
     }
@@ -460,8 +481,7 @@ erasermob.addEventListener("click",() => {
     }
 });
 undomob.addEventListener("click", ()=>{
-    
-        if (drawingHistory.length==0) return;
+    if (drawingHistory.length==0) return;
     drawingHistory.pop();
     mousecoord = [];
     unflattened = [];
@@ -469,15 +489,35 @@ undomob.addEventListener("click", ()=>{
     eraserunflattened = [];
     
     RedrawUser();
-    
-    mousecoord = unflattened.flat();
-    erasecoord = eraserunflattened.flat();
-    for (let i = 0; i < erasecoord.length; i++) {
-        for (let j = 0; j < mousecoord.length; j++) {
-            if(EuclideanDist(denormalise(destandardize(erasecoord[i])),denormalise(destandardize(mousecoord[j])))<=15){
-                mousecoord.splice(j,1);
-                deletepoint(unflattened, j);
-                j--;
+    const drawingplane = document.getElementById("drawingplane");
+    const cw = drawingplane.width;
+    const ch = drawingplane.height;
+    eraserradius = Math.sqrt(cw*cw+ch*ch)/(2*eraserScale);
+    SizeX = (eraserradius*1000)/cw;
+    SizeY = (eraserradius*1000)/ch;
+    erasergrid = new SpatialGrid(SizeX, SizeY);
+    for (let i = 0; i < drawingHistory.length; i++) {
+        if (drawingHistory[i][1]=="pen") {
+            unflattened.push([...drawingHistory[i][0]]);
+            mousecoord.push(...drawingHistory[i][0]);
+            for (let event of drawingHistory[i][0]) {
+                erasergrid.add(event);
+            }
+        }
+        else {
+            eraserunflattened.push([...drawingHistory[i][0]]);
+            erasecoord.push(...drawingHistory[i][0]);
+            for (let brushpoint of drawingHistory[i][0]) {
+                let nearbytargets = erasergrid.nearbytargets(brushpoint, SizeX, SizeY);
+                for(const points of nearbytargets){
+                    if(EuclideanDist(denormalise(destandardize(points)), denormalise(destandardize({x : brushpoint.x,y : brushpoint.y})))<= eraserradius){
+                        erasergrid.delete(points);
+                        let j = mousecoord.indexOf(points);
+                        if (j==-1) console.log("j is -1");
+                        mousecoord.splice(j,1);
+                        deletepoint(unflattened,j);
+                    }
+                }
             }
         }
     }
