@@ -210,77 +210,77 @@ darkbuttontab.addEventListener("click",() => {
     }
 });
 lvl1button.addEventListener("click",()=>{
-    window.open("levels/level1/index.html", "_blank");
+    window.location.href = "levels/level1/index.html";
 });
 lvl2button.addEventListener("click",()=>{
-    window.open("levels/level2/index.html", "_blank");
+    window.location.href = "levels/level2/index.html";
 });
 lvl3button.addEventListener("click",()=>{
-    window.open("levels/level3/index.html", "_blank");
+    window.location.href = "levels/level3/index.html";
 });
 lvl4button.addEventListener("click",()=>{
-    window.open("levels/level4/index.html", "_blank");
+    window.location.href = "levels/level4/index.html";
 });
 lvl5button.addEventListener("click",()=>{
-    window.open("levels/level5/index.html", "_blank");
+    window.location.href = "levels/level5/index.html";
 });
 lvl6button.addEventListener("click",()=>{
-    window.open("levels/level6/index.html", "_blank");
+    window.location.href = "levels/level6/index.html";
 });
 lvl7button.addEventListener("click",()=>{
-    window.open("levels/level7/index.html", "_blank");
+    window.location.href = "levels/level7/index.html";
 });
 lvl8button.addEventListener("click",()=>{
-    window.open("levels/level8/index.html", "_blank");
+    window.location.href = "levels/level8/index.html";
 });
 lvl9button.addEventListener("click",()=>{
-    window.open("levels/level9/index.html", "_blank");
+    window.location.href = "levels/level9/index.html";
 });
 lvl10button.addEventListener("click",()=>{
-    window.open("levels/level10/index.html", "_blank");
+    window.location.href = "levels/level10/index.html";
 });
 lvl11button.addEventListener("click",()=>{
-    window.open("levels/level11/index.html", "_blank");
+    window.location.href = "levels/level11/index.html";
 });
 lvl12button.addEventListener("click",()=>{
-    window.open("levels/level12/index.html", "_blank");
+    window.location.href = "levels/level12/index.html";
 });
 lvl13button.addEventListener("click",()=>{
-    window.open("levels/level13/index.html", "_blank");
+    window.location.href = "levels/level13/index.html";
 });
 lvl14button.addEventListener("click",()=>{
-    window.open("levels/level14/index.html", "_blank");
+    window.location.href = "levels/level14/index.html";
 });
 lvl15button.addEventListener("click",()=>{
-    window.open("levels/level15/index.html", "_blank");
+    window.location.href = "levels/level15/index.html";
 });
 lvl16button.addEventListener("click",()=>{
-    window.open("levels/level16/index.html", "_blank");
+    window.location.href = "levels/level16/index.html";
 });
 lvl17button.addEventListener("click",()=>{
-    window.open("levels/level17/index.html", "_blank");
+    window.location.href = "levels/level17/index.html";
 });
 lvl18button.addEventListener("click",()=>{
-    window.open("levels/level18/index.html", "_blank");
+    window.location.href = "levels/level18/index.html";
 });
 lvl19button.addEventListener("click",()=>{
-    window.open("levels/level19/index.html", "_blank");
+    window.location.href = "levels/level19/index.html";
 });
 lvl20button.addEventListener("click",()=>{
-    window.open("levels/level20/index.html", "_blank");
+    window.location.href = "levels/level20/index.html";
 });
 lvl21button.addEventListener("click",()=>{
-    window.open("levels/level21/index.html", "_blank");
+    window.location.href = "levels/level21/index.html";
 });
 lvl22button.addEventListener("click",()=>{
-    window.open("levels/level22/index.html", "_blank");
+    window.location.href = "levels/level22/index.html";
 });
 lvl23button.addEventListener("click",()=>{
-    window.open("levels/level23/index.html", "_blank");
+    window.location.href = "levels/level23/index.html";
 });
 lvl24button.addEventListener("click",()=>{
-    window.open("levels/level24/index.html", "_blank");
+    window.location.href = "levels/level24/index.html";
 });
 lvl25button.addEventListener("click",()=>{
-    window.open("levels/level25/index.html", "_blank");
+    window.location.href = "levels/level25/index.html";
 });
