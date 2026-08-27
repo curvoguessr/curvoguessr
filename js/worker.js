@@ -22,7 +22,7 @@ function denormalise(b){
     return{ x: b.x*cw, y: b.y*ch};
 }
 class KD {
-    constructor(id, point, axis) {
+    constructor(point, axis) {
         this.point = point;
         this.axis = axis;
         this.left = null;
