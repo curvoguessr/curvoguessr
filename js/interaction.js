@@ -92,6 +92,8 @@ let drawIndex = 0;
 let coalevents;
 let splinepointcount = [];
 let t;
+let StrokeNum = 0;
+let PointNum = 0;
 function rebuilderasergrid(){
     const drawingplane = document.getElementById("drawingplane");
     const cw = drawingplane.width;
@@ -131,7 +133,7 @@ function UserDrawing() {
                 drawingHistory.push([structuredClone(unflattened[unflattened.length-1]),"pen"]);
             }
             else {
-                drawingHistory.push([structuredClone(eraserunflattened[eraserunflattened.length-1]),"eraser"]);
+                drawingHistory.push([structuredClone(eraserunflattened[eraserunflattened.length-1]),"eraser", structuredClone(erasedthisstroke)]);
             }
             splinepointcount.push(t);
             drawIndex++;
@@ -142,6 +144,7 @@ function UserDrawing() {
         }
     }
     let oldsize = 0;
+    let erasedthisstroke = [];
     DrawingPlane.addEventListener('pointerdown',(event) => {
             const event2 = standardize(normalise(getCoordinates(event)));
             if(is_submit){
@@ -166,12 +169,18 @@ function UserDrawing() {
             }
             if(mode == "eraser"){
                 oldsize = erasecoord.length;
+                erasedthisstroke = [];
             }
             if(mode == "pen"){
+                StrokeNum++;
+                PointNum = 1;
                 mousecoord.push(event2);
                 unflattened.push([]);
                 unflattened[unflattened.length-1].push(event2);
                 erasergrid.add(event2);
+                event2.StrokeNum = StrokeNum;
+                event2.PointNum = PointNum;
+                PointNum++;
             }
             if(mode == "eraser"){
                 erasecoord.push(event2);
@@ -184,6 +193,7 @@ function UserDrawing() {
                         let i = mousecoord.indexOf(points);
                         mousecoord.splice(i,1);
                         deletepoint(unflattened,i);
+                        erasedthisstroke.push(points);
                     }
                 }
             }
@@ -235,6 +245,9 @@ function UserDrawing() {
                         mousecoord.push(brushpoint);
                         unflattened[unflattened.length - 1].push(brushpoint);
                         erasergrid.add(brushpoint);
+                        brushpoint.StrokeNum = StrokeNum;
+                        brushpoint.PointNum = PointNum;
+                        PointNum++;
                     }
                     if(mode == "eraser"){
                         let brushpoint = standardize(normalise(getCoordinates(events)));
@@ -247,6 +260,7 @@ function UserDrawing() {
                                 let i = mousecoord.indexOf(points);
                                 mousecoord.splice(i,1);
                                 deletepoint(unflattened,i);
+                                erasedthisstroke.push(points);
                             }
                         }
                     }

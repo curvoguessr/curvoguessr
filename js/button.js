@@ -19,12 +19,14 @@ let is_submit = false;
 let giveup = false;
 let isTutorial = false;
 const DrawingPlane = document.getElementById("drawingplane");
+const UndoPlane = document.getElementById("undoplane");
 const context = DrawingPlane.getContext('2d');
+const undocontext = UndoPlane.getContext("2d");
 const rect = DrawingPlane.getBoundingClientRect();
 const centerthings = document.getElementsByClassName("centerthings");
 const home = document.getElementById("home");
 const homebuttonmob = document.getElementById("homebuttonmob");
-let colourmode = "light";
+let colourmode = "dark";
 let defaultcolour1 = "#d6d6d6";
 let defaultcolour2 = "#121212";
 let defaultcolour3 = "black";
@@ -65,6 +67,129 @@ function RedrawUser() {
         context.stroke();
     }
 }
+function ReDrawLast(){
+    undocontext.clearRect(0, 0, cw, ch);
+    let i = drawingHistory.length-1;
+    const [points, strokeMode] = drawingHistory[i];
+    if(strokeMode == "pen"){
+        const t = splinepointcount[i];
+        UndoPlane.style.zIndex = 3;
+        DrawingPlane.style.zIndex = 2;
+        if (points.length !== 0){;
+            undocontext.beginPath();
+            undocontext.globalCompositeOperation = "source-over";
+            undocontext.lineWidth = Math.sqrt(cw*cw+ch*ch)/(penScale);
+            if(colourmode == "dark"){
+                undocontext.strokeStyle = "rgb(146,196,255)";
+            }
+            else{
+                undocontext.strokeStyle = "rgb(39,119,214)"
+            }
+            undocontext.lineCap = "round";
+            undocontext.lineJoin = "round";
+            for (let j = 0; j < points.length; j++) {
+                if (j < 3) {
+                    undocontext.lineTo(points[j].x * cw / 1000, points[j].y * ch / 1000);
+                }
+                else {
+                    CatRomGraph(
+                        denormalise(destandardize(points[j - 3])),
+                        denormalise(destandardize(points[j - 2])),
+                        denormalise(destandardize(points[j - 1])),
+                        denormalise(destandardize(points[j])),
+                        t,
+                        undocontext
+                    );
+                }
+            }
+            undocontext.stroke();
+        }
+    }
+    else if(strokeMode == "eraser"){
+        const erased = drawingHistory[i][2];
+        UndoPlane.style.zIndex = 2;
+        DrawingPlane.style.zIndex = 3;
+        if(erased.length !== 0){
+            const sortederased = [...erased].sort((a,b)=>{
+                if(a.StrokeNum < b.StrokeNum){
+                    return -1;
+                }
+                else if(a.StrokeNum > b.StrokeNum){
+                    return 1;
+                }
+                else if(a.PointNum > b.PointNum){
+                    return 1;
+                }
+                else if(a.PointNum < b.PointNum){
+                    return -1;
+                }
+            });
+            const strokeerased = [[sortederased[0]]];
+            for(let j = 1; j < sortederased.length; j++){
+                const preverased = sortederased[j-1];
+                const currenterased = sortederased[j];
+                let connected = false;
+                if(preverased.StrokeNum === currenterased.StrokeNum){
+                    if(currenterased.PointNum === preverased.PointNum + 1){
+                        connected = true;
+                    }
+                }
+                if(connected){
+                    strokeerased[strokeerased.length-1].push(currenterased);
+                }
+                else{
+                    strokeerased.push([currenterased]);
+                }
+            }
+            for(const stroke of strokeerased){
+                undocontext.beginPath();
+                undocontext.globalCompositeOperation = "source-over";
+                undocontext.lineWidth = Math.sqrt(cw*cw+ch*ch)/penScale;
+                undocontext.strokeStyle = "#542baf";
+                undocontext.lineCap = "round";
+                undocontext.lineJoin = "round";
+                const point = denormalise(destandardize(stroke[0]));
+                let strokenum = stroke[0].StrokeNum;
+                let pointnum = stroke[0].PointNum;
+                let lastnum = stroke[stroke.length-1].PointNum;
+                let t = splinepointcount[strokenum];
+                const prevpoint = mousecoord.find(point => point.StrokeNum === strokenum && point.PointNum === pointnum-1);
+                const lastpoint = mousecoord.find(point => point.StrokeNum === strokenum && point.PointNum === lastnum+1);
+                const draw = [];
+                if(prevpoint){
+                    draw.push(denormalise(destandardize(prevpoint)));
+                }
+                for(const points of stroke){
+                    draw.push(denormalise(destandardize(points)));
+                }
+                if(lastpoint){
+                    draw.push(denormalise(destandardize(lastpoint)));
+                }
+                // draw.push(draw[draw.length-1]);
+                undocontext.moveTo(draw[0].x,draw[0].y);
+                for(let j = 1; j < draw.length; j++){
+                    if(j<3){
+                        undocontext.lineTo(draw[j].x,draw[j].y);
+                    }
+                    else{
+                        CatRomGraph(
+                        draw[j - 3],
+                        draw[j - 2],
+                        draw[j - 1],
+                        draw[j],
+                        t,
+                        undocontext
+                        );
+                    }
+                }
+                if(draw.length >= 4){
+                    undocontext.lineTo(draw[draw.length-1].x, draw[draw.length-1].y);
+                }
+                undocontext.stroke();
+            }
+    }
+}
+}
 function disable(button){
     button.style.transition = "opacity 0.2s ease, filter 0.2s ease";
     button.style.cursor = "not-allowed";
@@ -93,9 +218,11 @@ light.addEventListener("click",() => {
         Best.style.color = defaultcolour2
         if(mode == "pen"){
             DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
+            UndoPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
         }
         if(mode == "eraser"){
             DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
+            UndoPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
         }
         DrawAxis(subxunit, xunit,cw,subyunit,yunit,ch);
         RedrawUser();
@@ -125,9 +252,11 @@ dark.addEventListener("click",() => {
         Best.style.color = defaultcolour2
         if(mode == "pen"){
             DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
+            UndoPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
         }
         if(mode == "eraser"){
             DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
+            UndoPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
         }
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         RedrawUser();
@@ -158,9 +287,11 @@ lightmob.addEventListener("click",() => {
         Best.style.color = defaultcolour2
         if(mode == "pen"){
             DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
+            UndoPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
         }
         if(mode == "eraser"){
             DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
+            UndoPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
         }
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         RedrawUser();
@@ -190,9 +321,11 @@ darkmob.addEventListener("click",() => {
         Best.style.color = defaultcolour2
         if(mode == "pen"){
                 DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
         }
         if(mode == "eraser"){
                 DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
         }
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         RedrawUser();
@@ -227,7 +360,9 @@ submit.addEventListener("click",async() => {
         disable(penmob);
         disable(erasermob);
         disable(undomob);
+        disable(submit);
         DrawingPlane.style.cursor = "default";
+        UndoPlane.style.cursor = "default";
         pen.style.cursor = "default";
         eraser.style.cursor = "default";
         undo.style.cursor = "default";
@@ -288,6 +423,7 @@ submit.addEventListener("click",async() => {
         penmob.disabled = true;
         erasermob.disabled = true;
         undomob.disabled = true;
+        disable(submit);
         disable(pen);
         disable(eraser);
         disable(undo);
@@ -295,6 +431,7 @@ submit.addEventListener("click",async() => {
         disable(erasermob);
         disable(undomob);
         DrawingPlane.style.cursor = "default";
+        UndoPlane.style.cursor = "default";
         pen.style.cursor = "default";
         eraser.style.cursor = "default";
         undo.style.cursor = "default";
@@ -376,9 +513,11 @@ pen.addEventListener("click",() => {
             mode = "pen";
             if(colourmode == "light"){
                 DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
             }
             if(colourmode == "dark"){
                 DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto"
+                UndoPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto"
             }
             enable(eraser);
             enable(erasermob);
@@ -393,9 +532,11 @@ eraser.addEventListener("click",() => {
             mode = "eraser";
             if(colourmode == "light"){
                 DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
             }
             else{
                 DrawingPlane.style.cursor = "url('../../images/erasercursordark.png')16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/erasercursordark.png')16 16, auto";
             }
         }
         enable(pen);
@@ -405,13 +546,13 @@ eraser.addEventListener("click",() => {
     }
 });
 undo.addEventListener("click", ()=>{
+    undocontext.clearRect(0,0,UndoPlane.width,UndoPlane.height);
     if (drawingHistory.length==0) return;
     drawingHistory.pop();
     mousecoord = [];
     unflattened = [];
     erasecoord = [];
     eraserunflattened = [];
-    
     RedrawUser();
     const drawingplane = document.getElementById("drawingplane");
     const cw = drawingplane.width;
@@ -445,6 +586,16 @@ undo.addEventListener("click", ()=>{
             }
         }
     }
+    setTimeout(()=>{ReDrawLast();;}, 200);
+});
+undo.addEventListener("mouseenter",()=>{
+    UndoHover = true;
+    ReDrawLast();
+})
+undo.addEventListener("mouseleave",()=>{
+    UndoHover = false;
+    undocontext.clearRect(0,0,cw,ch);
+    setTimeout(()=>{undocontext.clearRect(0,0,cw,ch);;}, 200)
 });
 penmob.addEventListener("click",() => {
     if (is_submit == false) {
@@ -452,9 +603,11 @@ penmob.addEventListener("click",() => {
             mode = "pen";
             if(colourmode == "light"){
                 DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
             }
             if(colourmode == "dark"){
-                DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto"
+                DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
             }
             enable(eraser);
             enable(erasermob);
@@ -469,9 +622,11 @@ erasermob.addEventListener("click",() => {
             mode = "eraser";
             if(colourmode == "light"){
                 DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
             }
             else{
                 DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
             }
             disable(eraser);
             disable(erasermob);
@@ -481,6 +636,7 @@ erasermob.addEventListener("click",() => {
     }
 });
 undomob.addEventListener("click", ()=>{
+    undocontext.clearRect(0,0,UndoPlane.width,UndoPlane.height);
     if (drawingHistory.length==0) return;
     drawingHistory.pop();
     mousecoord = [];
@@ -521,6 +677,16 @@ undomob.addEventListener("click", ()=>{
             }
         }
     }
+    setTimeout(()=>{ReDrawLast();;}, 200);
+});
+undomob.addEventListener("mouseenter",()=>{
+    UndoHover = true;
+    ReDrawLast();
+})
+undomob.addEventListener("mouseleave",()=>{
+    UndoHover = false;
+    undocontext.clearRect(0,0,cw,ch);
+    setTimeout(()=>{undocontext.clearRect(0,0,cw,ch);;}, 200)
 });
 tutorialbutton.addEventListener("click",() => {
     if(isTutorial == false){

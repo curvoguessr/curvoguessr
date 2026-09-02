@@ -82,7 +82,7 @@ function resampleCatRom(mousecoord, spacing) {
     let points = mousecoord.map(p => denormalise(destandardize(p)));
 
     let dense = [];
-    const steps = 100;
+    const steps = 10000;
     for (let i = 3; i < points.length; i++) {
         for (let j = 0; j < steps; j++) {
             const t = j/steps;
@@ -119,24 +119,59 @@ function resampleCatRom(mousecoord, spacing) {
     }
     return user;
 }
-function ErrorNear(user, allActual) {
-    let rootActual = KD.Build([...allActual]);
+function FindAngles(unflattened, all) {
+    function CalcAngle(A, B, C) {
+        let angleA = Math.atan2(A.y - B.y, A.x - B.x);
+        let angleC = Math.atan2(C.y - B.y, C.x - B.x);
+        let angle = angleC - angleA;
+        angle += 2*Math.PI; angle %= 2*Math.PI;
+        return angle;
+    }
+    let flatIndex = 0;
+    for (let i = 0; i < unflattened.length; i++) {
+        let stroke = unflattened[i];
+        for (let j = 0; j < stroke.length; j++) {
+            if (j == 0) {
+                all[flatIndex].angle = Math.PI;
+            }
+            else if (j == stroke.length-1) {
+                all[flatIndex].angle = Math.PI;
+            }
+            else {
+                all[flatIndex].angle = CalcAngle(stroke[j-1], stroke[j], stroke[j+1]);
+            }
+            flatIndex++;
+        }
+    }
+}
+function ErrorNear(allUser, allActual, userUnflattened, actualUnflattened) {
     let errorUser = 0, errorActual = 0;
-    const len = user.length;
+    const len = allUser.length;
+    FindAngles(userUnflattened, allUser);
+    FindAngles(actualUnflattened, allActual);
+    let rootActual = KD.Build([...allActual]);
     for (let i = 0; i < len; i++) {
         let best = {dist: Infinity, point: null};
-        KD.Nearest(rootActual, user[i], best);
-        errorUser += best.dist;
+        KD.Nearest(rootActual, allUser[i], best);
+        let angleDiff =  best.point.angle-allUser[i].angle+2*Math.PI;
+        angleDiff %= 2*Math.PI;
+        angleDiff = Math.min(angleDiff,2*Math.PI-angleDiff);
+        let angleFactor = 2/3-(1/3)*Math.cos(angleDiff);
+        errorUser += best.dist * angleFactor;
     }
-    let rootUser = KD.Build([...user]);
+    let rootUser = KD.Build([...allUser]);
     for (let i = 0; i < allActual.length; i++) {
         let best = {dist: Infinity, point: null};
         KD.Nearest(rootUser, allActual[i], best);
-        errorActual += best.dist;
+        let angleDiff =  best.point.angle-allActual[i].angle+2*Math.PI;
+        angleDiff %= 2*Math.PI;
+        angleDiff = Math.min(angleDiff,2*Math.PI-angleDiff);
+        let angleFactor = 2/3-(1/3)*Math.cos(angleDiff);
+        errorActual += best.dist * angleFactor;
     }
     errorUser /= len;
     errorActual /= allActual.length;
-    let error = (errorUser + errorActual)/2;
+    let error = {near: (errorUser + errorActual)/2};
     return error;
 }
 function ErrorDist(unflattened, distActual) {
@@ -155,17 +190,36 @@ self.onmessage = (event) => {
     ch = event.data.ch;
     xunit = event.data.xunit;
     yunit = event.data.yunit;
-    const { unflattened, allActual, distActual} = event.data;
+    const {unflattened, actualUnflattened, allActual, distActual} = event.data;
 
-    let user = [];
+    let userUnflattened = [];
     for (let i = 0; i < unflattened.length; i++) {
-        user.push(resampleCatRom(unflattened[i],0.05));
+        userUnflattened.push(resampleCatRom(unflattened[i],0.05));
     }
-    user = user.flat();
-    let error = ErrorNear(user, allActual)*ErrorDist(unflattened, distActual);
-
-    let accFactor = 0.2;
-    accuracy = 100*Math.exp(-accFactor*error);
+    let allUser = userUnflattened.flat();
+    console.log(allUser.length);
+    let errorv = ErrorNear(allUser, allActual, userUnflattened, actualUnflattened);
+    let error = errorv.near*ErrorDist(unflattened, distActual);
+    console.log(error);
+    accuracy = 100*Math.exp(-0.9*error);
+    console.log("accuracy: ", accuracy);
+    base = Math.exp(-0.9*error);
+    // const addConst = 5;
+    // const powerConst = 2;
+    // if(accuracy<25){
+    //     accuracy -= 2*addConst*Math.pow((accuracy)/25,powerConst);
+    // }
+    // else if(50 > accuracy && accuracy >= 25){
+    //     accuracy -= 5+2*addConst*Math.pow((accuracy-25)/25,powerConst*3/4);
+    // }
+    // else if(accuracy >= 50 && accuracy < 80){
+    //     accuracy -= (8/9)*addConst*Math.pow((80-accuracy)/20,powerConst*3/2);
+    // }
+    // else{
+    //     let delta = (accuracy-80)/20;
+    //     accuracy += 4.8*Math.pow(delta,5)-150.5*Math.pow(delta,4)+319.8*Math.pow(delta,3)-235*Math.pow(delta,2)+60.9*delta;
+    // }
+    accuracy = 24.64167*base + 1087.38819*base*base - 10171.49497 * base * base * base + 46892.92335 * base * base * base * base - 139196.99594 * base * base * base * base * base + 292049.26751 * base * base * base * base * base * base - 226355.16618 * base * base * base * base * base * base * base - 1011036.83967 * base * base* base * base* base * base* base * base + 4186559.66729 * base * base* base * base* base * base* base * base * base - 7822875.93087 * base * base* base * base* base * base* base * base* base * base + 8814233.38887 * base * base* base * base* base * base* base * base* base * base * base - 6308700.04446 * base * base* base * base* base * base* base * base* base * base* base * base + 2806197.25176* base * base* base * base* base * base* base * base* base * base* base * base * base - 703372.26795 * base * base* base * base* base * base* base * base* base * base* base * base* base * base + 74764.21140 * base * base* base * base* base * base* base * base* base * base* base * base* base * base * base;
     accuracy = Math.round(accuracy*100)/100;
     self.postMessage(accuracy);
 }

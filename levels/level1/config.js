@@ -2,6 +2,7 @@ const equation = document.getElementById('equation');
 const plane = document.getElementById('plane');
 const drawingplane = document.getElementById('drawingplane')
 const canvas = document.getElementById("canvas");
+const undoplane = document.getElementById("undoplane");
 const lvl = 1;
 let vw = window.innerWidth/100;
 let vh = window.innerHeight/100;
@@ -28,6 +29,8 @@ plane.width = cw;
 drawingplane.width = plane.width;
 plane.height = ch;
 drawingplane.height = plane.height;
+undoplane.width = plane.width;
+undoplane.height = plane.height;
 const Graph = [
     {
         Function_x: function(t) {

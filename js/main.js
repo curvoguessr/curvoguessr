@@ -13,9 +13,11 @@ if(colourmode == "dark"){
     Best.style.color = defaultcolour2
     if(mode == "pen"){
         DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
+        UndoPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto"
     }
     if(mode == "eraser"){
         DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
+        UndoPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
     }
     const fontsz = (cw+ch)/60;
     document.fonts.load(`${fontsz}px BreeSerif`)
@@ -38,9 +40,11 @@ else {
     Best.style.color = defaultcolour2
     if(mode == "pen"){
         DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
+        UndoPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
     }
     if(mode == "eraser"){
         DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
+        UndoPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
     }
     const fontsz = (cw+ch)/60;
     document.fonts.load(`${fontsz}px BreeSerif`)
@@ -171,12 +175,15 @@ window.addEventListener("resize",()=>{
     const canvas = document.getElementById('canvas');
     const plane = document.getElementById('plane');
     const drawingplane = document.getElementById('drawingplane');
+    const undoplane = document.getElementById("undoplane");
     const context1 = plane.getContext("2d");
     const context = drawingplane.getContext("2d");
+    const undocontext = undoplane.getContext("2d");
     context1.resetTransform();
     context1.clearRect(0,0,plane.width,plane.height);
     context.resetTransform();
     context.clearRect(0,0,drawingplane.width,drawingplane.height);
+    undocontext.clearRect(0,0,undoplane.width,undoplane.height);
     vw = window.innerWidth/100;
     vh = window.innerHeight/100;
     if(vw>1.1*vh){
@@ -199,6 +206,8 @@ window.addEventListener("resize",()=>{
     drawingplane.width = cw;
     plane.height = ch;
     drawingplane.height = ch;
+    undoplane.width = cw;
+    undoplane.height = ch;
     rebuilderasergrid();
     //overlap();
     // TransformCanvas(context,cw,ch);
