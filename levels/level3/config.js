@@ -29,6 +29,10 @@ plane.width = cw;
 drawingplane.width = plane.width;
 plane.height = ch;
 drawingplane.height = plane.height;
+const undoplane = document.getElementById("undoplane");
+undoplane.width = plane.width;
+undoplane.height = plane.height;
+
 const mod = (n, d) => ((n % d) + d) % d;
 const Graph = [
     {

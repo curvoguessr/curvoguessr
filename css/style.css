@@ -16,7 +16,7 @@
         position: relative;
         margin-bottom: 1vh;
     }
-    #plane, #drawingplane{
+    #plane, #drawingplane, #undoplane{
         position: absolute;
         left: 0;
         top: 0;
@@ -95,7 +95,7 @@
         position: relative;
         margin-bottom: 1vh;
     }
-    #plane, #drawingplane{
+    #plane, #drawingplane, #undoplane{
         position: absolute;
         left: 0;
         top: 0;
@@ -173,8 +173,11 @@
  #plane{
     z-index: 1;
  }
- #drawingplane{
+#drawingplane{
     z-index: 2;
+}
+#undoplane{
+    z-index: 3;
 }
 #accuracy{
     font-size: 4.5vh;
@@ -207,8 +210,11 @@
 .belowsubmit{
     cursor: pointer;
 }
-#drawingplane, #plane {
+#drawingplane, #plane, #undoplane{
     touch-action: none;
+}
+#undoplane{
+    pointer-events: none;
 }
 #tutorial{
     border: calc((2vw + 2vh) / 5) solid #5077BE;

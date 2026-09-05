@@ -28,6 +28,9 @@ plane.width = cw;
 drawingplane.width = plane.width;
 plane.height = ch;
 drawingplane.height = plane.height;
+const undoplane = document.getElementById("undoplane");
+undoplane.width = plane.width;
+undoplane.height = plane.height;
 let Graph = [
 ]
 for (let i = -10; i <= 5; i += 5) {

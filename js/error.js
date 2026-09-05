@@ -43,6 +43,6 @@ function FindError(unflattened) {
             resolve();
         };
         InitializeError();
-        worker.postMessage({unflattened, allActual, distActual, rootActual, cw, ch, xunit, yunit});
+        worker.postMessage({unflattened, actualUnflattened, allActual, distActual, rootActual, cw, ch, xunit, yunit});
     });
 }

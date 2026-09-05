@@ -19,12 +19,14 @@ let is_submit = false;
 let giveup = false;
 let isTutorial = false;
 const DrawingPlane = document.getElementById("drawingplane");
+const UndoPlane = document.getElementById("undoplane");
 const context = DrawingPlane.getContext('2d');
+const undocontext = UndoPlane.getContext("2d");
 const rect = DrawingPlane.getBoundingClientRect();
 const centerthings = document.getElementsByClassName("centerthings");
 const home = document.getElementById("home");
 const homebuttonmob = document.getElementById("homebuttonmob");
-let colourmode = "light";
+let colourmode = "dark";
 let defaultcolour1 = "#d6d6d6";
 let defaultcolour2 = "#121212";
 let defaultcolour3 = "black";
@@ -65,6 +67,130 @@ function RedrawUser() {
         }
     }
 }
+function ReDrawLast(){
+    undocontext.clearRect(0, 0, cw, ch);
+    let i = drawingHistory.length-1;
+    const [points, strokeMode] = drawingHistory[i];
+    if(strokeMode == "pen"){
+        const t = splinepointcount[i];
+        UndoPlane.style.zIndex = 3;
+        DrawingPlane.style.zIndex = 2;
+        if (points.length !== 0){;
+            undocontext.beginPath();
+            undocontext.globalCompositeOperation = "source-over";
+            undocontext.lineWidth = Math.sqrt(cw*cw+ch*ch)/(penScale);
+            if(colourmode == "dark"){
+                undocontext.strokeStyle = "rgb(146,196,255)";
+            }
+            else{
+                undocontext.strokeStyle = "rgb(39,119,214)"
+            }
+            undocontext.lineCap = "round";
+            undocontext.lineJoin = "round";
+            for (let j = 0; j < points.length; j++) {
+                if (j < 3) {
+                    undocontext.lineTo(points[j].x * cw / 1000, points[j].y * ch / 1000);
+                }
+                else {
+                    CatRomGraph(
+                        denormalise(destandardize(points[j - 3])),
+                        denormalise(destandardize(points[j - 2])),
+                        denormalise(destandardize(points[j - 1])),
+                        denormalise(destandardize(points[j])),
+                        t,
+                        undocontext
+                    );
+                }
+            }
+            undocontext.stroke();
+        }
+    }
+    else if(strokeMode == "eraser"){
+        const erased = drawingHistory[i][2];
+        UndoPlane.style.zIndex = 2;
+        DrawingPlane.style.zIndex = 3;
+        if(erased.length !== 0){
+            const sortederased = [...erased].sort((a,b)=>{
+                if(a.StrokeNum < b.StrokeNum){
+                    return -1;
+                }
+                else if(a.StrokeNum > b.StrokeNum){
+                    return 1;
+                }
+                else if(a.PointNum > b.PointNum){
+                    return 1;
+                }
+                else if(a.PointNum < b.PointNum){
+                    return -1;
+                }
+            });
+            const strokeerased = [[sortederased[0]]];
+            for(let j = 1; j < sortederased.length; j++){
+                const preverased = sortederased[j-1];
+                const currenterased = sortederased[j];
+                let connected = false;
+                if(preverased.StrokeNum === currenterased.StrokeNum){
+                    if(currenterased.PointNum === preverased.PointNum + 1){
+                        connected = true;
+                    }
+                }
+                if(connected){
+                    strokeerased[strokeerased.length-1].push(currenterased);
+                }
+                else{
+                    strokeerased.push([currenterased]);
+                }
+            }
+            for(const stroke of strokeerased){
+                undocontext.beginPath();
+                undocontext.globalCompositeOperation = "source-over";
+                undocontext.lineWidth = Math.sqrt(cw*cw+ch*ch)/penScale;
+                undocontext.strokeStyle = "#542baf";
+                undocontext.lineCap = "round";
+                undocontext.lineJoin = "round";
+                const point = denormalise(destandardize(stroke[0]));
+                let strokenum = stroke[0].StrokeNum;
+                let pointnum = stroke[0].PointNum;
+                let lastnum = stroke[stroke.length-1].PointNum;
+                let t = splinepointcount[strokenum];
+                const prevpoint = mousecoord.find(point => point.StrokeNum === strokenum && point.PointNum === pointnum-1);
+                const lastpoint = mousecoord.find(point => point.StrokeNum === strokenum && point.PointNum === lastnum+1);
+                const draw = [];
+                if(prevpoint){
+                    draw.push(denormalise(destandardize(prevpoint)));
+                }
+                for(const points of stroke){
+                    draw.push(denormalise(destandardize(points)));
+                }
+                if(lastpoint){
+                    draw.push(denormalise(destandardize(lastpoint)));
+                }
+                // draw.push(draw[draw.length-1]);
+                undocontext.moveTo(draw[0].x,draw[0].y);
+                for(let j = 1; j < draw.length; j++){
+                    if(j<3){
+                        undocontext.lineTo(draw[j].x,draw[j].y);
+                    }
+                    else{
+                        CatRomGraph(
+                        draw[j - 3],
+                        draw[j - 2],
+                        draw[j - 1],
+                        draw[j],
+                        t,
+                        undocontext
+                        );
+                    }
+                }
+                if(draw.length >= 4){
+                    undocontext.lineTo(draw[draw.length-1].x, draw[draw.length-1].y);
+                }
+                undocontext.stroke();
+            }
+    }
+}
+}
+
 function disable(button){
     button.style.transition = "opacity 0.2s ease, filter 0.2s ease";
     button.style.cursor = "not-allowed";
@@ -221,6 +347,7 @@ submit.addEventListener("click",async() => {
         penmob.disabled = true;
         erasermob.disabled = true;
         undomob.disabled = true;
+        submit.disabled = true;
         disable(pen);
         disable(eraser);
         disable(undo);
@@ -270,6 +397,7 @@ submit.addEventListener("click",async() => {
         penmob.disabled = true;
         erasermob.disabled = true;
         undomob.disabled = true;
+        disable(submit);
         disable(pen);
         disable(eraser);
         disable(undo);
@@ -332,6 +460,7 @@ submit.addEventListener("click",async() => {
             for (let i = 0; i < Graph.length; i++) {
                 DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
             }
+            
         });
     }
 }, {once: true});
@@ -370,25 +499,56 @@ eraser.addEventListener("click",() => {
     }
 });
 undo.addEventListener("click", ()=>{
+    undocontext.clearRect(0,0,UndoPlane.width,UndoPlane.height);
     if (drawingHistory.length==0) return;
     drawingHistory.pop();
     mousecoord = [];
     unflattened = [];
     erasecoord = [];
     eraserunflattened = [];
-    
     RedrawUser();
-    mousecoord = unflattened.flat();
-    erasecoord = eraserunflattened.flat();
-    for (let i = 0; i < erasecoord.length; i++) {
-        for (let j = 0; j < mousecoord.length; j++) {
-            if(EuclideanDist(denormalise(destandardize(erasecoord[i])),denormalise(destandardize(mousecoord[j])))<=15){
-                mousecoord.splice(j,1);
-                deletepoint(unflattened, j);
-                j--;
+    const drawingplane = document.getElementById("drawingplane");
+    const cw = drawingplane.width;
+    const ch = drawingplane.height;
+    eraserradius = Math.sqrt(cw*cw+ch*ch)/(2*eraserScale);
+    SizeX = (eraserradius*1000)/cw;
+    SizeY = (eraserradius*1000)/ch;
+    erasergrid = new SpatialGrid(SizeX, SizeY);
+    for (let i = 0; i < drawingHistory.length; i++) {
+        if (drawingHistory[i][1]=="pen") {
+            unflattened.push([...drawingHistory[i][0]]);
+            mousecoord.push(...drawingHistory[i][0]);
+            for (let event of drawingHistory[i][0]) {
+                erasergrid.add(event);
+            }
+        }
+        else {
+            eraserunflattened.push([...drawingHistory[i][0]]);
+            erasecoord.push(...drawingHistory[i][0]);
+            for (let brushpoint of drawingHistory[i][0]) {
+                let nearbytargets = erasergrid.nearbytargets(brushpoint, SizeX, SizeY);
+                for(const points of nearbytargets){
+                    if(EuclideanDist(denormalise(destandardize(points)), denormalise(destandardize({x : brushpoint.x,y : brushpoint.y})))<= eraserradius){
+                        erasergrid.delete(points);
+                        let j = mousecoord.indexOf(points);
+                        if (j==-1) console.log("j is -1");
+                        mousecoord.splice(j,1);
+                        deletepoint(unflattened,j);
+                    }
+                }
             }
         }
     }
+    setTimeout(()=>{ReDrawLast();;}, 200);
+});
+undo.addEventListener("mouseenter",()=>{
+    UndoHover = true;
+    ReDrawLast();
+})
+undo.addEventListener("mouseleave",()=>{
+    UndoHover = false;
+    undocontext.clearRect(0,0,cw,ch);
+    setTimeout(()=>{undocontext.clearRect(0,0,cw,ch);;}, 200)
 });
 penmob.addEventListener("click",() => {
     if (is_submit == false) {
@@ -425,8 +585,8 @@ erasermob.addEventListener("click",() => {
     }
 });
 undomob.addEventListener("click", ()=>{
-    
-        if (drawingHistory.length==0) return;
+    undocontext.clearRect(0,0,UndoPlane.width,UndoPlane.height);
+    if (drawingHistory.length==0) return;
     drawingHistory.pop();
     mousecoord = [];
     unflattened = [];
@@ -434,18 +594,48 @@ undomob.addEventListener("click", ()=>{
     eraserunflattened = [];
     
     RedrawUser();
-    
-    mousecoord = unflattened.flat();
-    erasecoord = eraserunflattened.flat();
-    for (let i = 0; i < erasecoord.length; i++) {
-        for (let j = 0; j < mousecoord.length; j++) {
-            if(EuclideanDist(denormalise(destandardize(erasecoord[i])),denormalise(destandardize(mousecoord[j])))<=15){
-                mousecoord.splice(j,1);
-                deletepoint(unflattened, j);
-                j--;
+    const drawingplane = document.getElementById("drawingplane");
+    const cw = drawingplane.width;
+    const ch = drawingplane.height;
+    eraserradius = Math.sqrt(cw*cw+ch*ch)/(2*eraserScale);
+    SizeX = (eraserradius*1000)/cw;
+    SizeY = (eraserradius*1000)/ch;
+    erasergrid = new SpatialGrid(SizeX, SizeY);
+    for (let i = 0; i < drawingHistory.length; i++) {
+        if (drawingHistory[i][1]=="pen") {
+            unflattened.push([...drawingHistory[i][0]]);
+            mousecoord.push(...drawingHistory[i][0]);
+            for (let event of drawingHistory[i][0]) {
+                erasergrid.add(event);
+            }
+        }
+        else {
+            eraserunflattened.push([...drawingHistory[i][0]]);
+            erasecoord.push(...drawingHistory[i][0]);
+            for (let brushpoint of drawingHistory[i][0]) {
+                let nearbytargets = erasergrid.nearbytargets(brushpoint, SizeX, SizeY);
+                for(const points of nearbytargets){
+                    if(EuclideanDist(denormalise(destandardize(points)), denormalise(destandardize({x : brushpoint.x,y : brushpoint.y})))<= eraserradius){
+                        erasergrid.delete(points);
+                        let j = mousecoord.indexOf(points);
+                        if (j==-1) console.log("j is -1");
+                        mousecoord.splice(j,1);
+                        deletepoint(unflattened,j);
+                    }
+                }
             }
         }
     }
+    setTimeout(()=>{ReDrawLast();;}, 200);
+});
+undomob.addEventListener("mouseenter",()=>{
+    UndoHover = true;
+    ReDrawLast();
+})
+undomob.addEventListener("mouseleave",()=>{
+    UndoHover = false;
+    undocontext.clearRect(0,0,cw,ch);
+    setTimeout(()=>{undocontext.clearRect(0,0,cw,ch);;}, 200)
 });
 tutorialbutton.addEventListener("click",()=>{
     if(isTutorial == false){
