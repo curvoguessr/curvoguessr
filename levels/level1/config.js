@@ -1,7 +1,8 @@
 const equation = document.getElementById('equation');
 const plane = document.getElementById('plane');
-const drawingplane = document.getElementById('drawingplane')
+const drawingplane = document.getElementById('drawingplane');
 const canvas = document.getElementById("canvas");
+const graphplane = document.getElementById('graphplane');
 const undoplane = document.getElementById("undoplane");
 const lvl = 1;
 let vw = window.innerWidth/100;
@@ -26,11 +27,13 @@ let ch = 80*vh;
 canvas.style.width = cw + "px";
 canvas.style.height = ch + "px";
 plane.width = cw;
-drawingplane.width = plane.width;
 plane.height = ch;
+drawingplane.width = plane.width;
 drawingplane.height = plane.height;
 undoplane.width = plane.width;
 undoplane.height = plane.height;
+graphplane.width = plane.width;
+graphplane.height = plane.height;
 const Graph = [
     {
         Function_x: function(t) {

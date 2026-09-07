@@ -162,12 +162,12 @@ function DrawGraphSegment(t_1, t_2, Function_x, Function_y, mxerr, context, dept
     }
 }
 function DrawGraph(t_1, t_2, Function_x, Function_y){
-    const canvas = document.getElementById('plane');
+    const canvas = document.getElementById('graphplane');
     const context = canvas.getContext('2d');
     
     TransformCanvas(context,cw,ch);
     context.beginPath();
-    context.strokeStyle = "Red";
+    context.strokeStyle = "#4c53e0";
     context.lineWidth = (cw+ch)/borderScale;
 
     DrawGraphSegment(t_1,t_2,Function_x, Function_y, 0.001, context);

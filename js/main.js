@@ -55,6 +55,10 @@ else {
     enable(dark);
     enable(darkmob);
 }
+
+for (let i = 0; i < Graph.length; i++) {
+    DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
+}
 if(localStorage.getItem("lvl" + lvl) !== null){
     let Best = document.getElementById("best");
     Best.style.color = defaultcolour2;
@@ -176,9 +180,11 @@ window.addEventListener("resize",()=>{
     const plane = document.getElementById('plane');
     const drawingplane = document.getElementById('drawingplane');
     const undoplane = document.getElementById("undoplane");
+    const graphplane = document.getElementById("graphplane");
     const context1 = plane.getContext("2d");
     const context = drawingplane.getContext("2d");
     const undocontext = undoplane.getContext("2d");
+    const graphcontext = graphplane.getContext("2d");
     context1.resetTransform();
     context1.clearRect(0,0,plane.width,plane.height);
     context.resetTransform();
@@ -208,15 +214,15 @@ window.addEventListener("resize",()=>{
     drawingplane.height = ch;
     undoplane.width = cw;
     undoplane.height = ch;
+    graphplane.width = cw;
+    graphplane.height = ch;
     rebuilderasergrid();
     //overlap();
     // TransformCanvas(context,cw,ch);
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
     RedrawUser();
-    if (giveup) {
-        for (let i = 0; i < Graph.length; i++) {
-            DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
-        }
+    for (let i = 0; i < Graph.length; i++) {
+        DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
     }
     clearTimeout(reSizeTimeout);
     reSizeTimeout = setTimeout(()=>{

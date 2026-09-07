@@ -16,7 +16,7 @@
         position: relative;
         margin-bottom: 1vh;
     }
-    #plane, #drawingplane, #undoplane{
+    #plane, #drawingplane, #undoplane, #graphplane{
         position: absolute;
         left: 0;
         top: 0;
@@ -95,7 +95,7 @@
         position: relative;
         margin-bottom: 1vh;
     }
-    #plane, #drawingplane, #undoplane{
+    #plane, #drawingplane, #undoplane, #graphplane{
         position: absolute;
         left: 0;
         top: 0;
@@ -179,6 +179,10 @@
 #undoplane{
     z-index: 3;
 }
+#graphplane{
+    z-index: 4;
+    visibility: hidden;
+}
 #accuracy{
     font-size: 4.5vh;
     font-family: 'BreeSerif', serif;
@@ -210,10 +214,10 @@
 .belowsubmit{
     cursor: pointer;
 }
-#drawingplane, #plane, #undoplane{
+#drawingplane, #plane, #undoplane, #graphplane{
     touch-action: none;
 }
-#undoplane{
+#plane, #undoplane, #graphplane{
     pointer-events: none;
 }
 #tutorial{

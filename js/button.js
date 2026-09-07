@@ -20,6 +20,7 @@ let giveup = false;
 let isTutorial = false;
 const DrawingPlane = document.getElementById("drawingplane");
 const UndoPlane = document.getElementById("undoplane");
+const GraphPlane = document.getElementById("graphplane");
 const context = DrawingPlane.getContext('2d');
 const undocontext = UndoPlane.getContext("2d");
 const rect = DrawingPlane.getBoundingClientRect();
@@ -226,11 +227,6 @@ light.addEventListener("click",() => {
         }
         DrawAxis(subxunit, xunit,cw,subyunit,yunit,ch);
         RedrawUser();
-        if (giveup) {
-            for (let i = 0; i < Graph.length; i++) {
-                DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
-            }
-        }
         setTimeout(()=>{
             disable(light);
             disable(lightmob);
@@ -260,11 +256,6 @@ dark.addEventListener("click",() => {
         }
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         RedrawUser();
-        if (giveup) {
-            for (let i = 0; i < Graph.length; i++) {
-                DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
-            }
-        }
         setTimeout(()=>{
             enable(light);
             enable(lightmob);
@@ -295,11 +286,6 @@ lightmob.addEventListener("click",() => {
         }
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         RedrawUser();
-        if (giveup) {
-            for (let i = 0; i < Graph.length; i++) {
-                DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
-            }
-        }
         setTimeout(()=>{
             disable(light);
             disable(lightmob);
@@ -329,11 +315,6 @@ darkmob.addEventListener("click",() => {
         }
         DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
         RedrawUser();
-        if (giveup) {
-            for (let i = 0; i < Graph.length; i++) {
-                DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
-            }
-        }
         setTimeout(()=>{
             enable(light);
             enable(lightmob);
@@ -393,9 +374,15 @@ submit.addEventListener("click",async() => {
             location.reload();
         });
         giveupbutton.addEventListener("click", () => {
-            giveup = true;
-            for (let i = 0; i < Graph.length; i++) {
-                DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
+            if (!giveup) {
+                giveup = true;
+                giveupbutton.textContent = "Hide";
+                GraphPlane.style.visibility = "visible";
+            }
+            else {
+                giveup = false;
+                giveupbutton.textContent = "Show";
+                GraphPlane.style.visibility = "hidden";
             }
         });
         share.addEventListener("click",async()=>{
@@ -485,9 +472,15 @@ submit.addEventListener("click",async() => {
             location.reload();
         });
         giveupbutton.addEventListener("click", () => {
-            giveup = true;
-            for (let i = 0; i < Graph.length; i++) {
-                DrawGraph(Graph[i].pRange.l, Graph[i].pRange.r, Graph[i].Function_x, Graph[i].Function_y);
+            if (!giveup) {
+                giveup = true;
+                giveupbutton.textContent = "Hide";  
+                GraphPlane.style.visibility = "visible";
+            }
+            else {
+                giveup = false;
+                giveupbutton.textContent = "Show";
+                GraphPlane.style.visibility = "hidden";
             }
         });
         share.addEventListener("click",async()=>{
