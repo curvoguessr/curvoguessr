@@ -197,12 +197,9 @@ self.onmessage = (event) => {
         userUnflattened.push(resampleCatRom(unflattened[i],0.05));
     }
     let allUser = userUnflattened.flat();
-    console.log(allUser.length);
     let errorv = ErrorNear(allUser, allActual, userUnflattened, actualUnflattened);
     let error = errorv.near*ErrorDist(unflattened, distActual);
-    console.log(error);
     accuracy = 100*Math.exp(-0.9*error);
-    console.log("accuracy: ", accuracy);
     base = Math.exp(-0.9*error);
     // const addConst = 5;
     // const powerConst = 2;

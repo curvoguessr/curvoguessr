@@ -571,7 +571,6 @@ undo.addEventListener("click", ()=>{
                     if(EuclideanDist(denormalise(destandardize(points)), denormalise(destandardize({x : brushpoint.x,y : brushpoint.y})))<= eraserradius){
                         erasergrid.delete(points);
                         let j = mousecoord.indexOf(points);
-                        if (j==-1) console.log("j is -1");
                         mousecoord.splice(j,1);
                         deletepoint(unflattened,j);
                     }
@@ -662,7 +661,6 @@ undomob.addEventListener("click", ()=>{
                     if(EuclideanDist(denormalise(destandardize(points)), denormalise(destandardize({x : brushpoint.x,y : brushpoint.y})))<= eraserradius){
                         erasergrid.delete(points);
                         let j = mousecoord.indexOf(points);
-                        if (j==-1) console.log("j is -1");
                         mousecoord.splice(j,1);
                         deletepoint(unflattened,j);
                     }
