@@ -69,6 +69,9 @@ function RedrawUser() {
     }
 }
 function ReDrawLast(){
+    if (drawingHistory.length == 0) {
+        return;
+    }
     undocontext.clearRect(0, 0, cw, ch);
     let i = drawingHistory.length-1;
     const [points, strokeMode] = drawingHistory[i];
