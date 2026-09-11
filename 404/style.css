@@ -1,0 +1,227 @@
+@font-face{
+    font-family: "Atma";
+    src: url("../fonts/atma/Atma-Light.ttf") format("truetype");
+    font-weight: 300;
+}
+@font-face{
+    font-family: "Atma";
+    src: url("../fonts/atma/Atma-Regular.ttf") format("truetype");
+    font-weight: 400;
+}
+@font-face{
+    font-family: "Atma";
+    src: url("../fonts/atma/Atma-Medium.ttf") format("truetype");
+    font-weight: 500;
+}
+@font-face{
+    font-family: "Atma";
+    src: url("../fonts/atma/Atma-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+}
+@font-face{
+    font-family: "Atma";
+    src: url("../fonts/atma/Atma-Bold.ttf") format("truetype");
+    font-weight: 700;
+}
+html{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+body{
+    height: calc(100% - 50px);
+    width: calc(100% - 50px);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+        /* "errorimg text"
+        "errorimg button"; */
+        "errorimg rightstuff";
+    align-items: center;
+    align-content: center;
+    font-family: "Atma", sans-serif;
+}
+/* #images{
+    grid-area: errorimg;
+} */
+.fofimage{
+    width: 100%;
+    height: auto;
+    display: none;
+}
+/* #textstuff{
+    grid-area: text;
+} */
+#fof{
+    font-weight: 700;
+    font-size: 100px;
+    -webkit-text-stroke: 2px black;
+}
+#notfound{
+    font-weight: 700;
+    font-size: 50px;
+}
+#textstuff{
+    max-width: 700px;
+    font-size: 50px;
+}
+/* #button{
+    grid-area: button;
+} */
+#rightstuff{
+    grid-area: rightstuff;
+}
+#homebutton{
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 670px;
+    font-weight: 500;
+    font-size: 20px;
+    font-family: "Atma", sans-serif;
+    border: none;
+    cursor: pointer;
+}
+@media(max-width: 830px){
+    body{
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "errorimg"    
+            "rightstuff";
+            /* "text"
+            "button"; */
+        justify-content: center;
+        text-align: center;
+        /* row-gap: 10px; */
+        justify-items: center;
+        align-items: center;
+    }
+    #images{
+        display: flex;
+        justify-content: center;
+    }
+    .fofimage{
+        width: auto;
+        height: auto;
+        max-width: 50vw;
+        max-height: 40vh;
+    }
+    #fof{
+        /* display: inline-flex;
+        justify-content: center; */
+        font-size: 30vw;
+        margin: 0;
+        line-height: 1.2;
+    }
+    #notfound{
+        margin: 0;
+        line-height: 1;
+    }
+    #textstuff{
+        margin: 0;
+        line-height: 1;
+        justify-self: center;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #homebutton{
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 670px;
+        font-weight: 600;
+        font-size: 30px;
+        font-family: "Atma", sans-serif;
+        border: none;
+        cursor: pointer;
+    }
+    #notfound{
+        font-weight: 700;
+        font-size: 40px;
+        width: 50vw;
+    }
+    #text{
+        width: 80vw;
+        font-size: 40px;
+        margin: 1vh;
+        font-weight: 600;
+    }
+}
+@media(min-width: 831px){
+    #rightstuff{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+    }
+    .fofimage{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        height: 100%;
+     }
+    #textstuff{
+        text-align: center;
+        justify-self: center;
+    }
+    #button{
+        text-align: center;
+        justify-self: center;
+        margin-top: 10vh;
+    }
+    .fofimage{
+        width: 50vw;
+        /* max-height: 40vh; */
+    }
+    /* .fofimage{
+        width: auto;
+        height: auto;
+        max-width: 60vw;
+        max-height: 60vh;
+    } */
+    #fof{
+        /* display: inline-flex;
+        justify-content: center; */
+        margin: 0;
+        font-size: 15vw;
+        line-height: 1.2;
+    }
+    #notfound{
+        margin: 0;
+        line-height: 1;
+    }
+    #textstuff{
+        margin: 0;
+        line-height: 1;
+        justify-self: center;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #homebutton{
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 670px;
+        font-weight: 600;
+        font-size: 30px;
+        font-family: "Atma", sans-serif;
+        border: none;
+        cursor: pointer;
+    }
+    #notfound{
+        font-weight: 700;
+        font-size: 4vw;
+        width: 50vw;
+    }
+    #text{
+        width: 40vw;
+        font-size: 4vw;
+        margin: 1vh;
+        font-weight: 600;
+    }
+}
