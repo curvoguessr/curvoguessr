@@ -140,8 +140,8 @@ html, body{
     cursor: pointer;
 }
 #tutorial{
-    border: calc((2vw + 2vh) / 5) solid #5077BE;
-    background-color: #6495ED;
+    border: calc((2vw + 2vh) / 5) solid #4e53ad;
+    background-color: #7378df;
     border-radius: calc(2 * (1vw + 1vh) / 3);
     position: absolute;
     top: calc(min(6.72vw,79px) / 2);
@@ -266,8 +266,8 @@ html, body{
         font-size: clamp(1px,4vw, 25000px);
     }
     #tutorial{
-        border: calc((2vw + 2vh) / 5) solid #5077BE;
-        background-color: #6495ED;
+        border: calc((2vw + 2vh) / 5) solid #4e53ad;
+        background-color: #7378df;
         border-radius: calc(2 * (1vw + 1vh) / 3);
         position: absolute;
         top: 9vw;
@@ -322,8 +322,8 @@ html, body{
         gap: 1vw;
     }
     #tutorialtab{
-        border: calc((2vw + 2vh) / 5) solid #5077BE;
-        background-color: #6495ED;
+        border: calc((2vw + 2vh) / 5) solid #4e53ad;
+        background-color: #7378df;
         border-radius: calc(2 * (1vw + 1vh) / 3);
         width: calc(98vw - 1px - clamp(199px, 59.535vw, 793.8px));
         display: flex;
