@@ -583,11 +583,17 @@ undo.addEventListener("click", ()=>{
     }
     setTimeout(()=>{ReDrawLast();;}, 200);
 });
-undo.addEventListener("mouseenter",()=>{
+undo.addEventListener("pointerenter",(event)=>{
+    if(event.pointerType == "touch"){
+        return;
+    }
     UndoHover = true;
     ReDrawLast();
 })
-undo.addEventListener("mouseleave",()=>{
+undo.addEventListener("pointerleave",(event)=>{
+    if(event.pointerType == "touch"){
+        return;
+    }
     UndoHover = false;
     undocontext.clearRect(0,0,cw,ch);
     setTimeout(()=>{undocontext.clearRect(0,0,cw,ch);;}, 200)
@@ -673,11 +679,17 @@ undomob.addEventListener("click", ()=>{
     }
     setTimeout(()=>{ReDrawLast();;}, 200);
 });
-undomob.addEventListener("mouseenter",()=>{
+undomob.addEventListener("pointerenter",(event)=>{
+    if(event.pointerType == "touch"){
+        return;
+    }
     UndoHover = true;
     ReDrawLast();
 })
-undomob.addEventListener("mouseleave",()=>{
+undomob.addEventListener("pointerleave",(event)=>{
+    if(event.pointerType == "touch"){
+        return;
+    }
     UndoHover = false;
     undocontext.clearRect(0,0,cw,ch);
     setTimeout(()=>{undocontext.clearRect(0,0,cw,ch);;}, 200)
