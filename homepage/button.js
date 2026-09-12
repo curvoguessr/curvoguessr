@@ -284,3 +284,32 @@ lvl24button.addEventListener("click",()=>{
 lvl25button.addEventListener("click",()=>{
     window.location.href = "levels/level25/index.html";
 });
+window.addEventListener("storage",()=>{
+    if(colourmode !== localStorage.getItem("colourmode")){
+        colourmode = localStorage.getItem("colourmode");
+        if(colourmode == "light"){
+            defaultcolour1 = "#d6d6d6";
+            defaultcolour2 = "#121212";
+            document.body.style.backgroundColor = defaultcolour1;
+            welcometext.style.color = defaultcolour2;
+            welcometexttopborder.style.backgroundColor = defaultcolour2;
+            welcometextbottomborder.style.backgroundColor = defaultcolour2;
+            disable(lightbutton);
+            disable(lightbuttontab);
+            enable(darkbutton);
+            enable(darkbuttontab);        
+        }
+        else{
+            defaultcolour1 = "#121212";
+            defaultcolour2 = "#d6d6d6";
+            document.body.style.backgroundColor = defaultcolour1;     
+            welcometext.style.color = defaultcolour2;
+            welcometexttopborder.style.backgroundColor = defaultcolour2;
+            welcometextbottomborder.style.backgroundColor = defaultcolour2;
+            disable(darkbutton);
+            disable(darkbuttontab);
+            enable(lightbuttontab);
+            enable(lightbutton);
+        }
+    }
+});

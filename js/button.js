@@ -749,3 +749,59 @@ home.addEventListener("click",()=>{
 homebuttonmob.addEventListener("click",()=>{
     window.location.href = "../../index.html";
 });
+window.addEventListener("storage",()=>{
+    if(colourmode !== localStorage.getItem("colourmode")){
+        colourmode = localStorage.getItem("colourmode");
+        if(colourmode == "light"){
+            defaultcolour1 = "#d6d6d6";
+            defaultcolour2 = "#121212";
+            defaultcolour3 = "black";
+            document.body.style.backgroundColor = defaultcolour1;
+            let Accuracy = document.getElementById("accuracy");
+            Accuracy.style.color = defaultcolour2;
+            let Best = document.getElementById("best");
+            Best.style.color = defaultcolour2
+            if(mode == "pen"){
+                DrawingPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/pencursorlight.png') 16 16, auto";
+            }
+            if(mode == "eraser"){
+                DrawingPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/erasercursorlight.png') 16 16, auto";
+            }
+            DrawAxis(subxunit, xunit,cw,subyunit,yunit,ch);
+            RedrawUser();
+            setTimeout(()=>{
+                disable(light);
+                disable(lightmob);
+                enable(dark);
+                enable(darkmob);}, 50);
+        }
+        else{
+            defaultcolour1 = "#121212";
+            defaultcolour2 = "#d6d6d6";
+            defaultcolour3 = "white";
+            document.body.style.backgroundColor = defaultcolour1;
+            let accuracy = document.getElementById("accuracy");
+            accuracy.style.color = defaultcolour2;
+            let Best = document.getElementById("best");
+            Best.style.color = defaultcolour2
+            if(mode == "pen"){
+                DrawingPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/pencursordark.png') 16 16, auto";
+            }
+            if(mode == "eraser"){
+                DrawingPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
+                UndoPlane.style.cursor = "url('../../images/erasercursordark.png') 16 16, auto";
+            }
+            DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
+            RedrawUser();
+            setTimeout(()=>{
+                enable(light);
+                enable(lightmob);
+                disable(dark);
+                disable(darkmob);
+            }, 50);
+        }
+    }
+});
