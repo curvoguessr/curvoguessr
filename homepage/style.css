@@ -5,6 +5,9 @@ html, body{
     background-size: cover;
     min-height: 100vw; */
 }
+body{
+    position: relative;
+}
 @font-face {
     font-family: "BreeSerif";
     src: url("../fonts/BreeSerif.ttf") format("truetype");
@@ -128,7 +131,7 @@ html, body{
 .something{
     position: absolute;
     right: 20px;
-    top: 1px;
+    top: 20px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -144,7 +147,7 @@ html, body{
     background-color: #7378df;
     border-radius: calc(2 * (1vw + 1vh) / 3);
     position: absolute;
-    top: calc(min(6.72vw,79px) / 2);
+    top: calc(min(6.72vw,79px) / 2 + 19px);
     left: clamp(203px, 60.75vw, 810px);
     right:  calc(min(7vw,82px) + 20px);
     display: flex;
@@ -197,8 +200,8 @@ html, body{
 }
 .somethingtab{
     position: absolute;
-    right: 1px;
-    top: 1px;
+    right: 10px;
+    top: 10px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -231,8 +234,8 @@ html, body{
     }
     .something{
         position: absolute;
-        right: 1px;
-        top: 1px;
+        right: 7px;
+        top: 7px;
         display: flex;
         flex-direction: row-reverse;
         flex-wrap: wrap;
@@ -308,8 +311,8 @@ html, body{
     }
     .somethingtab{
         position: absolute;
-        right: 15px;
-        top: 1px;
+        right: 10px;
+        top: 10px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
