@@ -226,15 +226,15 @@ window.addEventListener("resize",()=>{
     }
     clearTimeout(reSizeTimeout);
     reSizeTimeout = setTimeout(()=>{
-        equation.style.fontSize = "4.5vh";
+        equation.style.fontSize = "";
         let equationleft = equation.getBoundingClientRect().left;
         let equationright = equation.getBoundingClientRect().right;
         let equationwidth = equation.getBoundingClientRect().width;
         let equationycoord;
         let centerthings1 = document.querySelector(".centerthings");
         let undomobxcoord = undomob.getBoundingClientRect().left + undomob.getBoundingClientRect().width;
+        centerthings1.style.marginTop = "";
         let homemobxcoord = homebuttonmob.getBoundingClientRect().left;
-        let homemobycoord = homebuttonmob.getBoundingClientRect().top;
         let alrTransformed = false;
         let undoxcoord;
         let darkxcoord;
@@ -257,8 +257,8 @@ window.addEventListener("resize",()=>{
         let drawingplaneleft = drawingplane.getBoundingClientRect().left;
         let drawingplaneright = drawingplane.getBoundingClientRect().right;
         let drawingplanewidth = drawingplane.getBoundingClientRect().width;
-        while((equationleft <= drawingplaneleft + 10 || equationright >= drawingplaneright + 10) && safety <= 300){
-            let currentfontsize = parseFloat(equation.style.fontSize);
+        while((equationleft <= drawingplaneleft + 10 || equationright > drawingplaneright + 10) && safety <= 300){
+            let currentfontsize = parseFloat(equation.style.fontSize) || 4.5;
             equation.style.fontSize = (currentfontsize*0.95) + "vh";
             equationleft = equation.getBoundingClientRect().left;
             equationright = equation.getBoundingClientRect().right;
@@ -268,12 +268,15 @@ window.addEventListener("resize",()=>{
         }
         safety = 0;
         if(window.matchMedia("(min-width: 769px)").matches){
+            if(!equation.style.fontSize){
+                equation.style.fontSize = "4.5vh";
+            }
             equationleft = equation.getBoundingClientRect().left;
             equationright = equation.getBoundingClientRect().right;
             equationwidth = equation.getBoundingClientRect().width;
             undoxcoord = undo.getBoundingClientRect().left + undo.getBoundingClientRect().width;
             darkxcoord = dark.getBoundingClientRect().left;
-            while((equationleft <= undoxcoord + 10 || equationleft + equationwidth >= darkxcoord - 10) && safety <= 300){
+            while((equationleft <= undoxcoord + 10 || equationleft + equationwidth >= darkxcoord - 10) & safety <= 300){
                 let currentfontsize = parseFloat(equation.style.fontSize);
                 equation.style.fontSize = (currentfontsize*0.95) + "vh";
                 darkxcoord = dark.getBoundingClientRect().left;
@@ -331,7 +334,7 @@ window.addEventListener("resize",()=>{
             accuracywidth = accuracyfont.getBoundingClientRect().width;
             safety += 1;
         }
-    }, 100);
+    }, 0);
 });
 window.addEventListener("load",()=>{
     if(history.scrollRestoration){
