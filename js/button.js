@@ -541,6 +541,7 @@ eraser.addEventListener("click",() => {
         disable(erasermob);
     }
 });
+let touchtype;
 undo.addEventListener("click", ()=>{
     undocontext.clearRect(0,0,UndoPlane.width,UndoPlane.height);
     if (drawingHistory.length==0) return;
@@ -581,13 +582,18 @@ undo.addEventListener("click", ()=>{
             }
         }
     }
-    setTimeout(()=>{ReDrawLast();;}, 200);
+    if(!touchtype){
+        setTimeout(()=>{ReDrawLast();;}, 200);
+        touchtap = false;
+    }
 });
 undo.addEventListener("pointerenter",(event)=>{
     if(event.pointerType == "touch"){
+        touchtype = true;
         return;
     }
     UndoHover = true;
+    touchtype = false;
     ReDrawLast();
 })
 undo.addEventListener("pointerleave",(event)=>{
@@ -677,12 +683,17 @@ undomob.addEventListener("click", ()=>{
             }
         }
     }
-    setTimeout(()=>{ReDrawLast();;}, 200);
+    if(!touchtype){
+        setTimeout(()=>{ReDrawLast();;}, 200);
+        touchtap = false;
+    }
 });
 undomob.addEventListener("pointerenter",(event)=>{
     if(event.pointerType == "touch"){
+        touchtype = true;
         return;
     }
+    touchtap = false;
     UndoHover = true;
     ReDrawLast();
 })
