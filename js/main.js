@@ -79,10 +79,18 @@ let safety = 0;
 let centerthings1 = document.querySelector(".centerthings");
 const replay = document.getElementById("replay");
 const giveupbutton = document.getElementById("giveup");
-const share = document.getElementById("share");
-const next = document.getElementById("next");
-const easteregg = document.getElementById("easteregg");
-            
+let share;
+if(lvl != 67){
+    share = document.getElementById("share");
+}
+let next
+if(lvl != 25){
+    next = document.getElementById("next");
+}
+let easteregg;
+if(lvl != 67){
+    easteregg = document.getElementById("easteregg");
+}            
 // let sharebutton1 = document.getElementById("share");
 // let replaybutton1 = document.getElementById("replay");
 // let giveupbutton1 = document.getElementById("giveup");
@@ -137,30 +145,52 @@ if(!alrTransformed){
     }
 }
 equationwidth = equation.getBoundingClientRect().width;
-while(equationwidth > drawingplanewidth * 0.8 && safety <= 300){
-    let currentfontsize = parseFloat(equation.style.fontSize) || 4.5;
-    equation.style.fontSize = (currentfontsize * 0.95) + "vh";
-    equationwidth = equation.getBoundingClientRect().width;
-    safety += 1;
+if(lvl != 67){
+    while((equationwidth > drawingplanewidth * 0.8) && safety <= 300){
+        let currentfontsize = parseFloat(equation.style.fontSize) || 4.5;
+        equation.style.fontSize = (currentfontsize * 0.95) + "vh";
+        equationwidth = equation.getBoundingClientRect().width;
+        safety += 1;
+    }
+}
+if(lvl == 67){
+    while(equationwidth > drawingplanewidth && safety <= 300){
+        let currentfontsize = parseFloat(equation.style.fontSize) || 4.5;
+        equation.style.fontSize = (currentfontsize * 0.95) + "vh";
+        equationwidth = equation.getBoundingClientRect().width;
+        safety += 1;
+    }
 }
 safety = 0;
 submitwidth = submit.getBoundingClientRect().width;
 submit.style.fontSize = "3vh";
 replay.style.fontSize = "3vh";
 giveupbutton.style.fontSize = "3vh";
-share.style.fontSize = "3vh";
-next.style.fontSize = "3vh";
-easteregg.style.fontSize = "3vh";
+if(lvl != 67){
+    share.style.fontSize = "3vh";
+}
+if(lvl != 25){
+    next.style.fontSize = "3vh";
+}
+if(lvl != 67){
+    easteregg.style.fontSize = "3vh";
+}
 submitwidth = submit.getBoundingClientRect().width;
 while(submitwidth > drawingplanewidth * 0.2 && safety <= 300){
     let currentfontsize = parseFloat(submit.style.fontSize);
     submit.style.fontSize = (currentfontsize*0.95) + "vh";
     submitwidth = submit.getBoundingClientRect().width;
     replay.style.fontSize = (currentfontsize*0.95) + "vh";
-    share.style.fontSize = (currentfontsize*0.95) + "vh";
+    if(lvl != 67){
+        share.style.fontSize = (currentfontsize*0.95) + "vh";
+    }
     giveupbutton.style.fontSize = (currentfontsize*0.95) + "vh";
-    next.style.fontSize = (currentfontsize*0.95) + "vh";
-    easteregg.style.fontSize = (currentfontsize*0.95) + "vh";
+    if(lvl != 25){
+        next.style.fontSize = (currentfontsize*0.95) + "vh";
+    }
+    if(lvl != 67){
+        easteregg.style.fontSize = (currentfontsize*0.95) + "vh";
+    }
     safety += 1;
 }
 safety = 0;
@@ -243,9 +273,17 @@ window.addEventListener("resize",()=>{
         let safety = 0;
         const replay = document.getElementById("replay");
         const giveupbutton = document.getElementById("giveup");
-        const share = document.getElementById("share");
-        const next = document.getElementById("next"); 
-        const easteregg = document.getElementById("easteregg"); 
+        let share;
+        if(lvl != 67){
+            share = document.getElementById("share");
+        }
+        let next;
+        if(lvl != 25){
+            next = document.getElementById("next"); 
+        }
+        if(lvl != 67){
+            const easteregg = document.getElementById("easteregg"); 
+        }
         if(window.matchMedia("(max-width: 768px)").matches){
             if(homemobxcoord <= equationright + 10 || undomobxcoord + 10 >= equationleft ){
                 //centerthings1.style.transform = "translateY(100px)";
@@ -296,30 +334,52 @@ window.addEventListener("resize",()=>{
         }
         safety = 0;
         equationwidth = equation.getBoundingClientRect().width;
-        while((equationwidth > drawingplanewidth * 0.8) && safety <= 300){
-            let currentfontsize = parseFloat(equation.style.fontSize) || 4.5;
-            equation.style.fontSize = (currentfontsize * 0.95) + "vh";
-            equationwidth = equation.getBoundingClientRect().width;
-            safety += 1;
+        if(lvl != 67){
+            while((equationwidth > drawingplanewidth * 0.8) && safety <= 300){
+                let currentfontsize = parseFloat(equation.style.fontSize) || 4.5;
+                equation.style.fontSize = (currentfontsize * 0.95) + "vh";
+                equationwidth = equation.getBoundingClientRect().width;
+                safety += 1;
+            }
+        }
+        if(lvl == 67){
+            while(equationwidth > drawingplanewidth && safety <= 300){
+                let currentfontsize = parseFloat(equation.style.fontSize) || 4.5;
+                equation.style.fontSize = (currentfontsize * 0.95) + "vh";
+                equationwidth = equation.getBoundingClientRect().width;
+                safety += 1;
+            }
         }
         safety = 0;
         submitwidth = submit.getBoundingClientRect().width;
         submit.style.fontSize = "3vh";
         replay.style.fontSize = "3vh";
         giveupbutton.style.fontSize = "3vh";
-        share.style.fontSize = "3vh";
-        next.style.fontSize = "3vh";
-        easteregg.style.fontSize = "3vh";
+        if(lvl != 67){
+            share.style.fontSize = "3vh";
+        }
+        if(lvl != 25){
+            next.style.fontSize = "3vh";
+        }
+        if(lvl != 67){
+            easteregg.style.fontSize = "3vh";
+        }
         submitwidth = submit.getBoundingClientRect().width;
         while(submitwidth > drawingplanewidth * 0.2 && safety <= 300){
             let currentfontsize = parseFloat(submit.style.fontSize);
             submit.style.fontSize = (currentfontsize*0.95) + "vh";
             submitwidth = submit.getBoundingClientRect().width;
             replay.style.fontSize = (currentfontsize*0.95) + "vh";
-            share.style.fontSize = (currentfontsize*0.95) + "vh";
+            if(lvl != 67){
+                share.style.fontSize = (currentfontsize*0.95) + "vh";
+            }
             giveupbutton.style.fontSize = (currentfontsize*0.95) + "vh";
-            next.style.fontSize = (currentfontsize*0.95) + "vh";
-            easteregg.style.fontSize = (currentfontsize*0.95) + "vh";
+            if(lvl != 25){
+                next.style.fontSize = (currentfontsize*0.95) + "vh";
+            }
+            if(lvl != 67){
+                easteregg.style.fontSize = (currentfontsize*0.95) + "vh";
+            }
             safety += 1;
         }
         safety = 0;
