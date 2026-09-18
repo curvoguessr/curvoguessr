@@ -355,11 +355,30 @@ submit.addEventListener("click",async() => {
         undomob.style.cursor = "default";
         const replay = document.getElementById("replay");
         const giveupbutton = document.getElementById("giveup");
-        const share = document.getElementById("share");
+        if(lvl != 67){
+            const share = document.getElementById("share");
+            share.style.display = "inline-block";
+            share.addEventListener("click",async()=>{
+                try{
+                    await navigator.clipboard.writeText("I was " + 0 + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
+                    share.textContent = "Copied";
+
+                    setTimeout(()=>{
+                        share.textContent = "Share";
+                    },1000);
+                }
+                catch{
+                    share.textContent = "Failed";
+                    setTimeout(()=>{
+                        share.textContent = "Share";
+                    },1000);
+                }
+            });
+        }
         const next = document.getElementById("next");
         replay.style.display = "inline-block";
         giveupbutton.style.display = "inline-block";
-        share.style.display = "inline-block";
+        
         if(lvl !== 25){
             next.style.display = "inline-block";
         }
@@ -388,22 +407,22 @@ submit.addEventListener("click",async() => {
                 GraphPlane.style.visibility = "hidden";
             }
         });
-        share.addEventListener("click",async()=>{
-            try{
-                await navigator.clipboard.writeText("I was " + 0 + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
-                share.textContent = "Copied";
+        // share.addEventListener("click",async()=>{
+        //     try{
+        //         await navigator.clipboard.writeText("I was " + 0 + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
+        //         share.textContent = "Copied";
 
-                setTimeout(()=>{
-                    share.textContent = "Share";
-                },1000);
-            }
-            catch{
-                share.textContent = "Failed";
-                setTimeout(()=>{
-                    share.textContent = "Share";
-                },1000);
-            }
-        });
+        //         setTimeout(()=>{
+        //             share.textContent = "Share";
+        //         },1000);
+        //     }
+        //     catch{
+        //         share.textContent = "Failed";
+        //         setTimeout(()=>{
+        //             share.textContent = "Share";
+        //         },1000);
+        //     }
+        // });
     }
     else {
         is_submit = true;
@@ -459,11 +478,29 @@ submit.addEventListener("click",async() => {
 
         const replay = document.getElementById("replay");
         const giveupbutton = document.getElementById("giveup");
-        const share = document.getElementById("share");
+        
         const next = document.getElementById("next");
         replay.style.display = "inline-block";
         giveupbutton.style.display = "inline-block";
-        share.style.display = "inline-block";
+        if(lvl != 67){
+            const share = document.getElementById("share");
+            share.style.display = "inline-block";
+            share.addEventListener("click",async()=>{
+                try{
+                    await navigator.clipboard.writeText("I was " + accuracy + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
+                    share.textContent = "Copied";
+                    setTimeout(()=>{
+                        share.textContent = "Share";
+                    },1000);
+                }
+                catch{
+                    share.textContent = "Failed";
+                    setTimeout(()=>{
+                        share.textContent = "Share";
+                    },1000);
+                }
+            });
+        }
         if(lvl !== 25){
             next.style.display = "inline-block"
         }
@@ -484,21 +521,6 @@ submit.addEventListener("click",async() => {
                 giveup = false;
                 giveupbutton.textContent = "Show";
                 GraphPlane.style.visibility = "hidden";
-            }
-        });
-        share.addEventListener("click",async()=>{
-            try{
-                await navigator.clipboard.writeText("I was " + accuracy + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
-                share.textContent = "Copied";
-                setTimeout(()=>{
-                    share.textContent = "Share";
-                },1000);
-            }
-            catch{
-                share.textContent = "Failed";
-                setTimeout(()=>{
-                    share.textContent = "Share";
-                },1000);
             }
         });
     }
@@ -541,6 +563,7 @@ eraser.addEventListener("click",() => {
         disable(erasermob);
     }
 });
+let touchtype;
 undo.addEventListener("click", ()=>{
     undocontext.clearRect(0,0,UndoPlane.width,UndoPlane.height);
     if (drawingHistory.length==0) return;
@@ -581,13 +604,18 @@ undo.addEventListener("click", ()=>{
             }
         }
     }
-    setTimeout(()=>{ReDrawLast();;}, 200);
+    if(!touchtype){
+        setTimeout(()=>{ReDrawLast();;}, 200);
+        touchtap = false;
+    }
 });
 undo.addEventListener("pointerenter",(event)=>{
     if(event.pointerType == "touch"){
+        touchtype = true;
         return;
     }
     UndoHover = true;
+    touchtype = false;
     ReDrawLast();
 })
 undo.addEventListener("pointerleave",(event)=>{
@@ -677,12 +705,17 @@ undomob.addEventListener("click", ()=>{
             }
         }
     }
-    setTimeout(()=>{ReDrawLast();;}, 200);
+    if(!touchtype){
+        setTimeout(()=>{ReDrawLast();;}, 200);
+        touchtap = false;
+    }
 });
 undomob.addEventListener("pointerenter",(event)=>{
     if(event.pointerType == "touch"){
+        touchtype = true;
         return;
     }
+    touchtap = false;
     UndoHover = true;
     ReDrawLast();
 })

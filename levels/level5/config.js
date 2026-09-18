@@ -8,7 +8,7 @@ const equation1 = document.getElementById('equation1');
 const eastereggsixseven = document.getElementById('eastereggsixseven');
 const lvl = 5;
 let vh = window.innerHeight/100;
-let vw = window.innerHeight/100;
+let vw = window.innerWidth/100;
 katex.render("x^2 + y^2 = ", equation1);
 katex.render("67", eastereggsixseven);
 if(vw>1.1*vh){

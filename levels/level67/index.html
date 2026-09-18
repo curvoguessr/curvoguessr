@@ -7,16 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Level 67 | CurvoGuessr</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../css/style.css">
     <link rel="icon" type="image/png" href="../../images/logosq.png">
 </head>
 
 <body>
     <div class="centerthings">
-        <div id = "equation"></div>
+        <div id = "equation67"></div>
         <div id = "canvas">
             <canvas id="plane"></canvas>
             <canvas id="drawingplane"></canvas>
+            <canvas id="graphplane"></canvas>
             <canvas id="undoplane"></canvas>
         </div>
         <div>
@@ -26,7 +27,7 @@
         </div>
         <div id = "aftersubmit">
             <button id = "replay" class ="aftersubmit belowsubmit">Replay</button>
-            <button id = "giveup" class = "aftersubmit belowsubmit">Giveup</button>
+            <button id = "giveup" class = "aftersubmit belowsubmit">Show</button>
             <button id = "next" class = "aftersubmit belowsubmit" onclick='window.location.href="https://youtu.be/dQw4w9WgXcQ?si=M4Wp1qcBk6wkECdd"'>Next</button>
         </div>
         <h1 style = "text-align: center" id = "accuracy" >Accuracy: </h1>
@@ -99,8 +100,8 @@
     <script src="../../js/graph.js"></script>
     <script src="../../js/error.js"></script>
     <script src="../../js/interaction.js"></script>
-    <script src="button.js"></script>
+    <script src="../../js/button.js"></script>
     
-    <script src="main.js"></script>
+    <script src="../../js/main.js"></script>
 </body>
 </html>
