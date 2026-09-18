@@ -7,7 +7,7 @@ const equation = document.getElementById('equation');
 let vw = window.innerWidth/100;
 const lvl = 6;
 let vh = window.innerHeight/100;
-katex.render("(x^2+y^2-7)^2 = y^2", equation);
+katex.render("(x^2+y^2-25)^2 = y^2", equation);
 if(vw>1.1*vh){
     vw = 1.1*vh;
 }
@@ -38,11 +38,11 @@ let Graph = [
     {
         Function_x: function(t) {
             let cos = Math.cos(t);
-            return Math.sqrt(29)*cos/2;
+            return Math.sqrt(101)*cos/2;
         },
         Function_y: function(t) {
             let sin = Math.sin(t);
-            return 0.5 + Math.sqrt(29)*sin/2;
+            return 0.5 + Math.sqrt(101)*sin/2;
         },
         pRange: {
             l: 0,
@@ -52,11 +52,11 @@ let Graph = [
     {
         Function_x: function(t) {
             let cos = Math.cos(t);
-            return Math.sqrt(29)*cos/2;
+            return Math.sqrt(101)*cos/2;
         },
         Function_y: function(t) {
             let sin = Math.sin(t);
-            return -0.5 + Math.sqrt(29)*sin/2;
+            return -0.5 + Math.sqrt(101)*sin/2;
         },
         pRange: {
             l: 0,
