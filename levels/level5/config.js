@@ -60,5 +60,5 @@ let range= {
 }
 
 eastereggsixseven.addEventListener("click", ()=>{
-    window.location.href="../level67/index.html";
+    window.location.href="../level67";
 });

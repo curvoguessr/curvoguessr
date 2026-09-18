@@ -360,7 +360,7 @@ submit.addEventListener("click",async() => {
             share.style.display = "inline-block";
             share.addEventListener("click",async()=>{
                 try{
-                    await navigator.clipboard.writeText("I was " + 0 + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
+                    await navigator.clipboard.writeText("I was " + 0 + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl);
                     share.textContent = "Copied";
 
                     setTimeout(()=>{
@@ -407,22 +407,6 @@ submit.addEventListener("click",async() => {
                 GraphPlane.style.visibility = "hidden";
             }
         });
-        // share.addEventListener("click",async()=>{
-        //     try{
-        //         await navigator.clipboard.writeText("I was " + 0 + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
-        //         share.textContent = "Copied";
-
-        //         setTimeout(()=>{
-        //             share.textContent = "Share";
-        //         },1000);
-        //     }
-        //     catch{
-        //         share.textContent = "Failed";
-        //         setTimeout(()=>{
-        //             share.textContent = "Share";
-        //         },1000);
-        //     }
-        // });
     }
     else {
         is_submit = true;
@@ -487,7 +471,7 @@ submit.addEventListener("click",async() => {
             share.style.display = "inline-block";
             share.addEventListener("click",async()=>{
                 try{
-                    await navigator.clipboard.writeText("I was " + accuracy + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl + "/index.html");
+                    await navigator.clipboard.writeText("I was " + accuracy + "% accurate in level " + lvl + ", can you do better? https://curvoguessr.github.io/curvoguessr/levels/level" + lvl);
                     share.textContent = "Copied";
                     setTimeout(()=>{
                         share.textContent = "Share";
@@ -789,10 +773,10 @@ window.addEventListener("resize",()=>{
 });
 
 home.addEventListener("click",()=>{
-    window.location.href = "../../index.html";
+    window.location.href = "../../";
 });
 homebuttonmob.addEventListener("click",()=>{
-    window.location.href = "../../index.html";
+    window.location.href = "../../";
 });
 window.addEventListener("storage",()=>{
     if(colourmode !== localStorage.getItem("colourmode")){
