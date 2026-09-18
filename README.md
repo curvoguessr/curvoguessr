@@ -5,8 +5,7 @@ You will be shown an equation, and you must draw what you think it'll look like 
 ## How to Play
 
 1. Choose a level.
-2. Look at the given mathematical curve.
-3. Draw the curve on the coordinate plane.
+2. Look at the given mathematical curve and draw the curve on the coordinate plane.
 4. Submit your drawing.
 5. Your drawing is compared with the target curve and given an accuracy score.
 
@@ -28,50 +27,3 @@ https://curvoguessr.github.io/curvoguessr/
 - HTML
 - CSS
 - JavaScript
-
-## Project Structure
-
-```text
-curvoguessr/
-├── css/
-│   └── style.css
-├── fonts/
-│   ├── Bodoni.ttf
-│   └── font
-├── homepage/
-│   ├── button.js
-│   └── style.css
-├── images/
-│   ├── darkmode.png
-│   ├── eraser.png
-│   ├── erasercursordark.png
-│   ├── erasercursorlight.png
-│   ├── lightmode.png
-│   ├── logo.png
-│   ├── pen.png
-│   ├── pencursordark.png
-│   ├── pencursorlight.png
-│   ├── questionmark.png
-│   ├── undo.png
-│   ├── lvl1.png
-│   ├── lvl2.png
-│   └── ...
-├── index.html
-├── js/
-│   ├── button.js
-│   ├── config.js
-│   ├── error.js
-│   ├── graph.js
-│   ├── interaction.js
-│   ├── main.js
-│   └── math.js
-├── levels/
-│   ├── level1/
-│   │   ├── config.js
-│   │   └── index.html
-│   ├── level2/
-│   │   ├── config.js
-│   │   └── index.html
-│   └── ...
-└── README.md
-```
