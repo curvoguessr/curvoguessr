@@ -36,25 +36,17 @@ body{
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: auto auto;
-    grid-template-areas: 
-        /* "errorimg text"
-        "errorimg button"; */
+    grid-template-areas:
         "errorimg rightstuff";
     align-items: center;
     align-content: center;
     font-family: "Atma", sans-serif;
 }
-/* #images{
-    grid-area: errorimg;
-} */
 .fofimage{
     width: 100%;
     height: auto;
     display: none;
 }
-/* #textstuff{
-    grid-area: text;
-} */
 #fof{
     font-weight: 700;
     font-size: 100px;
@@ -68,9 +60,6 @@ body{
     max-width: 700px;
     font-size: 50px;
 }
-/* #button{
-    grid-area: button;
-} */
 #rightstuff{
     grid-area: rightstuff;
 }
@@ -90,11 +79,8 @@ body{
         grid-template-areas: 
             "errorimg"    
             "rightstuff";
-            /* "text"
-            "button"; */
         justify-content: center;
         text-align: center;
-        /* row-gap: 10px; */
         justify-items: center;
         align-items: center;
     }
@@ -109,8 +95,6 @@ body{
         max-height: 40vh;
     }
     #fof{
-        /* display: inline-flex;
-        justify-content: center; */
         font-size: 30vw;
         margin: 0;
         line-height: 1.2;
@@ -175,17 +159,8 @@ body{
     }
     .fofimage{
         width: 50vw;
-        /* max-height: 40vh; */
     }
-    /* .fofimage{
-        width: auto;
-        height: auto;
-        max-width: 60vw;
-        max-height: 60vh;
-    } */
     #fof{
-        /* display: inline-flex;
-        justify-content: center; */
         margin: 0;
         font-size: 15vw;
         line-height: 1.2;

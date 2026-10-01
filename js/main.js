@@ -23,7 +23,6 @@ if(colourmode == "dark"){
     document.fonts.load(`${fontsz}px BreeSerif`)
         .then(()=>DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch))
         .catch(()=>DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch));
-    // DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch)
     disable(dark);
     disable(darkmob);
     enable(light);
@@ -90,15 +89,9 @@ if(lvl != 25){
 let easteregg;
 if(lvl != 67){
     easteregg = document.getElementById("easteregg");
-}            
-// let sharebutton1 = document.getElementById("share");
-// let replaybutton1 = document.getElementById("replay");
-// let giveupbutton1 = document.getElementById("giveup");
-// let nextlevelbutton1 = document.getElementById("next");
-// let easteregg1 = document.getElementById("easteregg");
+}
 if(window.matchMedia("(max-width: 768px)").matches){
     if(homemobxcoord <= equationright + 10 || undomobxcoord + 10 >= equationleft ){
-        //centerthings1.style.transform = "translateY(100px)";
         centerthings1.style.marginTop = "calc(min(8vw, 47px) + 19px + 37px)";
         alrTransformed = true;
     }
@@ -140,7 +133,6 @@ safety = 0;
 if(!alrTransformed){
     equationycoord = equation.getBoundingClientRect().top;
     if(equationycoord <= 10){
-        // centerthings1.style.marginTop = "calc(4px + min(4vw, 23px))";
         centerthings1.style.marginTop = "calc(41px + min(4vw, 23px))";
     }
 }
@@ -247,8 +239,6 @@ window.addEventListener("resize",()=>{
     graphplane.width = cw;
     graphplane.height = ch;
     rebuilderasergrid();
-    //overlap();
-    // TransformCanvas(context,cw,ch);
     DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch);
     RedrawUser();
     for (let i = 0; i < Graph.length; i++) {
@@ -286,7 +276,6 @@ window.addEventListener("resize",()=>{
         }
         if(window.matchMedia("(max-width: 768px)").matches){
             if(homemobxcoord <= equationright + 10 || undomobxcoord + 10 >= equationleft ){
-                //centerthings1.style.transform = "translateY(100px)";
                 centerthings1.style.marginTop = "calc(min(8vw, 47px) + 19px + 37px)";
                 alrTransformed = true;
             }
@@ -328,7 +317,6 @@ window.addEventListener("resize",()=>{
         if(!alrTransformed){
             equationycoord = equation.getBoundingClientRect().top;
             if(equationycoord <= 10){
-                // centerthings1.style.marginTop = "calc(4px + min(4vw, 23px))";
                 centerthings1.style.marginTop = "calc(41px + min(4vw, 23px))";
             }
         }

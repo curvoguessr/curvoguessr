@@ -137,7 +137,6 @@ function UserDrawing() {
             }
             splinepointcount.push(t);
             drawIndex++;
-            //RedrawUser();
         }
         if (DrawingPlane.hasPointerCapture(event.pointerId)) {
             DrawingPlane.releasePointerCapture(event.pointerId);

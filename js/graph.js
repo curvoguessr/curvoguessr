@@ -18,7 +18,6 @@ function DrawAxis(subxunit,xunit,cw,subyunit,yunit,ch){
         context.lineTo((cw/2),i);
         x++;
     }
-   // context.stroke();
     for (let i = -cw/2+subxunit; i <= cw/2+subxunit; i+=xunit) {
         context.moveTo(i,-(ch/2));
         context.lineTo(i,(ch/2));

@@ -169,7 +169,6 @@ function ReDrawLast(){
                 if(lastpoint){
                     draw.push(denormalise(destandardize(lastpoint)));
                 }
-                // draw.push(draw[draw.length-1]);
                 undocontext.moveTo(draw[0].x,draw[0].y);
                 for(let j = 1; j < draw.length; j++){
                     if(j<3){
@@ -720,7 +719,6 @@ tutorialbutton.addEventListener("click",() => {
         isTutorial = false;
         tutorial.classList.remove('show');
     }
-    // tutorial.style.position = "absolute";
 });
 tutorialbuttonmob.addEventListener("click",() => {
     if(isTutorial == false){

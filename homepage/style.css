@@ -1,9 +1,6 @@
 html, body{
     margin: 0;
     overflow-x: hidden;
-    /* background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 100vw; */
 }
 body{
     position: relative;
@@ -86,7 +83,6 @@ body{
     color: #121212;
     margin: 0;
     margin-left: 10%;
-    /*transform: translate(30%,0%); */
 }
 #welcometexttopborder{
     margin-left: -11111%;
@@ -110,8 +106,6 @@ body{
     gap: 0.2px;
     margin-left: -10%;
     z-index: 1;
-    /* align-items: flex-start;
-    transform: translate(-10%,-350%); */
 }
  @media(max-width: 911px){
     .welcome{
@@ -154,7 +148,6 @@ body{
     flex-direction: column;
     gap: 1vh;
     align-items: center;
-    /* width: calc(48vw - min(6.72vw,79px)); */
     font-size: 2.5vw;
     z-index: 670;
 }
@@ -280,7 +273,6 @@ body{
         flex-direction: column;
         gap: 1vh;
         align-items: center;
-        /* width: calc(48vw - min(6.72vw,79px)); */
         font-size: 2.5vw;
         z-index: 670;
     }
@@ -333,7 +325,6 @@ body{
         flex-direction: column;
         gap: 1vh;
         align-items: center;
-        /* width: calc(48vw - min(6.72vw,79px)); */
         font-size: 2.5vw;
         z-index: 670;
     }
@@ -376,86 +367,6 @@ body{
 .buttons{
     z-index: 967;
 }
-/* @media(min-width:1500px) and (max-width:1570px){
-    .welcome{
-        margin-top: 300px;
-    }
-}
-@media(min-width:1570px){
-    .welcome{
-        margin-top: 270px;
-    }
-}
-@media(min-width:1430px) and (max-width:1500px){
-    .welcome{
-        margin-top: 20%;
-    }
-}
-@media(min-width:1270px) and (max-width:1430px){
-    .welcome{
-        margin-top: 22%;
-    }
-}
-@media(min-width: 985px) and (max-width:1270px){
-    #logo{
-        margin-top: -10%;
-    }
-    .welcome{
-        margin-top: 27%;
-    }
-}
-@media(min-width:773px) and (max-width: 985px){
-    #logo{
-        margin-top: -19%;
-    }
-    .welcome{
-        margin-top: 25%;
-    }
-}
-@media(min-width:702px) and (max-width:773px){
-    #logo{
-        margin-top: -22%
-    }
-    .welcome{
-        margin-top: -50%;
-    }
-    #welcometext{
-        text-indent: 40px;
-    }
-}
-@media(max-width:702px){
-    .welcome{
-        margin-top:clamp(300px,80%.700px);
-    }
-    #welcometext{
-        text-indent: 20px;
-    }
-}
-@media(min-width:650px) and (max-width:702px){
-    #logo{
-        margin-top: -40%;
-    }
-}
-@media(min-width:560px) and (max-width:650px){
-    #logo{
-        margin-top:-56%;
-    }
-}
-@media(min-width:526px) and (max-width:560px){
-    #logo{
-        margin-top:-70%
-    }
-}
-@media(min-width: 417px) and (max-width:526px){
-    #logo{
-        margin-top: -400px;
-    }
-}
-@media(max-width: 417px){
-    #logo{
-        margin-top: -650px;
-    }
-} */
 body {
     transition: background-color 0.2s ease;
 }

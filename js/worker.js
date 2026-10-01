@@ -201,21 +201,6 @@ self.onmessage = (event) => {
     let error = errorv.near*ErrorDist(unflattened, distActual);
     accuracy = 100*Math.exp(-0.9*error);
     base = Math.exp(-0.9*error);
-    // const addConst = 5;
-    // const powerConst = 2;
-    // if(accuracy<25){
-    //     accuracy -= 2*addConst*Math.pow((accuracy)/25,powerConst);
-    // }
-    // else if(50 > accuracy && accuracy >= 25){
-    //     accuracy -= 5+2*addConst*Math.pow((accuracy-25)/25,powerConst*3/4);
-    // }
-    // else if(accuracy >= 50 && accuracy < 80){
-    //     accuracy -= (8/9)*addConst*Math.pow((80-accuracy)/20,powerConst*3/2);
-    // }
-    // else{
-    //     let delta = (accuracy-80)/20;
-    //     accuracy += 4.8*Math.pow(delta,5)-150.5*Math.pow(delta,4)+319.8*Math.pow(delta,3)-235*Math.pow(delta,2)+60.9*delta;
-    // }
     accuracy = 24.64167*base + 1087.38819*base*base - 10171.49497 * base * base * base + 46892.92335 * base * base * base * base - 139196.99594 * base * base * base * base * base + 292049.26751 * base * base * base * base * base * base - 226355.16618 * base * base * base * base * base * base * base - 1011036.83967 * base * base* base * base* base * base* base * base + 4186559.66729 * base * base* base * base* base * base* base * base * base - 7822875.93087 * base * base* base * base* base * base* base * base* base * base + 8814233.38887 * base * base* base * base* base * base* base * base* base * base * base - 6308700.04446 * base * base* base * base* base * base* base * base* base * base* base * base + 2806197.25176* base * base* base * base* base * base* base * base* base * base* base * base * base - 703372.26795 * base * base* base * base* base * base* base * base* base * base* base * base* base * base + 74764.21140 * base * base* base * base* base * base* base * base* base * base* base * base* base * base * base;
     accuracy = Math.round(accuracy*100)/100;
     self.postMessage(accuracy);
